@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load  staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/foundation.css' %}" />
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{% static 'css/dripicon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock css %}
+
+{% block paceloader %}
+    <script src="{% static 'js/pace/pace.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'js/pace/themes/orange/pace-theme-flash.css' %}"/>
+    <link rel="stylesheet" href="{% static 'js/slicknav/slicknav.css' %}" />
+    <script src="{% static 'js/vendor/modernizr.js' %}"></script>
+{% endblock paceloader %}
+
+{% block js %}
+<!-- main javascript library -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/waypoints.min.js' %}"></script>
+    <script src="{% static 'js/preloader-script.js' %}"></script>
+    <!-- foundation javascript -->
+    <script src="{% static 'js/foundation.min.js' %}"></script>
+{% endblock js %}
