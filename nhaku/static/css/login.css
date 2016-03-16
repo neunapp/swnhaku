@@ -86,3 +86,20 @@ Author: matirasa
 .bg-naranja {
     background-color: #FF7100 !important;
 }
+
+.btn-login {
+    display: block;
+    width: 100%;
+    text-transform: uppercase;
+    padding: 1.3em 0;
+    font-size: .9em;
+}
+
+.error-auth {
+    color: #f04124;
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 1.13em !important;
+    font-style: italic;
+}

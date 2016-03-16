@@ -35,14 +35,15 @@
                     <div class="large-12 columns">
                         <div class="row">
                             <div class="edumix-signup-panel">
-                                <p class="welcome"> Bienvenidos a Pacha Service..!</p>
-                                <form>
+                                <p class="welcome">Bienvenidos a Pacha Service..!</p>
+                                <spam class="error-auth">username o password incorectos.</spam>
+                                <form method="post">{% csrf_token %}
                                     <div class="row collapse">
                                         <div class="small-2  columns">
                                             <span class="prefix bg-naranja"><i class="text-white icon-user"></i></span>
                                         </div>
                                         <div class="small-10  columns">
-                                            <input type="text" placeholder="Username">
+                                            {{ form.username }}
                                         </div>
                                     </div>
                                     <div class="row collapse">
@@ -50,10 +51,10 @@
                                             <span class="prefix bg-naranja"><i class="text-white icon-lock"></i></span>
                                         </div>
                                         <div class="small-10 columns ">
-                                            <input type="text" placeholder="Password">
+                                            {{ form.password }}
                                         </div>
                                     </div>
-                                    <a href="index.html" class="bg-green"><span>Ingresar</span></a>
+                                    <button type="submit" class="btn-login bg-naranja">ingresar</button>
                                 </form>
                                 <br>
                                 <h2><span>Conectate</span></h2>
