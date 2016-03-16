@@ -62,6 +62,13 @@ target/
 .ipynb_checkpoints
 
 #Secrect json
+
 nhaku/secrets.json
 
-#migrations
+nhaku/apps/asignacion/migrations/*
+
+nhaku/apps/profiles/migrations/*
+
+nhaku/apps/recepcion/migrations/*
+
+nhaku/apps/users/migrations/*
