@@ -1,14 +1,12 @@
 from __future__ import unicode_literals
 from model_utils.models import TimeStampedModel
-"""
+
 from django.db import models
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
 from datetime import datetime
-
 from apps.recepcion.models import Guide
-
 # Create your models here.
 
 class Car(TimeStampedModel):
@@ -44,12 +42,12 @@ class Car(TimeStampedModel):
     )
     user_created = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name="car_created",
+        related_name="car_user_created",
         #editable=False
     )
     user_modified = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name="car_modified",
+        related_name="car_user_modified",
         blank=True,
         null=True,
         editable=False
@@ -68,20 +66,17 @@ class Asignation(TimeStampedModel):
     )
 
     driver = models.ForeignKey(
-        'Conductor',
         settings.AUTH_USER_MODEL,
-        related_name="driver_asignation",
+        related_name="driver_user_asignation",
     )
     assistant = models.ForeignKey(
-        'Ayudante',
         settings.AUTH_USER_MODEL,
         related_name="assistant_asignation",
         blank=True,
         null=True,
     )
     car = models.ForeignKey(
-        'Vehiculo',
-        Car
+        Car,
     )
     date_start = models.DateTimeField(
         'Fecha de Salida',
@@ -113,17 +108,15 @@ class Asignation(TimeStampedModel):
     )
 
     def __str__(self):
-        return self.driver
+        return str(self.driver)
 
 
 class DetailAsignation(TimeStampedModel):
 
     asignation = models.ForeignKey(
-        'Asignacion',
         Asignation
     )
     guide = models.ForeignKey(
-        'Guia',
         Guide
     )
     state = models.BooleanField(
@@ -132,6 +125,4 @@ class DetailAsignation(TimeStampedModel):
     )
 
     def __str__(self):
-        return self.asignation
-
-"""
+        return str(self.asignation)
