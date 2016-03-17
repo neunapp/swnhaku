@@ -3,19 +3,19 @@
 $(function() {
     "use strict";
     $('.slicknav').slicknav({
-        label: "EDUMIX"
+        label: "PACHA"
     });
     /*
      * INITIALIZE BUTTON TOGGLE
      * ------------------------
      * always use this code for toggle and close button effect
      */
-    // $(".side-bar").accordionze({
-    //     accordionze: true,
-    //     speed: 300,
-    //     closedSign: '<b class="fa fa-circle"></b>',
-    //     openedSign: '<b class="fa fa-circle"></b>'
-    // });
+    $(".side-bar").accordionze({
+        accordionze: true,
+        speed: 300,
+        closedSign: '<b class="fa fa-circle"></b>',
+        openedSign: '<b class="fa fa-circle"></b>'
+    });
 
     //  $(".slim-scroll").slimscroll({
     //     height: "180px",
