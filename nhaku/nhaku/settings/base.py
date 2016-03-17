@@ -32,10 +32,10 @@ DJANGO_APPS = (
 )
 
 LOCAL_APPS = (
-    'apps.users',
-    'apps.profiles',
-    'apps.recepcion',
-    'apps.asignacion',
+    'applications.users',
+    'applications.profiles',
+    'applications.recepcion',
+    'applications.asignacion',
 )
 
 THIRD_PARTY_APPS = (
@@ -90,6 +90,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 LANGUAGE_CODE = 'es-pe'
 
