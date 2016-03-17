@@ -113,3 +113,7 @@ class ClientListView(ListView):
         #recuperamos el valor por GET
         queryset = Client.objects.filter(state=False)
         return queryset
+
+
+class Dashboard(TemplateView):
+    template_name = 'profiles/admin/admin.html'

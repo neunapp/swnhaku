@@ -27,4 +27,9 @@ urlpatterns = [
         views.ClientDeleteView.as_view(),
         name='cliente-delete'
     ),
+    url(
+        r'^dashboard/$',
+        views.Dashboard.as_view(),
+        name='dashboard'
+    ),
 ]
