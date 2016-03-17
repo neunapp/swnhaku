@@ -6,7 +6,7 @@ from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
 from datetime import datetime
-from apps.recepcion.models import Guide
+from applications.recepcion.models import Guide
 # Create your models here.
 
 class Car(TimeStampedModel):

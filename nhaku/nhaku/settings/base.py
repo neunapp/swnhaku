@@ -32,10 +32,10 @@ DJANGO_APPS = (
 )
 
 LOCAL_APPS = (
-    'apps.users',
-    'apps.profiles',
-    'apps.recepcion',
-    'apps.asignacion',
+    'applications.users',
+    'applications.profiles',
+    'applications.recepcion',
+    'applications.asignacion',
 )
 
 THIRD_PARTY_APPS = (
