@@ -1,5 +1,6 @@
-<h1>Agregar Manifiesto</h1>
+<h1>Agregar Guia de Remision</h1>
 <form role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
     {{form.as_p}}
     <button type="submit"> Guardar</button>
 </form>
+<a href="{% url 'recepcion_app:manifest-detail' manifiesto.pk %}">Ver lista de Guias</a>

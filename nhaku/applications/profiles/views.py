@@ -57,6 +57,7 @@ class ClientUpdateView(UpdateView):
 
     def form_valid(self, form):
         #recuperamos y actualizamos usuario de modificacion
+        form.save()
         cliente = self.get_object()
         cliente.user_modified = self.request.user
         cliente.save()
