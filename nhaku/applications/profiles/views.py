@@ -84,6 +84,11 @@ class ClientDeleteView(DetailView):
         # recuperamos el objeto y actualizamos a anulado
         cliente = self.object
         cliente.state = True
+        cliente.user_modified = self.request.user
+        #recuperamos usuario
+        usuario = cliente.user
+        usuario.is_active = False
+        usuario.save()
         cliente.save()
         return HttpResponseRedirect(
             reverse(

@@ -1,0 +1,5 @@
+<form role="form" action="{% url 'recepcion_app:manifest-delete' manifest.id %}" method="POST">{% csrf_token %}
+    <p class="">¿Desea eliminar el Manifiesto<strong>{{ manifest.number }}</strong>?</p>
+      <button type="submit" class="btn btn-danger">Sí</button>
+      <a href="{% url 'recepcion_app:manifest-list' %}">No</a>
+</form>
