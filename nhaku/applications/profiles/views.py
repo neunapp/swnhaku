@@ -5,4 +5,4 @@ from django.views.generic import TemplateView
 
 
 class Dashboard(TemplateView):
-    template_name = 'profiles/admin/admin.html'
+    template_name = 'profiles/cliente/list.html'

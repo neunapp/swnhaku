@@ -17,7 +17,6 @@ def get_secret(secret_name, secrets=secrets):
 
 SECRET_KEY = get_secret('SECRET_KEY')
 
-# SECRET_KEY = 'b-$3a=twa($y%#n!pfm5yhg=t28x8w(!bb3s9bfj7_ve_iv3k4'
 DEBUG = True
 
 ALLOWED_HOSTS = []

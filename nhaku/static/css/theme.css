@@ -225,6 +225,33 @@ Master Background Color
   background: rgba(255, 255, 255, 0.4) !important;
   color: white !important; }
 
+.bg-verde {
+    background: #4caf50;
+    counter-reset: white;
+}
+
+.bg-verde:hover {
+    background: #50c764;
+}
+
+.bg-amarillo {
+    background: #f39c12;
+    counter-reset: white;
+}
+
+.bg-amarillo:hover {
+    background: #f1a42a;
+}
+
+.bg-rojo {
+    background: #e83922;
+    counter-reset: white;
+}
+
+.bg-rojo:hover {
+    background: #fc3a21;
+}
+
 .border-gray {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2) !important; }
 

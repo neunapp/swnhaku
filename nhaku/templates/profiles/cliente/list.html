@@ -1,0 +1,135 @@
+{% extends "profiles/admin/admin.html" %}
+
+{% load staticfiles %}
+
+{% block title %} Lista de clientes {% endblock title %}
+
+{% block css %}
+    {{ block.super }}
+    <link href="{% static 'js/stackable/stacktable.css' %}" rel="stylesheet"/>
+    <link href="{% static 'js/stackable/responsive-table.css' %}" rel="stylesheet"/>
+{% endblock css %}
+
+{% block migadepan %}
+    <li>Clientes</li>
+{% endblock migadepan %}
+
+{% block main %}
+    <div class="row">
+        <div class="small-12 medium-6 columns">
+            <h3 class="subheader">Lista de clientes</h3>
+        </div>
+        <div class="small-12 medium-6 columns">
+            <a href="about.html" class="small radius button right">
+                <i class="fa fa-plus"> AGREGAR</i>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <div class="box">
+                <div class="box-header bg-transparent">
+                    <!-- tools box -->
+                    <div class="pull-right box-tools">
+                        <span class="box-btn" data-widget="collapse"><i class="icon-minus"></i>
+                        </span>
+                        <span class="box-btn" data-widget="remove"><i class="icon-cross"></i>
+                        </span>
+                    </div>
+                    <h3 class="box-title"><i class="icon-menu"></i>
+                        <span>HAY 5 CLIENTES</span>
+                    </h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body " style="display: block;">
+                    <table id="responsive-example-table" class="table large-only">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Dni/Ruc</th>
+                                <th>Dirección</th>
+                                <th>Email</th>
+                                <th>Telefono</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Romeliza Sac</td>
+                                <td>123545456567</td>
+                                <td>Calle arequipa # 203</td>
+                                <td>rome@mail.com</td>
+                                <td>985656552</td>
+                                <td>
+                                    <a href="about.html" class="tiny bg-verde no-margin radius button">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="about.html" class="tiny bg-amarillo no-margin radius button">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="about.html" class="tiny bg-rojo no-margin radius button">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Logisti-k</td>
+                                <td>10345676760</td>
+                                <td>logist@mail.com</td>
+                                <td>987345456</td>
+                                <td>www.logistica.com</td>
+                                <td>
+                                    <a href="about.html" class="tiny bg-verde no-margin radius button">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="about.html" class="tiny bg-amarillo no-margin radius button">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="about.html" class="tiny bg-rojo no-margin radius button">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Henrry Joel Sairitupac Arones</td>
+                                <td>46285127</td>
+                                <td>henrry.sa@gmail.com</td>
+                                <td>941468834</td>
+                                <td></td>
+                                <td>
+                                    <a href="about.html" class="tiny bg-verde no-margin radius button">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="about.html" class="tiny bg-amarillo no-margin radius button">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="about.html" class="tiny bg-rojo no-margin radius button">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'js/stackable/stacktable.js' %}"></script>
+    <script>
+    $(document).on('click', '#run', function(e) {
+        e.preventDefault();
+        $('#simple-example-table').stacktable({
+            hideOriginal: true
+        });
+        $(this).replaceWith('<span>ran</span>');
+    });
+    $('#responsive-example-table').stacktable({
+        myClass: 'stacktable small-only'
+    });
+    </script>
+{% endblock js %}
