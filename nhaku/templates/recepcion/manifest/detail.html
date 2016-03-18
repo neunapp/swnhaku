@@ -1,0 +1,39 @@
+Informacion del Cliente: {{object}}
+<ul>
+<li type="disc">{{object.user}}</li>
+<li type="disc">{{object.number}}</li>
+<li type="disc">{{object.origin}}</li>
+<li type="disc">{{object.destination}}</li>
+<li type="disc">{{object.matricula}}</li>
+<li type="disc">{{object.cargo}}</li>
+<li type="disc">{{object.date}}</li>
+<li type="disc">{{object.type_manifest}}</li>
+</ul>
+
+<table>
+      <thead>
+        <tr>
+          <th>Numero</th>
+          <th>Cantidad</th>
+          <th>Peso</th>
+          <th>Zona</th>
+          <th>adreessee</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for guide in  guide_list %}
+          <tr>
+            <td>{{ guide.number }}</td>
+            <td>{{ guide.number_objects }}</td>
+            <td>{{ guide.weigth }}</td>
+            <td>{{ guide.zona }}</td>
+            <td>
+             <a href="#">Modificar</a>
+             <a href="#">Detalle</a>
+             <a href="#">Eliminar</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>

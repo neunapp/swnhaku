@@ -1,6 +1,8 @@
 # -*- encoding: utf-8 -*-
 from django import forms
 
+from applications.users.models import User
+
 from .models import Manifest
 
 class ManifestForm(forms.ModelForm):
@@ -8,6 +10,7 @@ class ManifestForm(forms.ModelForm):
     class Meta:
         model = Manifest
         fields = (
+            'user',
             'number',
             'origin',
             'destination',
@@ -57,3 +60,8 @@ class ManifestForm(forms.ModelForm):
                 self.add_error('number', msj)
             else:
                 return number
+
+    def __init__(self, *args, **kwargs):
+        super(ManifestForm, self).__init__(*args, **kwargs)
+        usuarios = User.objects.filter(type_user='3', is_active=True)
+        self.fields['user'].queryset = usuarios

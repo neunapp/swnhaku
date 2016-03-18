@@ -89,6 +89,23 @@ class Manifest(TimeStampedModel):
         return self.number
 
 
+class ManagerGuide(models.Manager):
+    def by_manifest(self, manifiesto):
+        return self.filter(
+            manifest=manifiesto,
+            anulate=False,
+        )
+    def delete_guides(self, manifiesto, usuario):
+        guides = self.filter(
+            manifest=manifiesto,
+            anulate=False,
+        )
+        for guia in guides:
+            guia.anulate = True
+            guia.user_modified = usuario
+            guia.save()
+        return True
+
 @python_2_unicode_compatible
 class Guide(TimeStampedModel):
 
@@ -189,6 +206,8 @@ class Guide(TimeStampedModel):
         blank=True,
         null=True,
     )
+
+    objects = ManagerGuide()
 
     def __str__(self):
         return self.number

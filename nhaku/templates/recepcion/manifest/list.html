@@ -1,0 +1,32 @@
+<a href="{% url 'recepcion_app:manifest-add' %}">+ Nuevo</a>
+  <table>
+        <thead>
+          <tr>
+            <th>Numero</th>
+            <th>origen</th>
+            <th>Destino</th>
+            <th>Matricula</th>
+            <th>Fecha Registro</th>
+            <th>Tipo</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for manifiesto in  manifest_list %}
+            <tr>
+              <td>{{ manifiesto.number }}</td>
+              <td>{{ manifiesto.origin }}</td>
+              <td>{{ manifiesto.destination }}</td>
+              <td>{{ manifiesto.matricula }}</td>
+              <td>{{ manifiesto.date }}</td>
+              <td>{{ manifiesto.type_manifest }}</td>
+              <td>
+               <a href="{% url 'recepcion_app:manifest-update' manifiesto.pk %}">Modificar</a>
+               <a href="{% url 'recepcion_app:manifest-detail' manifiesto.pk %}">Detalle</a>
+               <a href="{% url 'recepcion_app:manifest-delete' manifiesto.pk %}">Eliminar</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>

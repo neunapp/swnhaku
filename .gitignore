@@ -69,7 +69,7 @@ nhaku/applications/asignacion/migrations/*
 
 nhaku/applications/profiles/migrations/*
 
-nhaku/applicatios/recepcion/migrations/*
+nhaku/applications/recepcion/migrations/*
 
 nhaku/applications/users/migrations/*
 
