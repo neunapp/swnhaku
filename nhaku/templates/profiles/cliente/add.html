@@ -1,0 +1,123 @@
+{% extends "profiles/admin/admin.html" %}
+
+{% block title %} Agregar cliente {% endblock title %}
+
+{% block migadepan %}
+    <li>Clientes</li>
+    <li>Agregar</li>
+{% endblock migadepan %}
+
+
+{% block main %}
+    <div class="row no-pad">
+        <div class="large-12 columns">
+            <div class="box bg-white">
+                <div class="box-body pad-forty" style="display: block;">
+                    <div class="row">
+                        <div class="large-12">
+                            <h3 class="subheader no-margin text-center">Crear de cliente</h3>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="small-12 large-9 columns">
+                            <form>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Nombre/Razón Social
+                                            <input type="text" placeholder=".medium-6.columns">
+                                        </label>
+                                        <p class="help-text error-field">have at least 10 characters, a number, and an Emoji.</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Dni/Ruc
+                                            <input type="text" placeholder=".medium-6.columns">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Dirección
+                                            <input type="text" placeholder=".medium-6.columns">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Email
+                                            <input type="text" placeholder=".medium-6.columns">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Teléfono
+                                            <input type="text" placeholder=".medium-6.columns">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Web
+                                            <input type="text" placeholder=".medium-6.columns">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Tipo
+                                            <select>
+                                                <option value="husker">Husker</option>
+                                                <option value="starbuck">Starbuck</option>
+                                                <option value="hotdog">Hot Dog</option>
+                                                <option value="apollo">Apollo</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <input type="file" id="exampleFileUpload" class="show-for-sr">
+                                    </div>
+                                </div><div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Username
+                                            <input type="text" placeholder=".medium-6.columns">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Contraseña
+                                            <input type="text" placeholder=".medium-6.columns">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label> Repetir contraseña
+                                            <input type="text" placeholder=".medium-6.columns">
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <button type="submit" class="small radius bg-verde button">Guardar</button>
+                                        <a href="#features" class="small radius bg-blanco border-grey button">Cancelar</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}

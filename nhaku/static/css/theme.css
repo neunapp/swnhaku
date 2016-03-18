@@ -633,7 +633,7 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
   box-shadow: none;
   color: rgba(0, 0, 0, 0.75);
   display: block;
-  font-size: 0.875em;
+  font-size: 1.1em;
   margin: 0 0 1rem 0;
   padding: 0.5em;
 /*   height: 2.3125em; */
@@ -1984,3 +1984,48 @@ footer {
   width: 4px; }
 
 /*# sourceMappingURL=theme.css.map */
+
+.error-field {
+    color: #f04124;
+}
+
+.bg-verde {
+    background: #4caf50;
+    color: white;
+}
+
+.bg-verde:hover {
+    background: #50c764;
+}
+
+.bg-amarillo {
+    background: #f39c12;
+    color: white;
+}
+
+.bg-amarillo:hover {
+    background: #f1a42a;
+}
+
+.bg-rojo {
+    background: #e83922;
+    color: white;
+}
+
+.bg-rojo:hover {
+    background: #fc3a21;
+}
+
+.bg-blanco {
+    background: #ffffff;
+    color: #505050;
+}
+
+.bg-blanco:hover {
+    background: #f7f7f7;
+    color: #1d1d1d;
+}
+
+.border-grey {
+    border: 0.5px solid #cccccc;
+}
