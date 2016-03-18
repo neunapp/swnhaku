@@ -15,7 +15,9 @@ class Client(TimeStampedModel):
             ('1', 'Natural'),
     )
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+    )
     full_name = models.CharField(
         'nombres/razon social',
         max_length=100
@@ -51,6 +53,7 @@ class Client(TimeStampedModel):
         max_length=2,
         choices=TYPE_CHOICES
     )
+    state = models.BooleanField(default=False)
     user_created = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name="Client_created",
@@ -60,7 +63,6 @@ class Client(TimeStampedModel):
         related_name="client_modified",
         blank=True,
         null=True,
-        editable=False
     )
 
     def __str__(self):
@@ -116,16 +118,19 @@ class Driver(TimeStampedModel):
     )
     license = models.CharField(
         'licencia',
+        blank=True,
         max_length=11
     )
     class_driver = models.CharField(
         'Clase de licencia',
+        blank=True,
         max_length=2
     )
     category = models.CharField(
         blank=True,
         max_length=2
     )
+    state = models.BooleanField(default=False)
     user_created = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name="driver_created",
@@ -135,7 +140,6 @@ class Driver(TimeStampedModel):
         related_name="driver_modified",
         blank=True,
         null=True,
-        editable=False
     )
 
     def __str__(self):
@@ -187,6 +191,8 @@ class Employee(TimeStampedModel):
     )
     avatar = models.ImageField(
         upload_to="driver",
+        blank=True,
+        null=True
     )
     user_created = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -197,7 +203,6 @@ class Employee(TimeStampedModel):
         related_name="employee_modified",
         blank=True,
         null=True,
-        editable=False
     )
 
     def __str__(self):

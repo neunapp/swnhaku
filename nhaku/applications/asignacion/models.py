@@ -37,7 +37,7 @@ class Car(TimeStampedModel):
         max_length=12
     )
     state = models.BooleanField(
-        'Estado',
+        'Anulado',
         default=False
     )
     user_created = models.ForeignKey(
@@ -94,6 +94,7 @@ class Asignation(TimeStampedModel):
         max_length=2,
         choices=STATE_CHOICES
     )
+    anulate = models.BooleanField(default=False)
     user_created = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name="asignation_created",

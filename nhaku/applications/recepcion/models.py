@@ -27,7 +27,6 @@ class Zone(TimeStampedModel):
         related_name="zone_modified",
         blank=True,
         null=True,
-        editable=False
     )
 
     def __str__(self):
@@ -73,6 +72,7 @@ class Manifest(TimeStampedModel):
         max_length=2,
         choices=TYPE_CHOICES
     )
+    state = models.BooleanField(default=False)
     user_created = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name="manifest_created",
@@ -83,7 +83,6 @@ class Manifest(TimeStampedModel):
         related_name="manifest_modified",
         blank=True,
         null=True,
-        editable=False
     )
 
     def __str__(self):
@@ -177,7 +176,7 @@ class Guide(TimeStampedModel):
     )
     anulate = models.BooleanField(
         'Anulado',
-        default=True
+        default=False
     )
     user_created = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -189,7 +188,6 @@ class Guide(TimeStampedModel):
         related_name="guide_modified",
         blank=True,
         null=True,
-        editable=False
     )
 
     def __str__(self):

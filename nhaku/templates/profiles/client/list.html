@@ -1,0 +1,30 @@
+<a href="{% url 'profiles_app:cliente-add' %}">+ Nuevo</a>
+  <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>N° Doc</th>
+            <th>Direccion</th>
+            <th>Telefono</th>
+            <th>Logo</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for client in  client_list %}
+            <tr>
+              <td>{{ client.full_name }}</td>
+              <td>{{ client.number_doc }}</td>
+              <td>{{ client.address }}</td>
+              <td>{{ client.phone }}</td>
+              <td>{{ client.avatar.url }}</td>
+              <td>
+               <a href="{% url 'profiles_app:cliente-update' client.pk %}">Modificar</a>
+               <a href="{% url 'profiles_app:cliente-detail' client.pk %}">Detalle</a>
+               <a href="{% url 'profiles_app:cliente-delete' client.pk %}">Eliminar</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
