@@ -38,18 +38,9 @@ class ClientRegister(FormView):
         )
         usuario.save()
         #registramos el cliente
-        cliente = Client(
-            user=usuario,
-            full_name=form.cleaned_data['full_name'],
-            number_doc=form.cleaned_data['number_doc'],
-            address=form.cleaned_data['address'],
-            email=form.cleaned_data['email'],
-            phone=form.cleaned_data['phone'],
-            web=form.cleaned_data['web'],
-            avatar=form.cleaned_data['avatar'],
-            type_clint=form.cleaned_data['type_clint'],
-            user_created=self.request.user,
-        )
+        cliente = form.save(commit=False)
+        cliente.user = self.request.user
+        cliente.user_created = self.request.user
         cliente.save()
 
         return super(ClientRegister, self).form_valid(form)
