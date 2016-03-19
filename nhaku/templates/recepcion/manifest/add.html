@@ -1,5 +1,153 @@
-<h1>Agregar Manifiesto</h1>
-<form role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
-    {{form.as_p}}
-    <button type="submit"> Guardar</button>
-</form>
+{% extends "profiles/admin/admin.html" %}
+
+{% block title %} Manifiesto Nuevo {% endblock title %}
+
+{% block migadepan %}
+    <li>Manifiesto</li>
+    <li>Agregar</li>
+{% endblock migadepan %}
+
+
+{% block main %}
+    <div class="row no-pad">
+        <div class="large-12 columns">
+            <div class="box bg-white">
+                <div class="box-body pad-forty" style="display: block;">
+                    <div class="row">
+                        <div class="large-12">
+                            <h3 class="subheader no-margin text-center">Registrar Manifiesto Nuevo</h3>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="small-12 large-9 columns">
+                          <form role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Cliente/Empresa
+                                            {{form.user}}
+                                        </label>
+                                        {% for error in form.user.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Numero Manifiesto
+                                            {{form.number}}
+                                        </label>
+                                        {% for error in form.number.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Lugar de Origen
+                                            {{form.origin}}
+                                        </label>
+                                        {% for error in form.origin.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Lugar Destino
+                                            {{form.destination}}
+                                        </label>
+                                        {% for error in form.destination.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Matricula o Placa
+                                            {{form.matricula}}
+                                        </label>
+                                    </div>
+                                    {% for error in form.matricula.errors %}
+                                      <div class="col-xs-12">
+                                        <p class="help-text error-field">
+                                            {{ error|escape }}
+                                        </p>
+                                      </div>
+                                     {% endfor %}
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Cargo
+                                            {{form.cargo}}
+                                        </label>
+                                        {% for error in form.cargo.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Fecha de Registro
+                                            {{form.date}}
+                                        </label>
+                                        {% for error in form.date.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Tipo de Manifiesto
+                                            {{form.type_manifest}}
+                                        </label>
+                                        {% for error in form.type_manifest.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <button type="submit" class="small radius bg-verde button">Guardar</button>
+                                        <a href="{% url 'recepcion_app:manifest-list' %}" class="small radius bg-blanco border-grey button">Cancelar</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}

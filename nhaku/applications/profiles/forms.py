@@ -88,6 +88,11 @@ class ClientForm(forms.ModelForm):
                     'class': 'validate',
                 }
             ),
+            'type_clint': forms.Select(
+                attrs={
+                    'class': 'form-control input-sm',
+                }
+            )
         }
 
     def clean_password2(self):

@@ -1,33 +1,154 @@
-<h1>Actualizar Manifiesto</h1>
-<form role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
-    {{form.as_p}}
+{% extends "profiles/admin/admin.html" %}
 
-    <table>
-          <thead>
-            <tr>
-              <th>Numero</th>
-              <th>Cantidad</th>
-              <th>Peso</th>
-              <th>Zona</th>
-              <th>adreessee</th>
-            </tr>
-          </thead>
-          <tbody>
+{% block title %} Modificar Manifiesto {% endblock title %}
 
-            {% for guide in  guide_list %}
-              <tr>
-                <td>{{ guide.number }}</td>
-                <td>{{ guide.number_objects }}</td>
-                <td>{{ guide.weigth }}</td>
-                <td>{{ guide.zona }}</td>
-                <td>
-                 <a href="#">Modificar</a>
-                 <a href="#">Detalle</a>
-                 <a href="#">Eliminar</a>
-                </td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-    <button type="submit"> Guardar</button>
-</form>
+{% block migadepan %}
+    <li>Manifiesto</li>
+    <li>Modificar</li>
+{% endblock migadepan %}
+
+
+{% block main %}
+    <div class="row no-pad">
+        <div class="large-12 columns">
+            <div class="box bg-white">
+                <div class="box-body pad-forty" style="display: block;">
+                    <div class="row">
+                        <div class="large-12">
+                            <h3 class="subheader no-margin text-center">Modificar Manifiesto</h3>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="small-12 large-9 columns">
+                          <form role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Cliente/Empresa
+                                            {{form.user}}
+                                        </label>
+                                        {% for error in form.user.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Numero Manifiesto
+                                            {{form.number}}
+                                        </label>
+                                        {% for error in form.number.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Lugar de Origen
+                                            {{form.origin}}
+                                        </label>
+                                        {% for error in form.origin.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Lugar Destino
+                                            {{form.destination}}
+                                        </label>
+                                        {% for error in form.destination.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Matricula o Placa
+                                            {{form.matricula}}
+                                        </label>
+                                    </div>
+                                    {% for error in form.matricula.errors %}
+                                      <div class="col-xs-12">
+                                        <p class="help-text error-field">
+                                            {{ error|escape }}
+                                        </p>
+                                      </div>
+                                     {% endfor %}
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Cargo
+                                            {{form.cargo}}
+                                        </label>
+                                        {% for error in form.cargo.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Fecha de Registro
+                                            {{form.date}}
+                                        </label>
+                                        {% for error in form.date.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Tipo de Manifiesto
+                                            {{form.type_manifest}}
+                                        </label>
+                                        {% for error in form.type_manifest.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <button type="submit" class="small radius bg-verde button">Guardar</button>
+                                        <a href="{% url 'recepcion_app:manifest-list' %}" class="small radius bg-blanco border-grey button">Cancelar</a>
+                                        <a href="{% url 'recepcion_app:manifest-detail' object.pk %}" class="small radius bg-blanco border-grey button">Lista de Guias</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}

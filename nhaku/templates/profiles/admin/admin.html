@@ -31,7 +31,7 @@
     </li>
 
     <li>
-        <a class="tooltip-tip" href="index.html" title="Clientes">
+        <a class="tooltip-tip" href="{% url 'profiles_app:cliente-list' %}" title="Clientes">
             <i class="fa fa-building-o"></i>
             <span>Clientes</span>
         </a>
@@ -41,6 +41,13 @@
         <a class="tooltip-tip" href="index.html" title="Vehiculos">
             <i class="fa fa-bus"></i>
             <span>Vehiculos</span>
+        </a>
+    </li>
+
+    <li>
+        <a class="tooltip-tip" href="{% url 'recepcion_app:manifest-list' %}" title="Recepcion">
+            <i class="fa fa-bus"></i>
+            <span>Recepcion</span>
         </a>
     </li>
 
