@@ -1,4 +1,5 @@
-Informacion del Cliente: {{object}}
+<h1>Detalle Manifiesto</h1>
+Informacion del Manifiesto: {{object}}
 <ul>
 <li type="disc">{{object.user}}</li>
 <li type="disc">{{object.number}}</li>
@@ -18,20 +19,22 @@ Informacion del Cliente: {{object}}
           <th>Peso</th>
           <th>Zona</th>
           <th>adreessee</th>
+          <th>Accion</th>
         </tr>
       </thead>
       <tbody>
 
-        {% for guide in  guide_list %}
+        {% for guide in  list_guias %}
           <tr>
             <td>{{ guide.number }}</td>
             <td>{{ guide.number_objects }}</td>
             <td>{{ guide.weigth }}</td>
             <td>{{ guide.zona }}</td>
+            <td>{{ guide.adreessee }}</td>
             <td>
-             <a href="#">Modificar</a>
-             <a href="#">Detalle</a>
-             <a href="#">Eliminar</a>
+             <a href="{% url 'recepcion_app:guide-update' guide.pk %}">Modificar</a>
+             <a href="{% url 'recepcion_app:guide-detail' guide.pk %}">Detalle</a>
+             <a href="{% url 'recepcion_app:guide-delete' guide.pk %}">Eliminar</a>
             </td>
           </tr>
         {% endfor %}

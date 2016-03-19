@@ -1,0 +1,6 @@
+<h1>Eliminar Guia de Remision</h1>
+<form role="form" action="{% url 'recepcion_app:guide-delete' guide.id %}" method="POST">{% csrf_token %}
+    <p class="">¿Desea eliminar esta Guia<strong>{{ guide.number }}</strong>?</p>
+      <button type="submit" class="btn btn-danger">Sí</button>
+      <a href="{% url 'recepcion_app:manifest-detail' guide.id %}">No</a>
+</form>

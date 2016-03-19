@@ -1,0 +1,21 @@
+<h1>Detalle de Guia</h1>
+Informacion de la Guia: {{object}}
+<ul>
+<li type="disc">{{object.number}}</li>
+<li type="disc">{{object.number_objects}}</li>
+<li type="disc">{{object.adreessee}}</li>
+<li type="disc">{{object.weigth}}</li>
+<li type="disc">{{object.content}}</li>
+<li type="disc">{{object.zona}}</li>
+<li type="disc">{{object.address}}</li>
+<li type="disc">{{object.province}}</li>
+<li type="disc">{{object.priority}}</li>
+<li type="disc">{{object.type_guide}}</li>
+<li type="disc">{{object.state}}</li>
+<li type="disc">{{object.amount}}</li>
+<li type="disc">{{object.date_deliver}}</li>
+<li type="disc">{{object.person_id}}</li>
+<li type="disc">{{object.person_name}}</li>
+</ul>
+
+<a href="{% url 'recepcion_app:manifest-detail' object.manifest.pk %}">Ver lista de Guias</a>

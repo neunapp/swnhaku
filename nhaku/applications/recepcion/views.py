@@ -12,7 +12,7 @@ from django.views.generic import (
 )
 from django.views.generic.edit import FormView
 
-from .forms import ManifestForm
+from .forms import ManifestForm, GuideForm
 
 from .models import Manifest, Guide
 
@@ -31,6 +31,12 @@ class ManifestCreateView(CreateView):
         manifiesto = form.save(commit=False)
         manifiesto.user_created = self.request.user
         manifiesto.save()
+        return HttpResponseRedirect(
+            reverse(
+                'recepcion_app:guide-add',
+                kwargs={'pk': manifiesto.pk },
+            )
+        )
 
         return super(ManifestCreateView, self).form_valid(form)
 
@@ -53,6 +59,7 @@ class ManifestUpdateView(UpdateView):
 
     def form_valid(self, form):
         #recuperamos y duardamos el manifiesto
+        form.save()
         manifiesto = self.get_object()
         manifiesto.user_modified = self.request.user
         manifiesto.save()
@@ -105,3 +112,79 @@ class ManifestListView(ListView):
         #recuperamos el valor por GET
         queryset = Manifest.objects.filter(state=False)
         return queryset
+
+
+class GuideCreateView(CreateView):
+    '''
+    vista para registrar las guias de remision
+    '''
+    model = Guide
+    form_class = GuideForm
+    success_url = '.'
+    template_name = 'recepcion/guide/add.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(GuideCreateView, self).get_context_data(**kwargs)
+        manifiesto_pk = self.kwargs.get('pk', 0)
+        context['manifiesto'] = Manifest.objects.get(pk=manifiesto_pk)
+        return context
+
+    def form_valid(self, form):
+        #guardamos la guia
+        guia = form.save(commit=False)
+        manifiesto_pk = self.kwargs.get('pk', 0)
+        manifiesto = Manifest.objects.get(pk=manifiesto_pk)
+        guia.manifest = manifiesto
+        guia.state = '0'
+        guia.user_created = self.request.user
+        return super(GuideCreateView, self).form_valid(form)
+
+
+class GuideUpdateView(UpdateView):
+    '''
+    metodo para modificar y actualizar una guia
+    '''
+    model = Guide
+    template_name = 'recepcion/guide/update.html'
+    form_class = GuideForm
+    success_url = '.'
+
+    def form_valid(self, form):
+        #guardamos la guia
+        form.save()
+        guia = self.get_object()
+        guia.user_modified= self.request.user
+        guia.save()
+        return HttpResponseRedirect(
+            reverse(
+                'recepcion_app:manifest-detail',
+                kwargs={'pk': guia.manifest.pk },
+            )
+        )
+
+        return super(GuideUpdateView, self).form_valid(form)
+
+
+class GuideDetailView(DetailView):
+    '''
+    vista para ver el detalle y lista de guas de una mnifiesto
+    '''
+    model = Guide
+    template_name = 'recepcion/guide/detail.html'
+
+
+class GuideDeleteView(DeleteView):
+    model = Guide
+    template_name = 'recepcion/guide/delete.html'
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.anulate = True
+        self.object.user_modified = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(
+            reverse(
+                'recepcion_app:manifest-detail',
+                kwargs={'pk': self.object.manifest.pk },
+            )
+        )

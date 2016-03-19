@@ -27,4 +27,25 @@ urlpatterns = [
         views.ManifestDeleteView.as_view(),
         name='manifest-delete'
     ),
+    #urls para tabla Guide
+    url(
+        r'^reception/guide/add/(?P<pk>\d+)/$',
+        views.GuideCreateView.as_view(),
+        name='guide-add'
+    ),
+    url(
+        r'^reception/guide/update/(?P<pk>\d+)/$',
+        views.GuideUpdateView.as_view(),
+        name='guide-update'
+    ),
+    url(
+        r'^reception/guide/detail/(?P<pk>\d+)/$',
+        views.GuideDetailView.as_view(),
+        name='guide-detail'
+    ),
+    url(
+        r'^reception/guide/delete/(?P<pk>\d+)/$',
+        views.GuideDeleteView.as_view(),
+        name='guide-delete'
+    ),
 ]

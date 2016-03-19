@@ -110,18 +110,18 @@ class ManagerGuide(models.Manager):
 class Guide(TimeStampedModel):
 
     TYPE_CHOICES = (
-        ('1', 'Oficina'),
-        ('2', 'Reparto'),
+        ('0', 'Oficina'),
+        ('1', 'Reparto'),
     )
     PRIORITY_CHOISES = (
-        ('1', 'Alta'),
-        ('2', 'Media'),
-        ('3', 'Baja'),
+        ('0', 'Alta'),
+        ('1', 'Media'),
+        ('2', 'Baja'),
     )
     STATE_CHOISES = (
-        ('1', 'En Oficina'),
-        ('2', 'En Vehiculo'),
-        ('3', 'Entregado'),
+        ('0', 'En Oficina'),
+        ('1', 'En Vehiculo'),
+        ('2', 'Entregado'),
     )
 
     manifest = models.ForeignKey(Manifest)
@@ -129,8 +129,10 @@ class Guide(TimeStampedModel):
         'Numero',
         max_length=11
     )
-    number_objects = models.IntegerField(
+    number_objects = models.PositiveIntegerField(
         'Numero de Objetos',
+        blank=True,
+        null=True,
     )
     adreessee = models.CharField(
         'Remitente',
