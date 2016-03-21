@@ -113,4 +113,4 @@ class ClientListView(ListView):
 
 
 class Dashboard(TemplateView):
-    template_name = 'profiles/cliente/update.html'
+    template_name = 'profiles/cliente/detail.html'
