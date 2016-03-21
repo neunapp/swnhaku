@@ -3,6 +3,27 @@ from . import views
 
 urlpatterns = [
     url(
+        r'^reception/zone/list$',
+        views.ZoneListView.as_view(),
+        name='zone-list'
+    ),
+    url(
+        r'^reception/zone/add$',
+        views.ZoneCreateView.as_view(),
+        name='zone-add'
+    ),
+    url(
+        r'^reception/zone/update/(?P<pk>\d+)/$',
+        views.ZoneUpdateView.as_view(),
+        name='zone-update'
+    ),
+    url(
+        r'^reception/zone/delete/(?P<pk>\d+)/$',
+        views.ZoneDeleteView.as_view(),
+        name='zone-delete'
+    ),
+    #urls para manifiesto
+    url(
         r'^reception/manifest/list$',
         views.ManifestListView.as_view(),
         name='manifest-list'
@@ -47,5 +68,11 @@ urlpatterns = [
         r'^reception/guide/delete/(?P<pk>\d+)/$',
         views.GuideDeleteView.as_view(),
         name='guide-delete'
+    ),
+    #url para recepcion
+    url(
+        r'^reception/manifest/reception/(?P<pk>\d+)/$',
+        views.ReceptionGuideView.as_view(),
+        name='guide-reception'
     ),
 ]

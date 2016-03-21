@@ -1,0 +1,42 @@
+{% load filters %}
+<form role="form" method="POST" class="form-horizontal">{% csrf_token %}
+    <div class="row">
+        <div class="col-xs-12">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Numero</th>
+                        <th>cantidad</th>
+                        <th>Cliente</th>
+                        <th>Descripcion</th>
+                        <th>Peso</th>
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for guia in  form.guide %}
+                        <tr>
+                            {% for label in guia.choice_label|split_label %}
+                                <td>
+                                    {{label}}
+                                </td>
+                            {% endfor %}
+                            <td>
+                                {{guia.tag}}
+                            </td>
+                        </tr>
+                        {% empty %}
+                            <td colspan="7">Lo sentimos el manifiesto no tiene guias:( </td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-quilla">Guardar</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+</form>

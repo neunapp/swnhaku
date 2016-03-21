@@ -12,11 +12,84 @@ from django.views.generic import (
 )
 from django.views.generic.edit import FormView
 
-from .forms import ManifestForm, GuideForm
+from .forms import (
+    ManifestForm,
+    GuideForm,
+    ZoneForm,
+    ReceptionForm,
+)
 
-from .models import Manifest, Guide
+from .models import Manifest, Guide, Zone
+
+from datetime import datetime
 
 # Create your views here.
+
+class ZoneCreateView(CreateView):
+    '''
+    vista para registrar zona nueva
+    '''
+    model = Zone
+    form_class = ZoneForm
+    success_url = reverse_lazy('recepcion_app:zone-list')
+    template_name = 'recepcion/zone/add.html'
+
+    def form_valid(self, form):
+        zona = form.save(commit=False)
+        zona.user_created = self.request.user
+        zona.save()
+
+        return super(ZoneCreateView, self).form_valid(form)
+
+
+class ZoneUpdateView(UpdateView):
+    '''
+    vista para modificar una zona
+    '''
+    model = Zone
+    template_name = 'recepcion/zone/update.html'
+    form_class = ZoneForm
+    success_url = reverse_lazy('recepcion_app:zone-list')
+
+    def form_valid(self, form):
+        form.save()
+        zona = self.get_object()
+        zona.user_modified = self.request.user
+        zona.save()
+
+        return super(ZoneUpdateView, self).form_valid(form)
+
+
+class ZoneDeleteView(DeleteView):
+    '''
+    vista para desabilitar una zona
+    '''
+    model = Zone
+    success_url = reverse_lazy('recepcion_app:zone-list')
+    template_name = 'recepcion/zone/delete.html'
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.state = True
+        self.object.user_modified = self.request.user
+        self.object.save()
+        success_url = self.get_success_url()
+
+        return HttpResponseRedirect(success_url)
+
+
+class ZoneListView(ListView):
+    '''
+        muestra la lista de zonas
+    '''
+    context_object_name = 'zone_list'
+    template_name = 'recepcion/zone/list.html'
+    paginate_by = 10
+    def get_queryset(self):
+        #recuperamos el valor por GET
+        queryset = Zone.objects.filter(state=False)
+        return queryset
+
 
 class ManifestCreateView(CreateView):
     '''
@@ -110,7 +183,7 @@ class ManifestListView(ListView):
 
     def get_queryset(self):
         #recuperamos el valor por GET
-        queryset = Manifest.objects.filter(state=False)
+        queryset = Manifest.objects.manifest_by_day()
         return queryset
 
 
@@ -188,3 +261,28 @@ class GuideDeleteView(DeleteView):
                 kwargs={'pk': self.object.manifest.pk },
             )
         )
+
+
+class ReceptionGuideView(FormView):
+    '''
+    vista para recepcionar manifiestos
+    '''
+    template_name = 'recepcion/manifest/reception.html'
+    form_class = ReceptionForm
+    success_url = reverse_lazy('recepcion_app:manifest-list')
+
+    def get_form_kwargs(self):
+        kwargs = super(ReceptionGuideView, self).get_form_kwargs()
+        kwargs.update({
+            'pk': self.kwargs.get('pk', 0),
+        })
+        return kwargs
+
+    def form_valid(self, form):
+        guias = form.cleaned_data['guide']
+        for guia in guias:
+            guia.state = '1'
+            guia.date_reception = datetime.now()
+            guia.save()
+
+        return super(ReceptionGuideView, self).form_valid(form)

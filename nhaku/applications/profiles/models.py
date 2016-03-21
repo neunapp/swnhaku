@@ -47,6 +47,8 @@ class Client(TimeStampedModel):
     )
     avatar = models.ImageField(
         upload_to="cliente",
+        blank=True,
+        null=True
     )
     type_clint = models.CharField(
         'Tipo de Cliente',
@@ -115,6 +117,8 @@ class Driver(TimeStampedModel):
     )
     avatar = models.ImageField(
         upload_to="driver",
+        blank=True,
+        null=True
     )
     license = models.CharField(
         'licencia',
@@ -190,10 +194,11 @@ class Employee(TimeStampedModel):
         null=True
     )
     avatar = models.ImageField(
-        upload_to="driver",
+        upload_to="employee",
         blank=True,
         null=True
     )
+    state = models.BooleanField(default=False)
     user_created = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name="employee_created",

@@ -27,6 +27,58 @@ urlpatterns = [
         views.ClientDeleteView.as_view(),
         name='cliente-delete'
     ),
+    #urls para Conductores
+    url(
+        r'^perfiles/driver/list$',
+        views.DriverListView.as_view(),
+        name='driver-list'
+    ),
+    url(
+        r'^perfiles/driver/add$',
+        views.DriverCreateView.as_view(),
+        name='driver-add'
+    ),
+    url(
+        r'^perfiles/driver/update/(?P<pk>\d+)/$',
+        views.DriverUpdateView.as_view(),
+        name='driver-update'
+    ),
+    url(
+        r'^perfiles/driver/detail/(?P<pk>\d+)/$',
+        views.DriverDetailView.as_view(),
+        name='driver-detail'
+    ),
+    url(
+        r'^perfiles/driver/delete/(?P<pk>\d+)/$',
+        views.DriverDeleteView.as_view(),
+        name='driver-delete'
+    ),
+    # urls para Empelados
+    url(
+        r'^perfiles/employee/list$',
+        views.EmployeeListView.as_view(),
+        name='employee-list'
+    ),
+    url(
+        r'^perfiles/employee/add$',
+        views.EmployeeCreateView.as_view(),
+        name='employee-add'
+    ),
+    url(
+        r'^perfiles/employee/update/(?P<pk>\d+)/$',
+        views.EmployeeUpdateView.as_view(),
+        name='employee-update'
+    ),
+    url(
+        r'^perfiles/employee/detail/(?P<pk>\d+)/$',
+        views.EmployeeDetailView.as_view(),
+        name='employee-detail'
+    ),
+    url(
+        r'^perfiles/employee/delete/(?P<pk>\d+)/$',
+        views.EmployeeDeleteView.as_view(),
+        name='employee-delete'
+    ),
     url(
         r'^dashboard/$',
         views.Dashboard.as_view(),

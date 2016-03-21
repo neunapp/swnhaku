@@ -1,0 +1,6 @@
+<h1>Eliminar Manifiesto</h1>
+<form role="form" action="{% url 'recepcion_app:zone-delete' zone.id %}" method="POST">{% csrf_token %}
+    <p class="">¿Desea eliminar esta Zona<strong>{{ zone.name }}</strong>?</p>
+      <button type="submit" class="btn btn-danger">Sí</button>
+      <a href="{% url 'recepcion_app:zone-list' %}">No</a>
+</form>

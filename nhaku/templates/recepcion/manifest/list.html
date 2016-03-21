@@ -52,6 +52,7 @@
                                 <th>Matricula</th>
                                 <th>Fecha</th>
                                 <th>Tipo de Manifiesto</th>
+                                <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,7 +65,7 @@
                                 <td>{{ manifiesto.date }}</td>
                                 <td>{{ manifiesto.type_manifest }}</td>
                                 <td>
-                                    <a href="{% url 'recepcion_app:manifest-detail' manifiesto.pk %}" class="tiny bg-verde no-margin radius button">
+                                    <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}" class="tiny bg-verde no-margin radius button">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     <a href="{% url 'recepcion_app:manifest-update' manifiesto.pk %}" class="tiny bg-amarillo no-margin radius button">

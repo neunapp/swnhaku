@@ -3,7 +3,31 @@ from django import forms
 
 from applications.users.models import User
 
-from .models import Manifest, Guide
+from .models import Manifest, Guide, Zone
+
+
+class ZoneForm(forms.ModelForm):
+
+    class Meta:
+        model = Zone
+        fields = (
+            'name',
+        )
+        widgets = {
+            'name': forms.TextInput(
+                attrs={
+                    'placeholder': 'Nombre de la Zonas',
+                }
+            ),
+        }
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if Zone.objects.filter(name=name, state=False).count() > 0:
+            msj = 'el nombre de zona ya existe'
+            self.add_error('name', msj)
+        return name
+
 
 class ManifestForm(forms.ModelForm):
 
@@ -84,6 +108,7 @@ class GuideForm(forms.ModelForm):
             'province',
             'priority',
             'type_guide',
+            'amount',
         )
         widgets = {
             'number': forms.TextInput(
@@ -136,22 +161,67 @@ class GuideForm(forms.ModelForm):
                     'class': 'form-control input-sm',
                 }
             ),
+            'type_guide': forms.NumberInput(
+                attrs={
+                    'placeholder': 'Monto a Cobrar',
+                }
+            ),
         }
 
-        def clean_number(self):
-            number = self.cleaned_data['number']
+    def __init__(self, *args, **kwargs):
+        super(GuideForm, self).__init__(*args, **kwargs)
+        zona = Zone.objects.filter(state=False)
+        self.fields['zona'].queryset = zona
 
-            if not number.isdigit():
-                msj = 'Solo debe contener numeros'
-                self.add_error('number', msj)
-            else:
-                return number
+    def clean(self):
+        cleaned_data = super(GuideForm, self).clean()
+        number = cleaned_data.get('number')
+        guia = Guide.objects.filter(number=number, anulate=False).exists()
+        if guia:
+            message = "la guia de remision %s ya existe" % (number)
+            self.add_error('number', message)
+        return cleaned_data
 
-        def clean_weigth(self):
-            weigth = form.cleaned_data['weigth']
+    def clean_number(self):
+        number = self.cleaned_data['number']
 
-            if weigth < 0:
-                msj = 'no es un valor valido para peso'
-                self.add_error('weigth', msj)
-            else:
-                return weigth
+        if not number.isdigit():
+            msj = 'Solo debe contener numeros'
+            self.add_error('number', msj)
+        else:
+            return number
+
+    def clean_weigth(self):
+        weigth = self.cleaned_data['weigth']
+
+        if weigth < 0:
+            msj = 'no es un valor valido para peso'
+            self.add_error('weigth', msj)
+        else:
+            return weigth
+
+
+# formulario para confirmar recepcion
+class ReceptionForm(forms.Form):
+    '''
+    formulario para confirmar Recepcion
+    '''
+    guide = forms.ModelMultipleChoiceField(
+        queryset=None,
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+    )
+
+    def __init__(self, pk, *args, **kwargs):
+        super(ReceptionForm, self).__init__(*args, **kwargs)
+        # recuperamos el manifiesto
+        guias = Guide.objects.filter(manifest__pk=pk, anulate=False, state='0')
+        self.fields['guide'].queryset = guias
+        self.fields['guide'].label_from_instance = \
+            lambda obj: "%s - %s - %s - %s - %s" % (
+                obj.number,
+                obj.number_objects,
+                obj.adreessee,
+                obj.content,
+                obj.weigth,
+            )

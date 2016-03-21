@@ -1,0 +1,5 @@
+<form role="form" action="{% url 'asignacion_app:car-delete' car.id %}" method="POST">{% csrf_token %}
+    <p class="">¿Desea eliminar el Vehiculo <strong>{{ car.model }}-{{car.plaque}}</strong>?</p>
+      <button type="submit" class="btn btn-danger">Sí</button>
+      <a href="{% url 'asignacion_app:car-list' %}">No</a>
+</form>
