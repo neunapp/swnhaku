@@ -1,9 +1,9 @@
 {% extends "profiles/admin/admin.html" %}
 
-{% block title %} Guia de Remision Nueva {% endblock title %}
+{% block title %} Agregar Conductor {% endblock title %}
 
 {% block migadepan %}
-    <li>Manifiesto</li>
+    <li>Conductor </li>
     <li>Agregar</li>
 {% endblock migadepan %}
 
@@ -15,7 +15,7 @@
                 <div class="box-body pad-forty" style="display: block;">
                     <div class="row">
                         <div class="large-12">
-                            <h3 class="subheader no-margin text-center">Agregar Guia de Remision Nueva</h3>
+                            <h3 class="subheader no-margin text-center">Registrar Conductor  Nuevo</h3>
                         </div>
                     </div>
 
@@ -24,15 +24,12 @@
                     <div class="row">
                         <div class="small-12 large-9 columns">
                           <form role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
-                            {% if form.errors %}
-                            <p class="help-text error-field">{{ form.non_field_errors }}</p>
-                            {% endif %}
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Numero de Guia
-                                            {{form.number}}
+                                        <label>Nombres
+                                            {{form.first_name}}
                                         </label>
-                                        {% for error in form.number.errors %}
+                                        {% for error in form.first_name.errors %}
                                           <div class="col-xs-12">
                                             <p class="help-text error-field">
                                                 {{ error|escape }}
@@ -43,10 +40,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Cantidad de Objetos
-                                            {{form.number_objects}}
+                                        <label>Apellidos
+                                            {{form.last_name}}
                                         </label>
-                                        {% for error in form.number_objects.errors %}
+                                        {% for error in form.last_name.errors %}
                                           <div class="col-xs-12">
                                             <p class="help-text error-field">
                                                 {{ error|escape }}
@@ -57,10 +54,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Remitente
-                                            {{form.adreessee}}
+                                        <label>Dni/Ruc
+                                            {{form.dni}}
                                         </label>
-                                        {% for error in form.adreessee.errors %}
+                                        {% for error in form.dni.errors %}
                                           <div class="col-xs-12">
                                             <p class="help-text error-field">
                                                 {{ error|escape }}
@@ -71,11 +68,25 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Peso del Paquete
-                                            {{form.weigth}}
+                                        <label>Email
+                                            {{form.email}}
+                                        </label>
+                                        {% for error in form.email.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Teléfono
+                                            {{form.phone}}
                                         </label>
                                     </div>
-                                    {% for error in form.weigth.errors %}
+                                    {% for error in form.phone.errors %}
                                       <div class="col-xs-12">
                                         <p class="help-text error-field">
                                             {{ error|escape }}
@@ -85,35 +96,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Descripcion
-                                            {{form.content}}
-                                        </label>
-                                        {% for error in form.content.errors %}
-                                          <div class="col-xs-12">
-                                            <p class="help-text error-field">
-                                                {{ error|escape }}
-                                            </p>
-                                          </div>
-                                         {% endfor %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="medium-12 columns">
-                                        <label>Zona de Entrega
-                                            {{form.zona}}
-                                        </label>
-                                        {% for error in form.zona.errors %}
-                                          <div class="col-xs-12">
-                                            <p class="help-text error-field">
-                                                {{ error|escape }}
-                                            </p>
-                                          </div>
-                                         {% endfor %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="medium-12 columns">
-                                        <label>Direccion de Entrega
+                                        <label>Direccion
                                             {{form.address}}
                                         </label>
                                         {% for error in form.address.errors %}
@@ -127,10 +110,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Provincia y Distrito
-                                            {{form.province}}
+                                        <label>Sexo
+                                            {{form.gender}}
                                         </label>
-                                        {% for error in form.province.errors %}
+                                        {% for error in form.gender.errors %}
                                           <div class="col-xs-12">
                                             <p class="help-text error-field">
                                                 {{ error|escape }}
@@ -141,10 +124,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Prioridad
-                                            {{form.priority}}
+                                        <label>Fecha de Nacimiento
+                                            {{form.date_birth}}
                                         </label>
-                                        {% for error in form.priority.errors %}
+                                        {% for error in form.date_birth.errors %}
                                           <div class="col-xs-12">
                                             <p class="help-text error-field">
                                                 {{ error|escape }}
@@ -155,10 +138,94 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Tipo de Guia
-                                            {{form.type_guide}}
+                                        <label>Foto
+                                            {{form.avatar}}
                                         </label>
-                                        {% for error in form.type_guide.errors %}
+                                        {% for error in form.avatar.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>N° Licencia
+                                            {{form.license}}
+                                        </label>
+                                        {% for error in form.license.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Clase de Conductor
+                                            {{form.class_driver}}
+                                        </label>
+                                        {% for error in form.class_driver.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Cstegoria de Conductor
+                                            {{form.category}}
+                                        </label>
+                                        {% for error in form.category.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Username
+                                            {{form.user_name}}
+                                        </label>
+                                        {% for error in form.user_name.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Contraseña
+                                            {{form.password1}}
+                                        </label>
+                                        {% for error in form.password1.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label> Repetir contraseña
+                                            {{form.password2}}
+                                        </label>
+                                        {% for error in form.password2.errors %}
                                           <div class="col-xs-12">
                                             <p class="help-text error-field">
                                                 {{ error|escape }}
@@ -168,11 +235,11 @@
                                     </div>
                                 </div>
 
+
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <button type="submit" class="small radius bg-verde button">Guardar</button>
-                                        <a href="#features" class="small radius bg-blanco border-grey button">Cancelar</a>
-                                        <a href="{% url 'recepcion_app:manifest-detail' manifiesto.pk %}" class="small radius bg-blanco border-grey button">Lista de Guias</a>
+                                        <a href="{% url 'profiles_app:driver-list' %}" class="small radius bg-blanco border-grey button">Cancelar</a>
                                     </div>
                                 </div>
                             </form>

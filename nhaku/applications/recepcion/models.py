@@ -16,7 +16,7 @@ class Zone(TimeStampedModel):
         'Denominacion',
         max_length=100
     )
-    state = models.BooleanField(default=True)
+    state = models.BooleanField(default=False)
     user_created = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name="zone_created",
@@ -33,12 +33,22 @@ class Zone(TimeStampedModel):
         return self.name
 
 
+
+class ManagerManifest(models.Manager):
+    def manifest_by_day(self):
+        #lista de manifiestos por dia
+        return self.filter(
+            date__day = datetime.now().day,
+            state = False
+        )
+
+
 @python_2_unicode_compatible
 class Manifest(TimeStampedModel):
 
     TYPE_CHOICES = (
         ('0', 'Aereo'),
-        ('1', 'Juridico'),
+        ('1', 'Terrestre'),
     )
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
@@ -85,6 +95,8 @@ class Manifest(TimeStampedModel):
         null=True,
     )
 
+    objects = ManagerManifest()
+
     def __str__(self):
         return self.number
 
@@ -95,6 +107,7 @@ class ManagerGuide(models.Manager):
             manifest=manifiesto,
             anulate=False,
         )
+
     def delete_guides(self, manifiesto, usuario):
         guides = self.filter(
             manifest=manifiesto,
@@ -105,6 +118,7 @@ class ManagerGuide(models.Manager):
             guia.user_modified = usuario
             guia.save()
         return True
+
 
 @python_2_unicode_compatible
 class Guide(TimeStampedModel):
@@ -119,9 +133,10 @@ class Guide(TimeStampedModel):
         ('2', 'Baja'),
     )
     STATE_CHOISES = (
-        ('0', 'En Oficina'),
-        ('1', 'En Vehiculo'),
-        ('2', 'Entregado'),
+        ('0', 'Sin Asignar'),
+        ('1', 'En Oficina'),
+        ('2', 'En Vehiculo'),
+        ('3', 'Entregado'),
     )
 
     manifest = models.ForeignKey(Manifest)
@@ -147,24 +162,37 @@ class Guide(TimeStampedModel):
         blank=True,
         max_length=100
     )
-    zona = models.ForeignKey(Zone)
+    zona = models.ForeignKey(
+        Zone,
+        blank=True,
+        null=True
+    )
     address = models.CharField(
         'Direccion',
-        max_length=50
+        max_length=50,
+        blank=True,
     )
     province = models.CharField(
         'Distrito-Provincia',
-        max_length=50
+        max_length=50,
+        blank=True,
     )
     priority = models.CharField(
         'Prioridad',
         max_length=2,
-        choices=PRIORITY_CHOISES
+        choices=PRIORITY_CHOISES,
+        blank=True,
     )
     type_guide = models.CharField(
         'Tipo de Envio',
         max_length=2,
-        choices=TYPE_CHOICES
+        choices=TYPE_CHOICES,
+        blank=True,
+    )
+    date_reception = models.DateTimeField(
+        blank=True,
+        null = True,
+        default=datetime.now
     )
     state = models.CharField(
         'Estado',
@@ -213,6 +241,7 @@ class Guide(TimeStampedModel):
 
     def __str__(self):
         return self.number
+
 
 class Observations(TimeStampedModel):
 

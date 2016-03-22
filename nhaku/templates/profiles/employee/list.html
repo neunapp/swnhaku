@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 
-{% block title %} Lista de Clientes {% endblock title %}
+{% block title %} Lista de Empleados {% endblock title %}
 
 {% block css %}
     {{ block.super }}
@@ -11,16 +11,16 @@
 {% endblock css %}
 
 {% block migadepan %}
-    <li>Clientes</li>
+    <li>Empleados</li>
 {% endblock migadepan %}
 
 {% block main %}
     <div class="row">
         <div class="small-12 medium-6 columns">
-            <h3 class="subheader">Lista de Clientes</h3>
+            <h3 class="subheader">Lista de Empleados</h3>
         </div>
         <div class="small-12 medium-6 columns">
-            <a href="{% url 'profiles_app:cliente-add' %}" class="small radius button right">
+            <a href="{% url 'profiles_app:employee-add' %}" class="small radius button right">
                 <i class="fa fa-plus"> AGREGAR </i>
             </a>
         </div>
@@ -38,7 +38,7 @@
                         </span>
                     </div>
                     <h3 class="box-title"><i class="icon-menu"></i>
-                        <span>Hay {{client_list.count}} Clientes</span>
+                        <span>Hay {{employee_list.count}} Empleados</span>
                     </h3>
                 </div>
                 <!-- /.box-header -->
@@ -46,30 +46,30 @@
                     <table id="responsive-example-table" class="table large-only">
                         <thead>
                             <tr>
-                                <th>Cliente</th>
-                                <th>Dni/Ruc</th>
-                                <th>Dirección</th>
-                                <th>Email</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>N° Documento</th>
                                 <th>Telefono</th>
+                                <th>E-mail</th>
                                 <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody>
-                          {% for cliente in client_list   %}
+                          {% for empleado in employee_list   %}
                             <tr>
-                                <td>{{cliente.full_name}}</td>
-                                <td>{{cliente.number_doc}}</td>
-                                <td>{{cliente.address}}</td>
-                                <td>{{cliente.email}}</td>
-                                <td>{{cliente.phone}}</td>
+                                <td>{{empleado.first_name}}</td>
+                                <td>{{empleado.last_name}}</td>
+                                <td>{{empleado.dni}}</td>
+                                <td>{{empleado.phone}}</td>
+                                <td>{{empleado.email}}</td>
                                 <td>
-                                    <a href="{% url 'profiles_app:cliente-detail' cliente.pk %}" class="tiny bg-verde no-margin radius button">
+                                    <a href="{% url 'profiles_app:employee-detail' empleado.pk %}" class="tiny bg-verde no-margin radius button">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <a href="{% url 'profiles_app:cliente-update' cliente.pk %}" class="tiny bg-amarillo no-margin radius button">
+                                    <a href="{% url 'profiles_app:employee-update' empleado.pk %}" class="tiny bg-amarillo no-margin radius button">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <a href="{% url 'profiles_app:cliente-delete' cliente.pk %}" class="tiny bg-rojo no-margin radius button">
+                                    <a href="{% url 'profiles_app:employee-delete' empleado.pk %}" class="tiny bg-rojo no-margin radius button">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                 </td>

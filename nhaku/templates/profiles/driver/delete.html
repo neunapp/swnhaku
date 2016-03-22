@@ -1,0 +1,5 @@
+<form role="form" action="{% url 'profiles_app:driver-delete' driver.id %}" method="POST">{% csrf_token %}
+    <p class="">¿Desea eliminar el Vehículo <strong>{{ driver.first_name }}-{{driver.last_name}}</strong>?</p>
+      <button type="submit" class="btn btn-danger">Sí</button>
+      <a href="{% url 'profiles_app:driver-list' %}">No</a>
+</form>

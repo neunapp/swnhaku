@@ -1,0 +1,55 @@
+{% extends "profiles/admin/admin.html" %}
+
+{% block title %} Zona Nueva {% endblock title %}
+
+{% block migadepan %}
+    <li>Zona</li>
+    <li>Agregar</li>
+{% endblock migadepan %}
+
+
+{% block main %}
+    <div class="row no-pad">
+        <div class="large-12 columns">
+            <div class="box bg-white">
+                <div class="box-body pad-forty" style="display: block;">
+                    <div class="row">
+                        <div class="large-12">
+                            <h3 class="subheader no-margin text-center">Registrar Zona Nueva</h3>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="small-12 large-9 columns">
+                          <form role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Nombre de Zona
+                                            {{form.name}}
+                                        </label>
+                                        {% for error in form.name.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <button type="submit" class="small radius bg-verde button">Guardar</button>
+                                        <a href="{% url 'recepcion_app:zone-list' %}" class="small radius bg-blanco border-grey button">Cancelar</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}

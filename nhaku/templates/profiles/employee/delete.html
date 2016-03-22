@@ -1,0 +1,5 @@
+<form role="form" action="{% url 'profiles_app:employee-delete' employee.id %}" method="POST">{% csrf_token %}
+    <p class="">¿Desea eliminar el Empleado <strong>{{ employee.first_name }}-{{employee.last_name}}</strong>?</p>
+      <button type="submit" class="btn btn-danger">Sí</button>
+      <a href="{% url 'profiles_app:employee-list' %}">No</a>
+</form>

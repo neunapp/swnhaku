@@ -17,14 +17,14 @@
     </li>
 
     <li>
-        <a class="tooltip-tip" href="index.html" title="Empleados">
+        <a class="tooltip-tip" href="{% url 'profiles_app:employee-list' %}" title="Empleados">
             <i class="fontello-user-outline"></i>
             <span>Empleados</span>
         </a>
     </li>
 
     <li>
-        <a class="tooltip-tip" href="index.html" title="Conductores">
+        <a class="tooltip-tip" href="{% url 'profiles_app:driver-list' %}" title="Conductores">
             <i class="fa fa-road"></i>
             <span>Conductores</span>
         </a>
@@ -38,7 +38,7 @@
     </li>
 
     <li>
-        <a class="tooltip-tip" href="index.html" title="Vehiculos">
+        <a class="tooltip-tip" href="{% url 'asignacion_app:car-list' %}" title="Vehiculos">
             <i class="fa fa-bus"></i>
             <span>Vehiculos</span>
         </a>
