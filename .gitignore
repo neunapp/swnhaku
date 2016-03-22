@@ -65,12 +65,8 @@ target/
 
 nhaku/secrets.json
 
-nhaku/applications/asignacion/migrations/*
-
-nhaku/applications/profiles/migrations/*
-
-nhaku/applications/recepcion/migrations/*
-
-nhaku/applications/users/migrations/*
+*migrations/*
 
 nhaku/media/*
+
+!__init__.py
