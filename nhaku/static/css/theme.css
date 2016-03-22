@@ -2067,3 +2067,9 @@ footer {
   margin-bottom: 1rem; }
   .thumbnail:hover, .thumbnail:focus {
     box-shadow: 0 0 6px 1px rgba(255, 113, 0, 0.8); }
+
+.titulo-content {
+    margin: 0 0 0 0.9em;
+    color: #3A372F;
+    font-weight: bold;
+}
