@@ -1,3 +1,74 @@
+{% extends "profiles/admin/admin.html" %}
+
+{% load staticfiles %}
+
+{% block title %} conductor {% endblock title %}
+
+{% block migadepan %}
+    <li>Conductor</li>
+    <li>{{object.full_name}}</li>
+{% endblock migadepan %}
+
+
+{% block main %}
+    <div class="row no-pad">
+        <div class="large-12 columns">
+            <div class="box bg-white">
+                <div class="box-body pad-forty" style="display: block;">
+                    <div class="row">
+                        <div class="large-12">
+                            <h5 class="subheader no-margin text-center">Detalle de Empleado</h5>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-12 large-12 columns">
+
+                            <div class="media-object stack-for-small">
+                                <div class="media-object-section">
+                                    <div class="thumbnail">
+                                      {% if not object.avatar %}
+                                        <img src="{% static 'img/usuario.png' %}">
+                                      {% else %}
+                                        <img src="{{ object.avatar.url  }}">
+                                      {% endif %}
+                                    </div>
+                                </div>
+                                <div class="media-object-section">
+                                      <h5>{{object.first_name}} {{object.last_name}}</h5>
+                                      <dl>
+                                          <dt>Nombres.</dt>
+                                          <dd>{{object.first_name}}</dd>
+                                          <dt>Apellidos.</dt>
+                                          <dd>{{object.last_name}}</dd>
+                                          <dt>Dni.</dt>
+                                          <dd>{{object.dni}}</dd>
+                                          <dt>email.</dt>
+                                          <dd>{{object.email}}</dd>
+                                          <dt>telefono/Celular.</dt>
+                                          <dd>{{object.phone}}</dd>
+                                          <dt>Direccion.</dt>
+                                          {{object.address}}
+                                          <dt>Sexo.</dt>
+                                          {% if object.gender = 'M' %}
+                                              Masculino
+                                          {% else %}
+                                              Femenino
+                                          {% endif %}
+                                          <dt>Fecha de Nacimiento.</dt>
+                                          {{object.date_birth}}
+                                    </dl>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}
+
 Informacion del Cliente: {{object}}
 <ul>
 <li type="disc">{{object.first_name}}</li>

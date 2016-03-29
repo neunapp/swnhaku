@@ -1,0 +1,99 @@
+{% extends "profiles/admin/admin.html" %}
+
+{% load staticfiles %}
+
+{% block title %} Lista de Asignaciones {% endblock title %}
+
+{% block css %}
+    {{ block.super }}
+    <link href="{% static 'js/stackable/stacktable.css' %}" rel="stylesheet"/>
+    <link href="{% static 'js/stackable/responsive-table.css' %}" rel="stylesheet"/>
+{% endblock css %}
+
+{% block migadepan %}
+    <li>Asignaciones</li>
+{% endblock migadepan %}
+
+{% block main %}
+    <div class="row">
+        <div class="small-12 medium-6 columns">
+            <h3 class="subheader">Lista de Asignaciones</h3>
+        </div>
+        <div class="small-12 medium-6 columns">
+            <a href="{% url 'asignacion_app:asignation-add' %}" class="small radius button right">
+                <i class="fa fa-plus"> AGREGAR </i>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <div class="box">
+                <div class="box-header bg-transparent">
+                    <!-- tools box -->
+                    <div class="pull-right box-tools">
+                        <span class="box-btn" data-widget="collapse"><i class="icon-minus"></i>
+                        </span>
+                        <span class="box-btn" data-widget="remove"><i class="icon-cross"></i>
+                        </span>
+                    </div>
+                    <h3 class="box-title"><i class="icon-menu"></i>
+                        <span>Hay {{asignation_list.count}} Asignaciones</span>
+                    </h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body " style="display: block;">
+                    <table id="responsive-example-table" class="table large-only">
+                        <thead>
+                            <tr>
+                                <th>Responsable</th>
+                                <th>Copiloto</th>
+                                <th>Vehiculo</th>
+                                <th>Accion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {% for asignacion in  asignation_list %}
+                            <tr>
+                                <td><a href="{% url 'asignacion_app:asignation-list_guide' asignacion.pk %}"/>{{ asignacion.driver.first_name}} {{ asignacion.driver.last_name}}</a></td>
+                                <td><a href="{% url 'asignacion_app:asignation-list_guide' asignacion.pk %}"/>{{asignacion.assistant.first_name}} {{asignacion.assistant.last_name}}</a></td>
+                                <td><a href="{% url 'asignacion_app:asignation-list_guide' asignacion.pk %}"/>{{ asignacion.car }}</a></td>
+                                <td>
+                                    {% if asignacion.state == '1' %}
+                                      <a href="{% url 'asignacion_app:asignation-list_guide' asignacion.pk %}" class="tiny bg-verde no-margin radius button">
+                                          <i class="fontello-ok"></i>
+                                      </a>
+                                    {% else %}
+                                      <a href="{% url 'asignacion_app:asignation-delete' asignacion.pk %}" class="tiny bg-rojo no-margin radius button">
+                                          <i class="fa fa-trash-o"></i>
+                                      </a>
+                                    {% endif %}
+                                </td>
+                                {% empty %}
+                                    <td colspan="7">Lo sentimos no hay Asignaciones Pendientes :( <a href="{% url 'asignacion_app:asignation-add' %}">Agregar Nueva</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'js/stackable/stacktable.js' %}"></script>
+    <script>
+    $(document).on('click', '#run', function(e) {
+        e.preventDefault();
+        $('#simple-example-table').stacktable({
+            hideOriginal: true
+        });
+        $(this).replaceWith('<span>ran</span>');
+    });
+    $('#responsive-example-table').stacktable({
+        myClass: 'stacktable small-only'
+    });
+    </script>
+{% endblock js %}

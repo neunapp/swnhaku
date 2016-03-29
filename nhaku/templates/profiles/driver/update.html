@@ -4,7 +4,7 @@
 
 {% block migadepan %}
     <li>Conductor</li>
-    <li>Modificar</li>
+    <li>{{object.first_name}}</li>
 {% endblock migadepan %}
 
 
@@ -15,7 +15,7 @@
                 <div class="box-body pad-forty" style="display: block;">
                     <div class="row">
                         <div class="large-12">
-                            <h3 class="subheader no-margin text-center">Modificar Conductor</h3>
+                            <h5 class="subheader no-margin text-center">Modificar Conductor</h5>
                         </div>
                     </div>
 
@@ -138,20 +138,6 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Foto
-                                            {{form.avatar}}
-                                        </label>
-                                        {% for error in form.avatar.errors %}
-                                          <div class="col-xs-12">
-                                            <p class="help-text error-field">
-                                                {{ error|escape }}
-                                            </p>
-                                          </div>
-                                         {% endfor %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="medium-12 columns">
                                         <label>N° Licencia
                                             {{form.license}}
                                         </label>
@@ -184,6 +170,20 @@
                                             {{form.category}}
                                         </label>
                                         {% for error in form.category.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Foto
+                                            {{form.avatar}}
+                                        </label>
+                                        {% for error in form.avatar.errors %}
                                           <div class="col-xs-12">
                                             <p class="help-text error-field">
                                                 {{ error|escape }}

@@ -1,0 +1,97 @@
+{% extends "profiles/admin/admin.html" %}
+
+{% load staticfiles %}
+
+{% block title %} Lista Guias Manifiesto {% endblock title %}
+
+{% block migadepan %}
+    <li>Manifiesto</li>
+    <li>{{object}}</li>
+{% endblock migadepan %}
+
+
+{% block main %}
+    <div class="row no-pad">
+        <div class="large-12 columns">
+            <div class="box bg-white">
+                <div class="box-body pad-forty" style="display: block;">
+                    <div class="row">
+                        <div class="large-12">
+                            <h5 class="subheader no-margin text-center">Informacion de Manifiesto</h5>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-12 large-12 columns">
+
+                            <div class="media-object stack-for-small">
+                                <div class="media-object-section">
+                                      <h5>{{object}}</h5>
+                                      <dl>
+                                          <dt>Cliente.</dt>
+                                          <dd>{{object.user}}</dd>
+                                          <dt>N° Manifiesto.</dt>
+                                          <dd>{{object.number}}</dd>
+                                          <dt>Origen</dt>
+                                          <dd>{{object.origin}}</dd>
+                                          <dt>Destino</dt>
+                                          <dd>{{object.destination}}</dd>
+                                          <dt>Matricula de Vehiculo</dt>
+                                          <dd>{{object.matricula}}</dd>
+                                          <dt>Cargo o Despacho.</dt>
+                                          {{object.cargo}}
+                                          <dt>Fecha de Registro.</dt>
+                                          {{object.date}}
+                                          <dt>Tipo de Manifiesto.</dt>
+                                          {% if object.type_manifest = '0' %}
+                                              Aereo
+                                          {% else %}
+                                              Terrestre
+                                          {% endif %}
+                                    </dl>
+                                </div>
+                            </div>
+                            <!--tabla de lista de guias-->
+                            <div class="box-body " style="display: block;">
+                                <table id="responsive-example-table" class="table large-only">
+                                    <thead>
+                                        <tr>
+                                          <th>Numero</th>
+                                          <th>Cantidad</th>
+                                          <th>Peso</th>
+                                          <th>Zona</th>
+                                          <th>adreessee</th>
+                                          <th>Accion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for guide in  list_guias %}
+                                        <tr>
+                                          <td>{{ guide.number }}</td>
+                                          <td>{{ guide.number_objects }}</td>
+                                          <td>{{ guide.weigth }}</td>
+                                          <td>{{ guide.zona }}</td>
+                                          <td>{{ guide.adreessee }}</td>
+                                            <td>
+                                                <a href="{% url 'recepcion_app:guide-detail' guide.pk %}" class="tiny bg-verde no-margin radius button">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                                <a href="{% url 'recepcion_app:guide-update' guide.pk %}" class="tiny bg-amarillo no-margin radius button">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a href="{% url 'recepcion_app:guide-delete' guide.pk %}" class="tiny bg-rojo no-margin radius button">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}

@@ -22,6 +22,11 @@ urlpatterns = [
         views.ZoneDeleteView.as_view(),
         name='zone-delete'
     ),
+    url(
+        r'^reception/zone/by_guide/(?P<pk>\d+)/$',
+        views.Zone_by_GuideListView.as_view(),
+        name='zone-by_guide'
+    ),
     #urls para manifiesto
     url(
         r'^reception/manifest/list$',

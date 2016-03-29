@@ -80,13 +80,13 @@ class ClientDetailView(DetailView):
     template_name = 'profiles/client/detail.html'
 
 
-class ClientDeleteView(DetailView):
+class ClientDeleteView(DeleteView):
     '''
     Eliminar Cliente.
     '''
     model = Client
-    success_url = reverse_lazy('profiles_app:cliente-list')
     template_name = 'profiles/client/delete.html'
+    success_url = reverse_lazy('profiles_app:cliente-list')
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()

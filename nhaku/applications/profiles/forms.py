@@ -130,7 +130,7 @@ class ClientForm(forms.ModelForm):
             msj = 'el nombre de usuario ya existe'
             self.add_error('user_name',msj)
         elif len(user_name) < 6:
-            msj = 'la contraseña debe tener mas de 5 caracteres'
+            msj = 'el nombre de usuario debe tener mas de 5 caracteres'
             self.add_error('user_name', msj)
         else:
             return user_name
@@ -297,7 +297,7 @@ class DriverForm(forms.ModelForm):
                 msj = 'el nombre de usuario ya existe'
                 self.add_error('user_name',msj)
             elif len(user_name) < 6:
-                msj = 'la contraseña debe tener mas de 5 caracteres'
+                msj = 'el nombre de usuario debe tener mas de 5 caracteres'
                 self.add_error('user_name', msj)
             else:
                 return user_name
@@ -464,7 +464,7 @@ class EmployeeForm(forms.ModelForm):
                 msj = 'el nombre de usuario ya existe'
                 self.add_error('user_name',msj)
             elif len(user_name) < 6:
-                msj = 'la contraseña debe tener mas de 5 caracteres'
+                msj = 'el nombre de usuario debe tener mas de 5 caracteres'
                 self.add_error('user_name', msj)
             else:
                 return user_name

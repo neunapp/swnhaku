@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^', include('applications.profiles.urls', namespace="profiles_app")),
     url(r'^', include('applications.recepcion.urls', namespace="recepcion_app")),
     url(r'^', include('applications.asignacion.urls', namespace="asignacion_app")),
+    url(r'^', include('applications.entrega.urls', namespace="entrega_app")),
     url(r'^admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

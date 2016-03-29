@@ -1,5 +1,39 @@
-<form role="form" action="{% url 'profiles_app:cliente-delete' client.id %}" method="POST">{% csrf_token %}
-    <p class="">¿Desea eliminar el Vehículo <strong>{{ client.full_name }}</strong>?</p>
-      <button type="submit" class="btn btn-danger">Sí</button>
-      <a href="{% url 'profiles_app:cliente-list' %}">No</a>
-</form>
+{% extends "profiles/admin/admin.html" %}
+
+{% load staticfiles %}
+
+{% block title %} Eliminar cliente {% endblock title %}
+
+{% block migadepan %}
+    <li>Clientes</li>
+    <li>Eliminar Cliente {{client.full_name}}</li>
+{% endblock migadepan %}
+
+
+{% block main %}
+    <div class="row no-pad">
+        <div class="large-12 columns">
+            <div class="box bg-white">
+                <div class="box-body pad-forty" style="display: block;">
+                    <div class="row">
+                        <div class="large-12">
+                            <h5 class="subheader titulo-content">Eliminar cliente </h5>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="small-12 large-12 columns">
+                          <form role="form" action="{% url 'profiles_app:cliente-delete' client.id %}" method="POST">{% csrf_token %}
+                            <h6 class="subheader">¿Desea eliminar el cliente <strong>{{client.full_name}}</strong>?</h6>
+                            <button type="submit" class="tiny radius bg-rojo button">Si</button>
+                            <a href="{% url 'profiles_app:cliente-list' %}" class="tiny radius bg-blanco border-grey button">No</a>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}
