@@ -96,10 +96,11 @@ class AddAsignationForm(forms.Form):
         guias = Guide.objects.filter(zona__pk=pk, anulate=False, state='1')
         self.fields['guide'].queryset = guias
         self.fields['guide'].label_from_instance = \
-            lambda obj: "%s - %s - %s - %s - %s" % (
+            lambda obj: "%s - %s - %s - %s - %s - %s" % (
                 obj.number,
                 obj.number_objects,
                 obj.adreessee,
                 obj.content,
                 obj.weigth,
+                obj.priority,
             )

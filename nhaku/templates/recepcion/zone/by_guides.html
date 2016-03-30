@@ -44,6 +44,8 @@
                             <a href="{% url 'asignacion_app:asignation-asignar_guide' asignacion.pk zona.pk %}">{{zona.name}}</a>
                             </li>
                         </ul>
+                        {% empty %}
+                            <span>Lo sentimos las guias aun no tiene zonas regsitradas :( </span>
                     {% endfor %}
                 </div>
             </div>

@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 
-{% block title %} Lista de Zonas{% endblock title %}
+{% block title %} Lista de guias {% endblock title %}
 
 {% block css %}
     {{ block.super }}
@@ -11,17 +11,17 @@
 {% endblock css %}
 
 {% block migadepan %}
-    <li>Zonas de Reparto</li>
+    <li>Guias de Remision</li>
 {% endblock migadepan %}
 
 {% block main %}
     <div class="row">
         <div class="small-12 medium-6 columns">
-            <h3 class="subheader">Lista de Zonas de Reparto</h3>
+            <h3 class="subheader">Lista de Guias Entregadas</h3>
         </div>
         <div class="small-12 medium-6 columns">
-            <a href="{% url 'recepcion_app:zone-add' %}" class="small radius button right">
-                <i class="fa fa-plus"> AGREGAR </i>
+            <a href="{% url 'entrega_app:entrega-list_asignation' %}" class="small radius bg-blanco button right">
+                <i class="fontello-reply"> Regresar </i>
             </a>
         </div>
     </div>
@@ -38,32 +38,50 @@
                         </span>
                     </div>
                     <h3 class="box-title"><i class="icon-menu"></i>
-                        <span>Hay {{zone_list.count}} Zonas Regitradas</span>
+                        <span>Hay {{list_guide.count}} Guias Entregadas</span>
                     </h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body " style="display: block;">
+                  <form method="get" class="form-horizontal">{% csrf_token %}
+                        <div class="row">
+                            <div class="medium-6 columns">
+                                    {{form.number}}
+                                {% for error in form.number.errors %}
+                                  <div class="col-xs-12">
+                                    <p class="help-text error-field">
+                                        {{ error|escape }}
+                                    </p>
+                                  </div>
+                                {% endfor %}
+                            </div>
+                            <div class="medium-6 columns">
+                              <button type="submit" class="small radius bg-blanco button left">Buscar</button>
+                            </div>
+                        </div>
+                      </form>
                     <table id="responsive-example-table" class="table large-only">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Accion</th>
+                                <th>Numero</th>
+                                <th>Manifiesto</th>
+                                <th>Cliente</th>
+                                <th>Remitente</th>
+                                <th>Receptor</th>
+                                <th>Fecha de Entrega</th>
                             </tr>
                         </thead>
                         <tbody>
-                          {% for zona in  zone_list %}
+                          {% for guide in  list_guide %}
                             <tr>
-                                <td>{{ zona.name }}</td>
-                                <td>
-                                    <a href="{% url 'recepcion_app:zone-update' zona.pk %}" class="tiny bg-amarillo no-margin radius button">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a href="{% url 'recepcion_app:zone-delete' zona.pk %}" class="tiny bg-rojo no-margin radius button">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
-                                </td>
+                                <td><a href="#"/>{{guide.number}}</a></td>
+                                <td><a href="#"/>{{guide.manifest}}</a></td>
+                                <td><a href="#"/>{{guide.manifest.user.username}}</a></td>
+                                <td><a href="#"/>{{guide.adreessee}}</a></td>
+                                <td><a href="#"/>{{guide.person_name}}</a></td>
+                                <td><a href="#"/>{{guide.date_deliver}}</a></td>
                                 {% empty %}
-                                    <td colspan="7">Lo sentimos no hay Zonas Registradas :( <a href="{% url 'recepcion_app:zone-add' %}">Agregar Nueva</a></td>
+                                    <td colspan="7">Lo sentimos no hay Asignaciones Pendientes :(</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>

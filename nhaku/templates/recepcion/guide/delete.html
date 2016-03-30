@@ -28,7 +28,7 @@
                           <form role="form" action="{% url 'recepcion_app:guide-delete' guide.id %}" method="POST">{% csrf_token %}
                             <h6 class="subheader">¿Desea eliminar la Guia <strong>{{ guide.number }}</strong>?</h6>
                             <button type="submit" class="tiny radius bg-rojo button">Si</button>
-                            <a href="{% url 'recepcion_app:manifest-detail' guide.id %}" class="tiny radius bg-blanco border-grey button">No</a>
+                            <a href="{% url 'recepcion_app:manifest-detail' guide.manifest.pk %}" class="tiny radius bg-blanco border-grey button">No</a>
                           </form>
                         </div>
                     </div>

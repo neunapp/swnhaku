@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 
-{% block title %} Lista de Zonas{% endblock title %}
+{% block title %} Lista de Asignaciones {% endblock title %}
 
 {% block css %}
     {{ block.super }}
@@ -11,17 +11,17 @@
 {% endblock css %}
 
 {% block migadepan %}
-    <li>Zonas de Reparto</li>
+    <li>Asignaciones</li>
 {% endblock migadepan %}
 
 {% block main %}
     <div class="row">
         <div class="small-12 medium-6 columns">
-            <h3 class="subheader">Lista de Zonas de Reparto</h3>
+            <h3 class="subheader">Lista de Asignaciones en Entrega</h3>
         </div>
         <div class="small-12 medium-6 columns">
-            <a href="{% url 'recepcion_app:zone-add' %}" class="small radius button right">
-                <i class="fa fa-plus"> AGREGAR </i>
+            <a href="{% url 'cliente_app:cliente-search_guide' %}" class="small radius button right">
+                <i class="fontello-doc-1"> Guias Entregadas </i>
             </a>
         </div>
     </div>
@@ -38,7 +38,7 @@
                         </span>
                     </div>
                     <h3 class="box-title"><i class="icon-menu"></i>
-                        <span>Hay {{zone_list.count}} Zonas Regitradas</span>
+                        <span>Hay {{asignation_list.count}} Asignaciones en Entrega</span>
                     </h3>
                 </div>
                 <!-- /.box-header -->
@@ -46,24 +46,25 @@
                     <table id="responsive-example-table" class="table large-only">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
+                                <th>Responsable</th>
+                                <th>Copiloto</th>
+                                <th>Vehiculo</th>
                                 <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody>
-                          {% for zona in  zone_list %}
+                          {% for asignacion in  asignation_list %}
                             <tr>
-                                <td>{{ zona.name }}</td>
+                                <td><a href="{% url 'entrega_app:entrega-list_guides' asignacion.pk%}"/>{{ asignacion.driver.first_name}} {{ asignacion.driver.last_name}}</a></td>
+                                <td><a href="{% url 'entrega_app:entrega-list_guides' asignacion.pk%}"/>{{asignacion.assistant.first_name}} {{asignacion.assistant.last_name}}</a></td>
+                                <td><a href="{% url 'entrega_app:entrega-list_guides' asignacion.pk%}"/>{{ asignacion.car }}</a></td>
                                 <td>
-                                    <a href="{% url 'recepcion_app:zone-update' zona.pk %}" class="tiny bg-amarillo no-margin radius button">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a href="{% url 'recepcion_app:zone-delete' zona.pk %}" class="tiny bg-rojo no-margin radius button">
-                                        <i class="fa fa-trash-o"></i>
+                                    <a href="{% url 'entrega_app:entrega-list_guides' asignacion.pk%}" class="tiny bg-azul no-margin radius button">
+                                        <i class="fontello-ok"></i>
                                     </a>
                                 </td>
                                 {% empty %}
-                                    <td colspan="7">Lo sentimos no hay Zonas Registradas :( <a href="{% url 'recepcion_app:zone-add' %}">Agregar Nueva</a></td>
+                                    <td colspan="7">Lo sentimos no hay Asignaciones Pendientes :(</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>

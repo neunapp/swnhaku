@@ -20,7 +20,11 @@ from .forms import (
     GuideUpdateForm,
 )
 
-from .models import Manifest, Guide, Zone
+from applications.entrega.forms import ObservationsForm
+
+from applications.clientes.forms import SearchForm
+
+from .models import Manifest, Guide, Zone, Observations
 
 from applications.asignacion.models import Asignation
 
@@ -310,3 +314,80 @@ class ReceptionGuideView(FormView):
             guia.save()
 
         return super(ReceptionGuideView, self).form_valid(form)
+
+
+#mantenimientos para la tabla observaciones
+class ObsCreateView(CreateView):
+    '''
+    vista para agregar una nueva observacion
+    '''
+    model = Observations
+    form_class = ObservationsForm
+    template_name = 'recepcion/obs/add.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ObsCreateView, self).get_context_data(**kwargs)
+        context['guide'] = self.kwargs.get('pk', 0)
+        return context
+
+    def form_valid(self, form):
+        obs = form.save(commit=False)
+        #recuperamos la guia
+        guide_pk = self.kwargs.get('pk', 0)
+        guia = Guide.objects.get(pk=guide_pk)
+        obs.guide = guia
+        obs.user_created = self.request.user
+        obs.save()
+        return HttpResponseRedirect(
+            reverse(
+                'recepcion_app:guide-update',
+                kwargs={'pk': guide_pk },
+            )
+        )
+
+
+class ObsUpdateView(UpdateView):
+    '''
+    vista para modificar una observacion
+    '''
+    model = Observations
+    template_name = 'recepcion/obs/update.html'
+    form_class = ObservationsForm
+    success_url = reverse_lazy('recepcion_app:obs-list')
+
+    def form_valid(self, form):
+        form.save()
+        obs = self.get_object()
+        obs.user_modified = self.request.user
+        obs.save()
+
+        return super(ObsUpdateView, self).form_valid(form)
+
+
+class ObsDeleteView(DeleteView):
+    '''
+    vista para eliminar una Obaservacion
+    '''
+    model = Observations
+    success_url = reverse_lazy('recepcio_app:obs-list')
+    template_name = 'recepcion/obs/delete.html'
+
+
+class ObsListView(ListView):
+    '''
+        muestra la lista de Observaciones
+    '''
+    context_object_name = 'list_obs'
+    template_name = 'recepcion/obs/list.html'
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super(ObsListView, self).get_context_data(**kwargs)
+        context['form'] = SearchForm
+        return context
+
+    def get_queryset(self):
+        #recuperamos el valor por GET
+        q = self.request.GET.get("number", '')
+        queryset = Observations.objects.guides(q)
+        return queryset

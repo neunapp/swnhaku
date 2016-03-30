@@ -10,6 +10,14 @@ register = template.Library()
 #sepra un texto por el caracter guion
 def split_label(value):
     arreglo = value.split('-')
+    '''cadena = str(arreglo[5])
+    if cadena == '0':
+        arreglo[5] = 'ALTA'
+    elif cadena == '1':
+        arreglo[5] = 'MEDIA'
+    else:
+        arreglo[5] = 'BAJA'
+        '''
     return arreglo
 
 #muestra la cantidad de observaciones de una guia

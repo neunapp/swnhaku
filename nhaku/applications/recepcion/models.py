@@ -1,11 +1,12 @@
 from __future__ import unicode_literals
 from model_utils.models import TimeStampedModel
+from django.utils import timezone
 
 from django.db import models
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Create your models here.
 
@@ -38,7 +39,7 @@ class ManagerManifest(models.Manager):
     def manifest_by_day(self):
         #lista de manifiestos por dia
         return self.filter(
-            date__day = datetime.now().day,
+            date__day = timezone.now().day,
             state = False
         )
 
@@ -132,6 +133,25 @@ class ManagerGuide(models.Manager):
                 zonas.append(guia.zona)
 
         return zonas
+
+    def guide_deliver(self, number):
+        tz = timezone.get_current_timezone()
+        if number:
+
+            return self.filter(
+                number__icontains=number,
+                state='4',
+                anulate=False,
+            ).order_by('date_reception')
+        else:
+            end_date = timezone.now()
+            start_date = end_date - timedelta(days=60)
+
+            return self.filter(
+                state='4',
+                created__range=(start_date, end_date),
+                anulate=False,
+            ).order_by('date_reception')
 
 
 @python_2_unicode_compatible
@@ -258,6 +278,25 @@ class Guide(TimeStampedModel):
         return self.number
 
 
+class ManagerObs(models.Manager):
+    def guides(self, number):
+        tz = timezone.get_current_timezone()
+        if number:
+
+            return self.filter(
+                guide__number__icontains=number,
+                guide__anulate=False,
+            ).exclude(guide__state='4')
+        else:
+            end_date = timezone.now()
+            start_date = end_date - timedelta(days=30)
+
+            return self.filter(
+                created__range=(start_date, end_date),
+                guide__anulate=False,
+            ).exclude(guide__state='4')
+
+
 class Observations(TimeStampedModel):
 
     TYPE_CHOICES = (
@@ -290,6 +329,8 @@ class Observations(TimeStampedModel):
         blank=True,
         null=True,
     )
+
+    objects = ManagerObs()
 
     def __str__(self):
         return str(self.guide)
