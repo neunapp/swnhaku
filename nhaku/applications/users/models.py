@@ -7,7 +7,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 
-class UserManager(BaseUserManager, models.Manager):
+class UserManager(BaseUserManager):
 
     def _create_user(self, username, password, is_staff, is_superuser, **extra_fields):
 
@@ -46,6 +46,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = []
+
+    class Meta:
+         swappable = 'AUTH_USER_MODEL'
 
     def get_short_name(self):
+        return self.username
+
+    def get_full_name(self):
         return self.username
