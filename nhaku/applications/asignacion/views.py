@@ -8,15 +8,16 @@ from django.views.generic import (
     DetailView,
     DeleteView,
     ListView,
-    TemplateView,
+    View,
 )
 from django.views.generic.edit import FormView
 
 from applications.users.models import User
+from applications.recepcion.models import Guide
 
-from .models import Car
+from .models import Car, Asignation, DetailAsignation
 
-from .forms import CarForm
+from .forms import CarForm, AsignationForm, AddAsignationForm
 
 # Create your views here.
 
@@ -65,7 +66,7 @@ class CarDetailView(DetailView):
     template_name = 'asignacion/car/detail.html'
 
 
-class CarDeleteView(DetailView):
+class CarDeleteView(DeleteView):
     '''
     Eliminar Car.
     '''
@@ -95,3 +96,184 @@ class CarListView(ListView):
     def get_queryset(self):
         queryset = Car.objects.filter(state=False)
         return queryset
+
+
+#mantenimientos para Asignaciones
+class AsignationListView(ListView):
+    '''
+    vista para listar Asignaciones no completadas
+    '''
+    context_object_name = 'asignation_list'
+    model = Asignation
+    paginate_by = 5
+    template_name = 'asignacion/asignation/list.html'
+
+    def get_queryset(self):
+        queryset = Asignation.objects.filter(anulate=False).exclude(state='2')
+        return queryset
+
+
+class AsignationCreateView(CreateView):
+    '''
+    vista para agregar una nueva asigancion
+    '''
+    model = Asignation
+    form_class = AsignationForm
+    success_url = success_url = reverse_lazy('asignacion_app:asignation-list')
+    template_name = 'asignacion/asignation/add.html'
+
+    def form_valid(self, form):
+        #registramos el usuario de creacion y estado de la asigancion
+        asignacion = form.save(commit=False)
+        asignacion.state = '0'
+        asignacion.user_created = self.request.user
+        asignacion.save()
+        return HttpResponseRedirect(
+            reverse(
+                'recepcion_app:zone-by_guide',
+                kwargs={'pk': asignacion.pk },
+            )
+        )
+
+        return super(AsignationCreateView, self).form_valid(form)
+
+
+class AsignationDeleteView(DeleteView):
+    '''
+    Eliminar una Asignation.
+    '''
+    model = Asignation
+    success_url = reverse_lazy('asignacion_app:asignation-list')
+    template_name = 'asignacion/asignation/delete.html'
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        #desabilitamos la asignacion
+        self.object.anulate = True
+        self.object.user_modified = self.request.user
+        self.object.save()
+        #actualizamos el estado de las guias
+        DetailAsignation.objects.guide_in_office(self.object)
+        success_url = self.get_success_url()
+
+        return HttpResponseRedirect(success_url)
+
+
+class AddGuideAsignationView(FormView):
+    '''
+    vista para añadir guias a una asignacion
+    '''
+    template_name = 'asignacion/asignar/add_guide.html'
+    form_class = AddAsignationForm
+
+    def get_context_data(self, **kwargs):
+        context = super(AddGuideAsignationView, self).get_context_data(**kwargs)
+        asignation_pk = self.kwargs.get('as', 0)
+        context['asignation'] = Asignation.objects.get(pk=asignation_pk)
+        return context
+
+    def get_form_kwargs(self):
+        kwargs = super(AddGuideAsignationView, self).get_form_kwargs()
+        kwargs.update({
+            'pk': self.kwargs.get('pk', 0),
+        })
+        return kwargs
+
+    def form_valid(self, form):
+        guias = form.cleaned_data['guide']
+        #recuperamos la asignacion
+        asignation_pk = self.kwargs.get('as', 0)
+        asignation = Asignation.objects.get(pk=asignation_pk)
+        for guia in guias:
+            detail_asignation = DetailAsignation(
+                asignation=asignation,
+                guide=guia,
+            )
+            detail_asignation.save()
+            guia.state = '2'
+            guia.save()
+
+        return HttpResponseRedirect(
+            reverse(
+                'asignacion_app:asignation-list_guide',
+                kwargs={'pk': asignation.pk },
+            )
+        )
+
+
+class GuideByAsignationListView(ListView):
+    '''
+    muestra la lista de guias de un Asignacion
+    '''
+    context_object_name = 'list_guides'
+    paginate_by = 20
+    template_name = 'asignacion/asignar/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(GuideByAsignationListView, self).get_context_data(**kwargs)
+        asignation_pk = self.kwargs.get('pk', 0)
+        context['asignation'] = Asignation.objects.get(pk=asignation_pk)
+        A,B = DetailAsignation.objects.weigth_by_asignation(
+            Asignation.objects.get(pk=asignation_pk),
+        )
+        context['peso'] = A
+        return context
+
+    def get_queryset(self):
+        asignation_pk = self.kwargs.get('pk', 0)
+        queryset = DetailAsignation.objects.filter(asignation__pk=asignation_pk)
+        return queryset
+
+
+class ConfirmarAsignationView(DetailView):
+    template_name = 'asignacion/asignar/confirmar.html'
+    model = Asignation
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        #recuperamos el objeto y actualizamos a anulado
+        self.object.state = '1'
+        #actualizamos y guardamos el valor
+        self.object.save()
+
+        return HttpResponseRedirect(
+            reverse(
+                'asignacion_app:asignation-list'
+            )
+        )
+
+
+class DeleteAsignationDeleteView(DetailView):
+    '''
+    Eliminar una asignacion detalle
+    '''
+    model = Asignation
+    template_name = 'asignacion/asignar/delete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DeleteAsignationDeleteView, self).get_context_data(**kwargs)
+        context['guide'] = self.kwargs.get('guide', 0)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        #recuperamos la asignacion
+        self.object = self.get_object()
+        #recuperamos la guia
+        guide_pk = self.kwargs.get('guide', 0)
+        #recuperamos la guia
+        guide = Guide.objects.get(pk=guide_pk)
+        guide.state = '1'
+        guide.save()
+        #recuperamos la DetailAsignation
+        detail_asignation = DetailAsignation.objects.get(
+            asignation=self.object,
+            guide=guide,
+        )
+        detail_asignation.delete()
+
+        return HttpResponseRedirect(
+            reverse(
+                'asignacion_app:asignation-list_guide',
+                kwargs={'pk': self.object.pk },
+            )
+        )

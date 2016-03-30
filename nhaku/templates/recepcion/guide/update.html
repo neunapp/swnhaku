@@ -15,7 +15,7 @@
                 <div class="box-body pad-forty" style="display: block;">
                     <div class="row">
                         <div class="large-12">
-                            <h3 class="subheader no-margin text-center">Modificar Guia de Remision</h3>
+                            <h5 class="subheader no-margin text-center">Modificar Guia de Remision</h5>
                         </div>
                     </div>
 
@@ -154,6 +154,20 @@
                                             {{form.type_guide}}
                                         </label>
                                         {% for error in form.type_guide.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>Monto
+                                            {{form.amount}}
+                                        </label>
+                                        {% for error in form.amount.errors %}
                                           <div class="col-xs-12">
                                             <p class="help-text error-field">
                                                 {{ error|escape }}

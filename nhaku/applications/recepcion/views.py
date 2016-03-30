@@ -17,9 +17,12 @@ from .forms import (
     GuideForm,
     ZoneForm,
     ReceptionForm,
+    GuideUpdateForm,
 )
 
 from .models import Manifest, Guide, Zone
+
+from applications.asignacion.models import Asignation
 
 from datetime import datetime
 
@@ -85,9 +88,30 @@ class ZoneListView(ListView):
     context_object_name = 'zone_list'
     template_name = 'recepcion/zone/list.html'
     paginate_by = 10
+
     def get_queryset(self):
         #recuperamos el valor por GET
         queryset = Zone.objects.filter(state=False)
+        return queryset
+
+
+class Zone_by_GuideListView(ListView):
+    '''
+    lista de zonas que corresponden a guias en oficina
+    '''
+    context_object_name = 'zone_list'
+    template_name = 'recepcion/zone/by_guides.html'
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super(Zone_by_GuideListView, self).get_context_data(**kwargs)
+        asignation_pk = self.kwargs.get('pk', 0)
+        context['asignacion'] = Asignation.objects.get(pk=asignation_pk)
+        return context
+
+    def get_queryset(self):
+        #recuperamos el valor por GET
+        queryset = Guide.objects.zones_by_guide()
         return queryset
 
 
@@ -219,7 +243,7 @@ class GuideUpdateView(UpdateView):
     '''
     model = Guide
     template_name = 'recepcion/guide/update.html'
-    form_class = GuideForm
+    form_class = GuideUpdateForm
     success_url = '.'
 
     def form_valid(self, form):
@@ -265,7 +289,7 @@ class GuideDeleteView(DeleteView):
 
 class ReceptionGuideView(FormView):
     '''
-    vista para recepcionar manifiestos
+    vista para recepcionar guias de un manifiesto
     '''
     template_name = 'recepcion/manifest/reception.html'
     form_class = ReceptionForm

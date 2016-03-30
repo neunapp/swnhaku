@@ -1,11 +1,68 @@
-Informacion del Cliente: {{object}}
-<ul>
-<li type="disc">{{object.full_name}}</li>
-<li type="disc">{{object.number_doc}}</li>
-<li type="disc">{{object.address}}</li>
-<li type="disc">{{object.email}}</li>
-<li type="disc">{{object.phone}}</li>
-<li type="disc">{{object.web}}</li>
-<li type="disc">{{object.imagen}}</li>
-<li type="disc">{{object.type_clint}}</li>
-</ul>
+{% extends "profiles/admin/admin.html" %}
+
+{% load staticfiles %}
+
+{% block title %} cliente {% endblock title %}
+
+{% block migadepan %}
+    <li>Clientes</li>
+    <li>{{object.full_name}}</li>
+{% endblock migadepan %}
+
+
+{% block main %}
+    <div class="row no-pad">
+        <div class="large-12 columns">
+            <div class="box bg-white">
+                <div class="box-body pad-forty" style="display: block;">
+                    <div class="row">
+                        <div class="large-12">
+                            <h5 class="subheader no-margin text-center">Detalle de cliente</h5>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-12 large-12 columns">
+
+                            <div class="media-object stack-for-small">
+                                <div class="media-object-section">
+                                    <div class="thumbnail">
+                                      {% if not object.avatar %}
+                                        <img src="{% static 'img/usuario.png' %}">
+                                      {% else %}
+                                        <img src="{{ object.avatar.url  }}">
+                                      {% endif %}
+                                    </div>
+                                </div>
+                                <div class="media-object-section">
+                                      <h5>{{object.full_name}}</h5>
+                                      <dl>
+                                          <dt>Dni/Ruc.</dt>
+                                          <dd>{{object.number_doc}}</dd>
+                                          <dt>Dirección.</dt>
+                                          <dd>{{object.address}}</dd>
+                                          <dt>Email.</dt>
+                                          <dd>{{object.email}}</dd>
+                                          <dt>Telefono.</dt>
+                                          <dd>{{object.phone}}</dd>
+                                          <dt>Celuar.</dt>
+                                          <dd>{{object.phone}}</dd>
+                                          <dt>Web.</dt>
+                                          <a href="{{object.web}}">{{object.web}}</a>
+                                          <dt>Tipo de Cliente.</dt>
+                                          {% if object.type_clint = '1' %}
+                                              Natural
+                                          {% else %}
+                                              Juridico
+                                          {% endif %}
+                                    </dl>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}

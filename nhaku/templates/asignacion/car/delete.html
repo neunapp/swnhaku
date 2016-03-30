@@ -1,5 +1,39 @@
-<form role="form" action="{% url 'asignacion_app:car-delete' car.id %}" method="POST">{% csrf_token %}
-    <p class="">¿Desea eliminar el Vehiculo <strong>{{ car.model }}-{{car.plaque}}</strong>?</p>
-      <button type="submit" class="btn btn-danger">Sí</button>
-      <a href="{% url 'asignacion_app:car-list' %}">No</a>
-</form>
+{% extends "profiles/admin/admin.html" %}
+
+{% load staticfiles %}
+
+{% block title %} Eliminar Vehiculo {% endblock title %}
+
+{% block migadepan %}
+    <li>Vehiculo</li>
+    <li>Eliminar Vechiculo {{ car.model }}</li>
+{% endblock migadepan %}
+
+
+{% block main %}
+    <div class="row no-pad">
+        <div class="large-12 columns">
+            <div class="box bg-white">
+                <div class="box-body pad-forty" style="display: block;">
+                    <div class="row">
+                        <div class="large-12">
+                            <h5 class="subheader titulo-content">Eliminar Vehiculo </h5>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="small-12 large-12 columns">
+                          <form role="form" action="{% url 'asignacion_app:car-delete' car.id %}" method="POST">{% csrf_token %}
+                            <h6 class="subheader">¿Desea eliminar el Vehiculos <strong>{{ car.model }}-{{car.plaque}}s</strong>?</h6>
+                            <button type="submit" class="tiny radius bg-rojo button">Si</button>
+                            <a href="{% url 'asignacion_app:car-list' %}" class="tiny radius bg-blanco border-grey button">No</a>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}

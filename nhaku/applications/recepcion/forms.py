@@ -161,7 +161,7 @@ class GuideForm(forms.ModelForm):
                     'class': 'form-control input-sm',
                 }
             ),
-            'type_guide': forms.NumberInput(
+            'amount': forms.NumberInput(
                 attrs={
                     'placeholder': 'Monto a Cobrar',
                 }
@@ -181,6 +181,107 @@ class GuideForm(forms.ModelForm):
             message = "la guia de remision %s ya existe" % (number)
             self.add_error('number', message)
         return cleaned_data
+
+    def clean_number(self):
+        number = self.cleaned_data['number']
+
+        if not number.isdigit():
+            msj = 'Solo debe contener numeros'
+            self.add_error('number', msj)
+        else:
+            return number
+
+    def clean_weigth(self):
+        weigth = self.cleaned_data['weigth']
+
+        if weigth < 0:
+            msj = 'no es un valor valido para peso'
+            self.add_error('weigth', msj)
+        else:
+            return weigth
+
+
+class GuideUpdateForm(forms.ModelForm):
+    '''
+    formulario para modificar guias de remisions
+    '''
+    class Meta:
+        model = Guide
+        fields = (
+            'number',
+            'number_objects',
+            'adreessee',
+            'weigth',
+            'content',
+            'zona',
+            'address',
+            'province',
+            'priority',
+            'type_guide',
+            'amount',
+        )
+        widgets = {
+            'number': forms.TextInput(
+                attrs={
+                    'placeholder': 'Numero de Guia',
+                }
+            ),
+            'number_objects': forms.NumberInput(
+                attrs={
+                    'placeholder': '00',
+                }
+            ),
+            'adreessee': forms.TextInput(
+                attrs={
+                    'placeholder': 'Persona Remitente',
+                }
+            ),
+            'weigth': forms.NumberInput(
+                attrs={
+                    'placeholder': 'Peso del Paquete',
+                }
+            ),
+            'content': forms.TextInput(
+                attrs={
+                    'placeholder': 'Descripcion del Paquete',
+                }
+            ),
+            'zona': forms.Select(
+                attrs={
+                    'class': 'form-control input-sm',
+                }
+            ),
+            'address': forms.TextInput(
+                attrs={
+                    'placeholder': 'Direccion de Entrega',
+                }
+            ),
+            'province': forms.TextInput(
+                attrs={
+                    'placeholder': 'procincia/Distriro',
+                }
+            ),
+            'priority': forms.Select(
+                attrs={
+                    'class': 'form-control input-sm',
+                }
+            ),
+            'type_guide': forms.Select(
+                attrs={
+                    'class': 'form-control input-sm',
+                }
+            ),
+            'amount': forms.NumberInput(
+                attrs={
+                    'placeholder': 'Monto a Cobrar',
+                }
+            ),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(GuideUpdateForm, self).__init__(*args, **kwargs)
+        zona = Zone.objects.filter(state=False)
+        self.fields['zona'].queryset = zona
 
     def clean_number(self):
         number = self.cleaned_data['number']

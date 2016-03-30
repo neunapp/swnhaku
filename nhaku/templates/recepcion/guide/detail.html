@@ -1,21 +1,79 @@
-<h1>Detalle de Guia</h1>
-Informacion de la Guia: {{object}}
-<ul>
-<li type="disc">{{object.number}}</li>
-<li type="disc">{{object.number_objects}}</li>
-<li type="disc">{{object.adreessee}}</li>
-<li type="disc">{{object.weigth}}</li>
-<li type="disc">{{object.content}}</li>
-<li type="disc">{{object.zona}}</li>
-<li type="disc">{{object.address}}</li>
-<li type="disc">{{object.province}}</li>
-<li type="disc">{{object.priority}}</li>
-<li type="disc">{{object.type_guide}}</li>
-<li type="disc">{{object.state}}</li>
-<li type="disc">{{object.amount}}</li>
-<li type="disc">{{object.date_deliver}}</li>
-<li type="disc">{{object.person_id}}</li>
-<li type="disc">{{object.person_name}}</li>
-</ul>
+{% extends "profiles/admin/admin.html" %}
 
-<a href="{% url 'recepcion_app:manifest-detail' object.manifest.pk %}">Ver lista de Guias</a>
+{% load staticfiles %}
+
+{% block title %} conductor {% endblock title %}
+
+{% block migadepan %}
+    <li>Conductor</li>
+    <li>{{object.full_name}}</li>
+{% endblock migadepan %}
+
+
+{% block main %}
+    <div class="row no-pad">
+        <div class="large-12 columns">
+            <div class="box bg-white">
+                <div class="box-body pad-forty" style="display: block;">
+                    <div class="row">
+                        <div class="large-12">
+                            <h5 class="subheader no-margin text-center">Iformacion de Guia</h5>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-12 large-12 columns">
+
+                            <div class="media-object stack-for-small">
+                                <div class="media-object-section">
+                                      <h5>{{object}}</h5>
+                                      <dl>
+                                          <dt>Cantidad.</dt>
+                                          <dd>{{object.number_objects}}</dd>
+                                          <dt>Remitente.</dt>
+                                          <dd>{{object.adreessee}}</dd>
+                                          <dt>Peso</dt>
+                                          <dd>{{object.weigth}}</dd>
+                                          <dt>Descripcion</dt>
+                                          <dd>{{object.content}}</dd>
+                                          <dt>Zon de Reparto.</dt>
+                                          <dd>{{object.zona}}</dd>
+                                          <dt>Direccion de entrega.</dt>
+                                          {{object.address}}
+                                          <dt>Provincia/Distrito.</dt>
+                                          {{object.province}}
+                                          <dt>Prioridad.</dt>
+                                          {{object.priority}}
+                                          <dt>Tipo de Entrega.</dt>
+                                          {% if object.type_guide = '0' %}
+                                              Oficina
+                                          {% else %}
+                                              Reparto
+                                          {% endif %}
+                                          <dt>Estado.</dt>
+                                          {% if object.state = '0' %}
+                                              S.A
+                                          {% else %}
+                                            Oficina
+                                          {% endif %}
+                                          {{object.state}}
+                                          <dt>Costo.</dt>
+                                          {{object.amount}}
+                                          <dt>Fecha de Entrega.</dt>
+                                          {{object.date_deliver}}
+                                          <dt>Dni Persona a quien se Entrego.</dt>
+                                          {{object.person_id}}
+                                          <dt>Nombre de Persona a quien se Entrego.</dt>
+                                          {{object.person_name}}
+                                    </dl>
+                                    <a href="{% url 'recepcion_app:manifest-detail' object.manifest.pk %}">Ver lista de Guias</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}

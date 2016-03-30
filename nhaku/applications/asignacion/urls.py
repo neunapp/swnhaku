@@ -27,4 +27,41 @@ urlpatterns = [
         views.CarDeleteView.as_view(),
         name='car-delete'
     ),
+    #urls para asignacion
+    url(
+        r'^asignation/asignation/list$',
+        views.AsignationListView.as_view(),
+        name='asignation-list'
+    ),
+    url(
+        r'^asignation/asignation/add/$',
+        views.AsignationCreateView.as_view(),
+        name='asignation-add'
+    ),
+    url(
+        r'^asignation/asignation/delete/(?P<pk>\d+)/$',
+        views.AsignationDeleteView.as_view(),
+        name='asignation-delete'
+    ),
+    #urls para el proceso de asignar desasignar guias
+    url(
+        r'^asignation/asignation/asignar_guide/(?P<as>\d+)/(?P<pk>\d+)/$',
+        views.AddGuideAsignationView.as_view(),
+        name='asignation-asignar_guide'
+    ),
+    url(
+        r'^asignation/asignation/list_guide/(?P<pk>\d+)/$',
+        views.GuideByAsignationListView.as_view(),
+        name='asignation-list_guide'
+    ),
+    url(
+        r'^asignation/asignar/confirmar/(?P<pk>\d+)/$',
+        views.ConfirmarAsignationView.as_view(),
+        name='asignation-confirmar'
+    ),
+    url(
+        r'^asignation/asignar/delete/(?P<guide>\d+)/(?P<pk>\d+)/$',
+        views.DeleteAsignationDeleteView.as_view(),
+        name='asignation-detail_delete'
+    ),
 ]

@@ -65,6 +65,16 @@ target/
 
 nhaku/secrets.json
 
+nhaku/applications/asignacion/migrations/*
+
+nhaku/applications/profiles/migrations/*
+
+nhaku/applications/recepcion/migrations/*
+
+nhaku/applications/users/migrations/*
+
+nhaku/applications/entrega/migrations/*
+
 *migrations/*
 
 nhaku/media/*

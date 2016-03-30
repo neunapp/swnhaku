@@ -119,6 +119,20 @@ class ManagerGuide(models.Manager):
             guia.save()
         return True
 
+    def zones_by_guide(self):
+        #recuperamos la lista de guias
+        guias = self.filter(
+            state='1',
+            anulate=False,
+        )
+        #creamos la variable de lista de zonas
+        zonas = []
+        for guia in guias:
+            if (guia.zona) and (not guia.zona in zonas):
+                zonas.append(guia.zona)
+
+        return zonas
+
 
 @python_2_unicode_compatible
 class Guide(TimeStampedModel):
@@ -135,8 +149,9 @@ class Guide(TimeStampedModel):
     STATE_CHOISES = (
         ('0', 'Sin Asignar'),
         ('1', 'En Oficina'),
-        ('2', 'En Vehiculo'),
-        ('3', 'Entregado'),
+        ('2', 'En Asignacion'),
+        ('3', 'En Vehiculo'),
+        ('4', 'Entregado'),
     )
 
     manifest = models.ForeignKey(Manifest)
@@ -245,10 +260,23 @@ class Guide(TimeStampedModel):
 
 class Observations(TimeStampedModel):
 
+    TYPE_CHOICES = (
+        ('0', 'Condicion de Paquete'),
+        ('1', 'Perdida Guia'),
+        ('2', 'perdida Paquete'),
+        ('3', 'perdida Paquete'),
+    )
+
     guide = models.ForeignKey(Guide)
     image = models.ImageField(
         'Imagen',
-        upload_to="observations"
+        upload_to="observations",
+        blank=True,
+        null=True,
+    )
+    type_observation = models.CharField(
+        max_length=2,
+        choices=TYPE_CHOICES,
     )
     description = models.TextField(blank=True)
     user_created = models.ForeignKey(
@@ -261,7 +289,6 @@ class Observations(TimeStampedModel):
         related_name="observations_modified",
         blank=True,
         null=True,
-        editable=False
     )
 
     def __str__(self):

@@ -58,23 +58,49 @@
                         <tbody>
                           {% for manifiesto in  manifest_list %}
                             <tr>
-                                <td>{{ manifiesto.number }}</td>
-                                <td>{{ manifiesto.origin }}</td>
-                                <td>{{ manifiesto.destination }}</td>
-                                <td>{{ manifiesto.matricula }}</td>
-                                <td>{{ manifiesto.date }}</td>
-                                <td>{{ manifiesto.type_manifest }}</td>
+                              <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}">
                                 <td>
-                                    <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}" class="tiny bg-verde no-margin radius button">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
+                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}">
+                                    {{ manifiesto.number }}
+                                  </a>
+                               </td>
+                                <td>
+                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}">
+                                      {{ manifiesto.origin }}
+                                  </a>
+                                </td>
+                                <td>
+                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}">
+                                      {{ manifiesto.destination }}
+                                  </a>
+                                </td>
+                                <td>
+                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}">
+                                    {{ manifiesto.matricula }}
+                                  </a>
+                                </td>
+                                <td>
+                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}">
+                                      {{ manifiesto.date }}
+                                  </a>
+                                </td>
+                                <td>
+                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}">
+                                  {% if manifiesto.type_manifest = '0' %}
+                                        Aereo
+                                  {% else %}
+                                        Terrestre
+                                  {% endif %}
+                                </a>
+                                </td>
+                                <td>
                                     <a href="{% url 'recepcion_app:manifest-update' manifiesto.pk %}" class="tiny bg-amarillo no-margin radius button">
                                         <i class="fa fa-pencil"></i>
                                     </a>
                                     <a href="{% url 'recepcion_app:manifest-delete' manifiesto.pk %}" class="tiny bg-rojo no-margin radius button">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
-                                    <a href="{% url 'recepcion_app:guide-add' manifiesto.pk %}" class="tiny bg-blue no-margin radius button">
+                                    <a href="{% url 'recepcion_app:manifest-detail' manifiesto.pk %}" class="tiny bg-blue no-margin radius button">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                 </td>

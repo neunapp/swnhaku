@@ -4,7 +4,7 @@
 
 {% block migadepan %}
     <li>Clientes</li>
-    <li>Modificar</li>
+    <li>{{object.full_name}}</li>
 {% endblock migadepan %}
 
 
@@ -15,7 +15,7 @@
                 <div class="box-body pad-forty" style="display: block;">
                     <div class="row">
                         <div class="large-12">
-                            <h3 class="subheader no-margin text-center">Modificar Cliente</h3>
+                            <h5 class="subheader no-margin text-center">Modifcar cliente</h5>
                         </div>
                     </div>
 
@@ -110,10 +110,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Logo
-                                            {{form.avatar}}
+                                        <label>Tipo
+                                            {{form.type_clint}}
                                         </label>
-                                        {% for error in form.avatar.errors %}
+                                        {% for error in form.type_clint.errors %}
                                           <div class="col-xs-12">
                                             <p class="help-text error-field">
                                                 {{ error|escape }}
@@ -124,10 +124,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Tipo
-                                            {{form.type_clint}}
+                                        <label>Logo
+                                            {{form.avatar}}
                                         </label>
-                                        {% for error in form.type_clint.errors %}
+                                        {% for error in form.avatar.errors %}
                                           <div class="col-xs-12">
                                             <p class="help-text error-field">
                                                 {{ error|escape }}

@@ -6,7 +6,9 @@ from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
 from datetime import datetime
+
 from applications.recepcion.models import Guide
+from applications.profiles.models import Driver
 # Create your models here.
 
 class Car(TimeStampedModel):
@@ -66,11 +68,11 @@ class Asignation(TimeStampedModel):
     )
 
     driver = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        Driver,
         related_name="driver_user_asignation",
     )
     assistant = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        Driver,
         related_name="assistant_asignation",
         blank=True,
         null=True,
@@ -112,6 +114,31 @@ class Asignation(TimeStampedModel):
         return str(self.driver)
 
 
+class ManagerDetailAsignation(models.Manager):
+    def guide_in_office(self, asignation):
+        guides = self.filter(
+            asignation = asignation,
+        )
+        for g in guides:
+            g.guide.state = '1'
+            g.guide.save()
+            g.delete()
+
+        return True
+
+    def weigth_by_asignation(self, asignation):
+        guides = self.filter(
+            asignation = asignation,
+        )
+        peso = 0
+        cantidad = 0
+        #calculamos el peso
+        for g in guides:
+            peso = peso + g.guide.weigth
+            cantidad = cantidad + g.guide.number_objects
+        return peso, cantidad
+
+
 class DetailAsignation(TimeStampedModel):
 
     asignation = models.ForeignKey(
@@ -124,6 +151,8 @@ class DetailAsignation(TimeStampedModel):
         'Estado',
         default=True
     )
+
+    objects = ManagerDetailAsignation()
 
     def __str__(self):
         return str(self.asignation)

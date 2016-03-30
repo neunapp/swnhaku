@@ -35,6 +35,7 @@ LOCAL_APPS = (
     'applications.profiles',
     'applications.recepcion',
     'applications.asignacion',
+    'applications.entrega',
 )
 
 THIRD_PARTY_APPS = (
