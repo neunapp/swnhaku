@@ -29,16 +29,14 @@ class LoginForm(forms.Form):
         ),
     )
 
-    # def clean(self):
-    #     cleaned_data = super(LoginForm, self).clean()
-    #     username = cleaned_data.get('username')
-    #     password = cleaned_data.get('password')
-    #
-    #     print username, password
-    #
-    #     if not authenticate(username=username, password=password):
-    #         raise forms.ValidationError('usuario o contraseña es incorrecta ..!!')
-    #     return self.cleaned_data
+    def clean(self):
+        cleaned_data = super(LoginForm, self).clean()
+        username = cleaned_data.get('username')
+        password = cleaned_data.get('password')
+
+        if not authenticate(username=username, password=password):
+            raise forms.ValidationError('username o password incorectos.')
+        return self.cleaned_data
 
 
 class UserForm(forms.ModelForm):

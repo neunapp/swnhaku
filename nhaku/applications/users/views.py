@@ -1,20 +1,31 @@
-from django.views.generic import TemplateView
-from django.views.generic.edit import FormView
-from django.core.urlresolvers import reverse_lazy, reverse
+from django.views.generic.edit import FormView, UpdateView
+from django.core.urlresolvers import reverse_lazy
 
-from django.views.generic import (
-    UpdateView,
-)
+# Autentificacion de usuario
+from django.contrib.auth import authenticate, login, logout
 
 from .models import User
+from .forms import LoginForm, UserForm
 
-from forms import LoginForm, UserForm
 
 class LogIn(FormView):
+    '''
+    Logeo del usuario
+    '''
     template_name = 'users/login/login.html'
     form_class = LoginForm
 
     def form_valid(self, form):
+        # Verfiamos si el usuario y contrasenha son correctos.
+        user = authenticate(
+            username=form.cleaned_data['username'],
+            password=form.cleaned_data['password']
+        )
+
+        if user is not None:
+            if user.is_active:
+                # si el usuario es activo ira dahboard
+                login(self.request, user)
         return super(LogIn, self).form_valid(form)
 
 

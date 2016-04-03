@@ -37,7 +37,7 @@ class ClientRegister(FormView):
     success_url = reverse_lazy('profiles_app:cliente-list')
 
     def form_valid(self, form):
-        #registramos usuario
+        # registramos usuario
         usuario = User.objects.create_user(
             username=form.cleaned_data['user_name'],
             password=form.cleaned_data['password2'],
@@ -299,4 +299,4 @@ class EmployeeDeleteView(DeleteView):
 
 
 class Dashboard(TemplateView):
-    template_name = 'profiles/cliente/delete.html'
+    template_name = 'users/cliente/dashboard.html'
