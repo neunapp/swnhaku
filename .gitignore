@@ -63,7 +63,7 @@ target/
 
 #Secrect json
 
-nhaku/secrets.json
+#nhaku/secrets.json
 
 nhaku/applications/asignacion/migrations/*
 
