@@ -43,6 +43,24 @@ class ManagerManifest(models.Manager):
             state = False
         )
 
+    def manifest_and_guide(self, user, fecha):
+        tz = timezone.get_current_timezone()
+
+        if fecha:
+            date = datetime.strptime(fecha, "%d/%m/%Y")
+            end_date = timezone.now()
+            start_date = timezone.make_aware(date, tz)
+        else:
+            end_date = end_date = timezone.now()
+            start_date = end_date - timedelta(days=5)
+
+        manifiestos = self.filter(
+            user=user,
+            state=False,
+            created__range=(start_date, end_date),
+        )
+        return manifiestos
+
 
 @python_2_unicode_compatible
 class Manifest(TimeStampedModel):
@@ -152,6 +170,30 @@ class ManagerGuide(models.Manager):
                 created__range=(start_date, end_date),
                 anulate=False,
             ).order_by('date_reception')
+
+
+    def no_deliver(self, value):
+        if value == '0':
+            queryset = self.filter(
+                anulate=False,
+            ).exclude(state='4')
+        elif value == '1':
+            queryset = self.filter(
+                state='0',
+                anulate=False,
+            )
+        else:
+            lista_g = self.filter(
+                anulate=False
+            ).exclude(state='4')
+            queryset = []
+            lista_o = Observations.objects.all()
+            for obs in lista_o:
+                if obs.guide in lista_g:
+                    queryset.append(obs.guide)
+
+        return queryset
+
 
 
 @python_2_unicode_compatible
