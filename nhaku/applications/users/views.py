@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 from django.views.generic.edit import FormView, UpdateView
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
+from django.http import HttpResponseRedirect
 
 # Autentificacion de usuario
 from django.contrib.auth import authenticate, login, logout
@@ -25,10 +26,17 @@ class LogIn(FormView):
         )
 
         if user is not None:
-            if user.is_active:
+            if user.is_active and user.type_user == '3':
+                login(self.request, user)
+                return HttpResponseRedirect(
+                    reverse(
+                        'cliente_app:cliente-index'
+                    )
+                )
+            else:
                 # si el usuario es activo ira dahboard
                 login(self.request, user)
-        return super(LogIn, self).form_valid(form)
+                return super(LogIn, self).form_valid(form)
 
 
 def LogOut(request):
