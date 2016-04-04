@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.views.generic.edit import FormView, UpdateView
 from django.core.urlresolvers import reverse_lazy
 
@@ -13,6 +14,7 @@ class LogIn(FormView):
     Logeo del usuario
     '''
     template_name = 'users/login/login.html'
+    success_url = reverse_lazy('recepcion_app:manifest-list')
     form_class = LoginForm
 
     def form_valid(self, form):
@@ -27,6 +29,11 @@ class LogIn(FormView):
                 # si el usuario es activo ira dahboard
                 login(self.request, user)
         return super(LogIn, self).form_valid(form)
+
+
+def LogOut(request):
+    logout(request)
+    return redirect('/')
 
 
 class UserUpdateView(UpdateView):

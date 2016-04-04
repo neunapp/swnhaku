@@ -63,7 +63,11 @@ target/
 
 #Secrect json
 
-#nhaku/secrets.json
+nhaku/secrets.json
+
+nhaku/manage.py
+
+nhaku/nhaku/wsgi.py
 
 nhaku/applications/asignacion/migrations/*
 
