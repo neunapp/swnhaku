@@ -1,8 +1,22 @@
 body {
     background-color: #fafafa;
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .pg-content {
-    min-height: 502px; 
+    min-height: 502px;
+}
+
+.pg-padding {
+    padding: 0.3em !important;
+}
+
+/* nav */
+nav ul a,
+nav .brand-logo {
+  color: #f5f5f5;
+}
+
+.button-collapse {
+  color: #f57c00;
 }
