@@ -104,6 +104,8 @@
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                 </td>
+                                {% empty %}
+                                    <td colspan="7">Lo sentimos Hoy no hay Manifiestos :( <a href="{% url 'recepcion_app:manifest-add' %}">Agregar Nueva</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>

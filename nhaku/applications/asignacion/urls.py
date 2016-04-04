@@ -43,6 +43,11 @@ urlpatterns = [
         views.AsignationDeleteView.as_view(),
         name='asignation-delete'
     ),
+    url(
+        r'^asignation/imprimir/asignacion/(?P<pk>\d+)/$',
+        views.ReportAsigView.as_view(),
+        name='asignation-print'
+    ),
     #urls para el proceso de asignar desasignar guias
     url(
         r'^asignation/asignation/asignar_guide/(?P<as>\d+)/(?P<pk>\d+)/$',

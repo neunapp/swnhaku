@@ -1,7 +1,10 @@
 # -*- encoding: utf-8 -*-
 from django.shortcuts import render
+from django.views.generic.detail import SingleObjectMixin
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
+from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic.edit import FormView
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -10,10 +13,11 @@ from django.views.generic import (
     ListView,
     View,
 )
-from django.views.generic.edit import FormView
 
 from applications.users.models import User
 from applications.recepcion.models import Guide
+
+from .functions import generar_pdf
 
 from .models import Car, Asignation, DetailAsignation
 
@@ -226,6 +230,9 @@ class GuideByAsignationListView(ListView):
 
 
 class ConfirmarAsignationView(DetailView):
+    '''
+    vista para confrimar el despacho de una asignacion
+    '''
     template_name = 'asignacion/asignar/confirmar.html'
     model = Asignation
 
@@ -276,4 +283,18 @@ class DeleteAsignationDeleteView(DetailView):
                 'asignacion_app:asignation-list_guide',
                 kwargs={'pk': self.object.pk },
             )
+        )
+
+
+class ReportAsigView(SingleObjectMixin, View):
+    model = Asignation
+
+    def get(self, request, *args, **kwargs):
+        asig = self.get_object()
+        guides = DetailAsignation.objects.filter(
+            asignation=asig,
+        )
+        return generar_pdf(
+            'asignacion/report/print_asig.html',
+            {'pagesize' : 'A4', 'guides' : guides, 'objeto':asig}
         )

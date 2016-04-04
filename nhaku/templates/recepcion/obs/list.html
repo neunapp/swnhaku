@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 
-{% block title %} Lista de Zonas{% endblock title %}
+{% block title %} Lista de Observaciones {% endblock title %}
 
 {% block css %}
     {{ block.super }}
@@ -11,18 +11,13 @@
 {% endblock css %}
 
 {% block migadepan %}
-    <li>Zonas de Reparto</li>
+    <li>Observaciones</li>
 {% endblock migadepan %}
 
 {% block main %}
     <div class="row">
         <div class="small-12 medium-6 columns">
-            <h3 class="subheader">Lista de Zonas de Reparto</h3>
-        </div>
-        <div class="small-12 medium-6 columns">
-            <a href="{% url 'recepcion_app:zone-add' %}" class="small radius button right">
-                <i class="fa fa-plus"> AGREGAR </i>
-            </a>
+            <h3 class="subheader">Lista de Observaciones Registradas</h3>
         </div>
     </div>
 
@@ -38,32 +33,56 @@
                         </span>
                     </div>
                     <h3 class="box-title"><i class="icon-menu"></i>
-                        <span>Hay {{zone_list.count}} Zonas Regitradas</span>
+                        <span>Hay {{list_obs.count}} Observaciones Encontradas</span>
                     </h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body " style="display: block;">
+                  <form method="get" class="form-horizontal">{% csrf_token %}
+                        <div class="row">
+                            <div class="medium-6 columns">
+                                    {{form.number}}
+                                {% for error in form.number.errors %}
+                                  <div class="col-xs-12">
+                                    <p class="help-text error-field">
+                                        {{ error|escape }}
+                                    </p>
+                                  </div>
+                                {% endfor %}
+                            </div>
+                            <div class="medium-6 columns">
+                              <button type="submit" class="small radius bg-blanco button left">Buscar</button>
+                            </div>
+                        </div>
+                      </form>
                     <table id="responsive-example-table" class="table large-only">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
+                                <th>Numero</th>
+                                <th>Manifiesto</th>
+                                <th>Cliente</th>
+                                <th>Remitente</th>
+                                <th>Receptor</th>
+                                <th>Fecha de Registro</th>
                                 <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody>
-                          {% for zona in  zone_list %}
+                          {% for obs in  list_obs %}
                             <tr>
-                                <td>{{ zona.name }}</td>
+                                <td>{{obs.guide.number}}</td>
+                                <td>{{obs.guide.manifest}}</td>
+                                <td>{{obs.guide.manifest.user.username}}</td>
+                                <td>{{obs.guide.adreessee}}</td>
+                                <td>{{obs.guide.person_name}}</td>
+                                <td>{{obs.created}}</td>
                                 <td>
-                                    <a href="{% url 'recepcion_app:zone-update' zona.pk %}" class="tiny bg-amarillo no-margin radius button">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a href="{% url 'recepcion_app:zone-delete' zona.pk %}" class="tiny bg-rojo no-margin radius button">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
+                                  <a href="{% url 'recepcion_app:obs-update' obs.pk %}" class="tiny bg-amarillo no-margin radius button">
+                                      <i class="fa fa-pencil"></i>
+                                  </a>
                                 </td>
                                 {% empty %}
-                                    <td colspan="7">Lo sentimos no hay Zonas Registradas :( <a href="{% url 'recepcion_app:zone-add' %}">Agregar Nueva</a></td>
+                                    <td colspan="7">Lo sentimos no hay Observaciones Registradas :(</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>

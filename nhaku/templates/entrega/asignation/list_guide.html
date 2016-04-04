@@ -20,15 +20,7 @@
     <div class="row">
         <div class="small-12 medium-6 columns">
               <h4>{{asignation.driver.first_name}} {{asignation.driver.last_name}}</h4>
-              <h5>Peso Aproximado: {{peso}}Kg</h5>
         </div>
-        {% if not asignation.state == '1' %}
-            <div class="small-12 medium-6 columns">
-                <a href="{% url 'recepcion_app:zone-by_guide' asignation.pk %}" class="small radius button right">
-                    <i class="fa fa-plus"> AGREGAR </i>
-                </a>
-            </div>
-        {% endif %}
     </div>
 
     <div class="row">
@@ -56,7 +48,6 @@
                             <th>Peso</th>
                             <th>Zona</th>
                             <th>adreessee</th>
-                            <th>observaciones</th>
                             <th>Accion</th>
                           </tr>
                       </thead>
@@ -68,15 +59,21 @@
                             <td>{{ g.guide.weigth }}</td>
                             <td>{{ g.guide.zona }}</td>
                             <td>{{ g.guide.adreessee }}</td>
-                            <td>{{ g.guide.pk|count_observation }}</td>
                               <td>
-                                  <a href="{% url 'entrega_app:observation-add' asignation.pk g.guide.pk %}" class="tiny bg-azul no-margin radius button">
+                                  {% if not g.guide.state == '4' %}
+                                  <a href="{% url 'entrega_app:entrega-deliver' asignation.pk g.guide.pk %}" class="tiny bg-verde no-margin radius button" title="Entregar">
+                                      <i class="fontello-ok"></i>
+                                  </a>
+                                  <a href="{% url 'entrega_app:observation-add_deliver' asignation.pk g.guide.pk %}" class="tiny bg-rojo no-margin radius button" title="Observacion">
                                       <i class="fontello-warning"></i>
                                   </a>
-                                  {% if not asignation.state == '1' %}
-                                    <a href="{% url 'asignacion_app:asignation-detail_delete' g.guide.pk asignation.pk %}" class="tiny bg-rojo no-margin radius button">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
+                                  {% else %}
+                                  <a href="#" class="tiny bg-azul no-margin radius button" title="Entregado">
+                                      <i class="fontello-thumbs-up-1"></i>
+                                  </a>
+                                  <a href="{% url 'entrega_app:observation-add_deliver' asignation.pk g.guide.pk %}" class="tiny bg-rojo no-margin radius button" title="Observacion">
+                                      <i class="fontello-warning"></i>
+                                  </a>
                                   {% endif %}
                               </td>
                               {% empty %}
@@ -88,16 +85,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="medium-12 columns">
-                    {% if not asignation.state == '1' %}
-                        <a href="{% url 'asignacion_app:asignation-confirmar' asignation.pk %}" class="small radius bg-verde button">Confirmar</a>
-                    {% else %}
-                        <a href="{% url 'entrega_app:entrega-reception' asignation.pk %}" class="small radius bg-verde button">Recepcionar</a>
-                    {% endif %}
-                    <a href="{% url 'asignacion_app:asignation-print' asignation.pk %}" class="small radius bg-amarillo button">Exportar</a>
-                    <a href="{% url 'asignacion_app:asignation-list' %}" class="small radius bg-blanco border-grey button">Cancelar</a>
+              <div class="medium-12 columns">
+                    <a href="{% url 'entrega_app:entrega-list_asignation' %}" class="small radius bg-blanco border-grey button">Cancelar</a>
+              </div>
             </div>
-        </div>
     </div>
 {% endblock main %}
 

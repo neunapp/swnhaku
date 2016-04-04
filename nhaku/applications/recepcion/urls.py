@@ -80,4 +80,20 @@ urlpatterns = [
         views.ReceptionGuideView.as_view(),
         name='guide-reception'
     ),
+    #urls para Observaciones
+    url(
+        r'^reception/observations/add/(?P<pk>\d+)/$',
+        views.ObsCreateView.as_view(),
+        name='observation-add'
+    ),
+    url(
+        r'^reception/observations/update/(?P<pk>\d+)/$',
+        views.ObsUpdateView.as_view(),
+        name='obs-update'
+    ),
+    url(
+        r'^reception/observations/list/$',
+        views.ObsListView.as_view(),
+        name='obs-list'
+    ),
 ]

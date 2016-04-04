@@ -62,6 +62,8 @@
                                       <i class="fa fa-trash-o"></i>
                                   </a>
                               </td>
+                              {% empty %}
+                                  <td colspan="7">Lo sentimos no hay Guias en este Manifiesto :( <a href="{% url 'recepcion_app:guide-add' manifest.pk %}">Agregar Nueva</a></td>
                           </tr>
                           {% endfor %}
                       </tbody>

@@ -1,5 +1,11 @@
 Django==1.9.4
-django-model-utils==2.4
-Pillow==3.1.1
-psycopg2==2.6.1
+Pillow==2.8.2
 Unipath==1.1
+argparse==1.2.1
+django-model-utils==2.4
+html5lib==0.9999999
+git+https://github.com/bluehawkarthur/pisa.git
+psycopg2==2.6.1
+reportlab==3.2.0
+six==1.10.0
+wsgiref==0.1.2
