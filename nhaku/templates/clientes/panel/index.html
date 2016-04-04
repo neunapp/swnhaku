@@ -1,3 +1,90 @@
+{% extends "users/cliente/base_cliente.html" %}
+
+{% load staticfiles %}
+
+{% load filters %}
+
+{% block title %}Bienvenido a Paccha services{% endblock title %}
+
+{% block content %}
+
+    {% include "include/header.html" %}
+
+    <div class="container pg-content">
+        <div class="row">
+            <div class="col s12">
+                <ul class="collapsible popout blue-grey-text text-darken-2" data-collapsible="accordion">
+                  {% for m in list_manifest %}
+                    <li>
+                        <div class="collapsible-header">
+                            <i class="fa fa-list-alt"></i>
+                            Manifiesto N° {{m.number}} <span class="green-text">{{m|deliver_guides}}</span> obsevacion(es) <span class="red-text">({{m|obs_guides}})</span>
+                        </div>
+                        <div class="collapsible-body">
+                          <ul class="collection">
+                            {% for g in m|iterar_guides %}
+                              <a href="#" class="blue-grey-text text-darken-3">
+                                <li class="collection-item avatar">
+                                  {% if g.guia.state == '4' %}
+                                  <i class="fa fa-check circle  green"></i>
+                                  <span class="title">{{g.guia.number}}</span>
+                                  <p class="pg-padding">
+                                    Dirección: {{g..guia.address}} <br>
+                                    Fecha Entrega: {{g.guia.date_deliver}} <br>
+                                    recepcionado por: {{g.guia.person_name}}
+                                  </p>
+                                  <a href="#!" class="secondary-content"></a>
+                                  {% else %}
+                                      {% if g.guia.state == '3' %}
+                                        <i class="fa fa-truck circle yellow"></i>
+                                        <span class="title">{{g.guia.number}}</span>
+                                        <p class="pg-padding">
+                                          Dirección: {{g.guia.address}} <br>
+                                          Fecha Asignacion: {{g.asignacion.date_start}} <br>
+                                          Asignado a: {{g.asignacion.driver.first_name}} {{g.asignacion.driver.last_name}}
+                                        </p>
+                                        <a href="#!" class="secondary-content"></a>
+                                        {% else %}
+                                          {% if g.observacion %}
+                                            <i class="fa fa-exclamation-triangle circle red"></i>
+                                            <span class="title">{{g.guia.number}}</span>
+                                            <p class="pg-padding">
+                                              Dirección: {{g.guia.address}} <br>
+                                              Fecha Recepcion: {{g.guia.date_reception}} <br>
+                                              observacion: {{g.observacion.description}}
+                                            </p>
+                                            <a href="#!" class="secondary-content"></a>
+                                        {% else %}
+                                          {% if g.guia.state == '1' %}
+                                            <i class="fa fa-home circle blue"></i>
+                                            <span class="title">{{g.guia.number}}</span>
+                                            <p class="pg-padding">
+                                              Dirección: {{g.guia.address}} <br>
+                                              Fecha Recepcion: {{g.guia.date_reception}} <br>
+                                              Remitente: {{g.guia.adreessee}}
+                                            </p>
+                                            <a href="#!" class="secondary-content"></a>
+                                          {% endif %}
+                                        {% endif %}
+                                      {% endif %}
+
+                                  {% endif %}
+
+                                </li>
+                              </a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                  {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% include "include/footer.html" %}
+
+{% endblock content %}
+
 {% load filters %}
 <form method="get" class="form-horizontal">{% csrf_token %}
 {{form}}

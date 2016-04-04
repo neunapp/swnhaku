@@ -70,11 +70,11 @@
                             <td>{{ g.guide.adreessee }}</td>
                             <td>{{ g.guide.pk|count_observation }}</td>
                               <td>
-                                  <a href="{% url 'entrega_app:observation-add' asignation.pk g.guide.pk %}" class="tiny bg-azul no-margin radius button">
+                                  <a href="{% url 'entrega_app:observation-add' asignation.pk g.guide.pk %}" class="tiny bg-azul no-margin radius button" title="Agregar Observacion">
                                       <i class="fontello-warning"></i>
                                   </a>
                                   {% if not asignation.state == '1' %}
-                                    <a href="{% url 'asignacion_app:asignation-detail_delete' g.guide.pk asignation.pk %}" class="tiny bg-rojo no-margin radius button">
+                                    <a href="{% url 'asignacion_app:asignation-detail_delete' g.guide.pk asignation.pk %}" class="tiny bg-rojo no-margin radius button" title="Eliminar">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                   {% endif %}
@@ -94,7 +94,7 @@
                     {% else %}
                         <a href="{% url 'entrega_app:entrega-reception' asignation.pk %}" class="small radius bg-verde button">Recepcionar</a>
                     {% endif %}
-                    <a href="{% url 'asignacion_app:asignation-print' asignation.pk %}" class="small radius bg-amarillo button">Exportar</a>
+                    <a href="{% url 'asignacion_app:asignation-print' asignation.pk %}" target="_blank" class="small radius bg-amarillo button">Exportar</a>
                     <a href="{% url 'asignacion_app:asignation-list' %}" class="small radius bg-blanco border-grey button">Cancelar</a>
             </div>
         </div>

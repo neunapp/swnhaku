@@ -77,12 +77,12 @@
                                 <td>{{obs.guide.person_name}}</td>
                                 <td>{{obs.created}}</td>
                                 <td>
-                                  <a href="{% url 'recepcion_app:obs-update' obs.pk %}" class="tiny bg-amarillo no-margin radius button">
+                                  <a href="{% url 'recepcion_app:obs-update' obs.pk %}" class="tiny bg-amarillo no-margin radius button" title="Modificar">
                                       <i class="fa fa-pencil"></i>
                                   </a>
                                 </td>
                                 {% empty %}
-                                    <td colspan="7">Lo sentimos no hay Observaciones Registradas :(</a></td>
+                                    <td colspan="7">Lo sentimos no hay Observaciones Registradas :(</td>
                             </tr>
                             {% endfor %}
                         </tbody>

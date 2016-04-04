@@ -1,6 +1,7 @@
 from django import template
 
 from applications.recepcion.models import Observations, Guide
+from applications.asignacion.models import DetailAsignation
 
 register = template.Library()
 
@@ -25,6 +26,55 @@ def count_observation(value):
     return count
 
 
+@register.filter(name='deliver_guides')
+def deliver_guides(value):
+    #recuperamos lista de guias
+    guias = Guide.objects.by_manifest(value)
+    num_deliver = 0
+    for g in guias:
+        if g.state == '4':
+            num_deliver = num_deliver + 1
+
+    return '('+str(num_deliver)+'/'+str(guias.count())+')'
+
+
+@register.filter(name='obs_guides')
+def obs_guides(value):
+    #recuperamos lista de guias
+    guias = Guide.objects.by_manifest(value)
+    num_obs = 0
+    for g in guias:
+        if Observations.objects.filter(guide=g).exists():
+            num_obs = num_obs + 1
+
+    return str(num_obs)
+
+
+#clase para lamacenar datos de guia y observacion
+class DetailGuia():
+    guia = None
+    asignacion = None
+    observacion = None
+
 @register.filter(name='iterar_guides')
 def iterar_guides(value):
-    return Guide.objects.by_manifest(value)
+    #recuperamos lista de guias
+    guias = Guide.objects.by_manifest(value)
+    lista = []
+    for g in guias:
+        obj_guia = DetailGuia()
+        obj_guia.guia = g
+        #recuperamos una asignacion
+        if DetailAsignation.objects.filter(guide=g).exists():
+            obj_guia.asignacion = DetailAsignation.objects.filter(
+                guide=g,
+            )[0].asignation
+        #recuperamos la lista de observaciones
+        if Observations.objects.filter(guide=g).exists():
+            obj_guia.observacion = Observations.objects.filter(
+                guide=g
+            )[0]
+
+        lista.append(obj_guia)
+
+    return lista

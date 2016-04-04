@@ -1,8 +1,71 @@
-Informacion del Vehiculo: {{object}}
-<ul>
-<li type="disc">{{object.model}}</li>
-<li type="disc">{{object.plaque}}</li>
-<li type="disc">{{object.phone}}</li>
-<li type="disc">{{object.marca}}</li>
-<li type="disc">{{object.code_settings_car}}</li>
-</ul>
+{% extends "profiles/admin/admin.html" %}
+
+{% load staticfiles %}
+
+{% block title %} conductor {% endblock title %}
+
+{% block migadepan %}
+    <li>Conductor</li>
+    <li>{{object.full_name}}</li>
+{% endblock migadepan %}
+
+
+{% block main %}
+    <div class="row no-pad">
+        <div class="large-12 columns">
+            <div class="box bg-white">
+                <div class="box-body pad-forty" style="display: block;">
+                    <div class="row">
+                        <div class="large-12">
+                            <h5 class="subheader no-margin text-center">Informacion del Vehiculo</h5>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-12 large-12 columns">
+
+                          <div class="media-object stack-for-small">
+                              <div class="media-object-section">
+                                  <div class="thumbnail">
+                                      <img src="{% static 'img/carga.JPG' %}">
+                                  </div>
+                              </div>
+                                <div class="media-object-section">
+                                    <table id="responsive-example-table" class="table large-only">
+                                        <tbody>
+                                          <tr>
+                                            <td> <b>Modelo:</b></td>
+                                            <td>{{object.model}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td><b>Placa:</b></td>
+                                            <td>{{object.plaque}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td><b>Telefono:</b></td>
+                                            <td>{{object.phone}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td><b>Marca:</b></td>
+                                            <td>{{object.marca}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td><b>Configuracion vehicular:</b></td>
+                                            <td>{{object.code_settings_car}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td><b>Constancia de Inscripcion:</b></td>
+                                            <td>{{object.constancy_inscription}}</td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                              </div>
+                              <a href="{% url 'asignacion_app:car-list' %}" class="small radius bg-blanco border-grey button">Volver</a>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}

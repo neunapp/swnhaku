@@ -55,11 +55,11 @@
                         <tbody>
                           {% for asignacion in  asignation_list %}
                             <tr>
-                                <td><a href="{% url 'entrega_app:entrega-list_guides' asignacion.pk%}"/>{{ asignacion.driver.first_name}} {{ asignacion.driver.last_name}}</a></td>
-                                <td><a href="{% url 'entrega_app:entrega-list_guides' asignacion.pk%}"/>{{asignacion.assistant.first_name}} {{asignacion.assistant.last_name}}</a></td>
-                                <td><a href="{% url 'entrega_app:entrega-list_guides' asignacion.pk%}"/>{{ asignacion.car }}</a></td>
+                                <td><a href="{% url 'entrega_app:entrega-list_guides' asignacion.pk%}"title="Lista Guias" />{{ asignacion.driver.first_name}} {{ asignacion.driver.last_name}}</a></td>
+                                <td><a href="{% url 'entrega_app:entrega-list_guides' asignacion.pk%}"title="Lista Guias" />{{asignacion.assistant.first_name}} {{asignacion.assistant.last_name}}</a></td>
+                                <td><a href="{% url 'entrega_app:entrega-list_guides' asignacion.pk%}"title="Lista Guias" />{{ asignacion.car }}</a></td>
                                 <td>
-                                    <a href="{% url 'entrega_app:entrega-list_guides' asignacion.pk%}" class="tiny bg-azul no-margin radius button">
+                                    <a href="{% url 'entrega_app:entrega-list_guides' asignacion.pk%}" class="tiny bg-azul no-margin radius button"title="Lista Guias">
                                         <i class="fontello-ok"></i>
                                     </a>
                                 </td>

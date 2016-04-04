@@ -26,7 +26,7 @@
 
                             <div class="media-object stack-for-small">
                                 <div class="media-object-section">
-                                      <h5>{{object}}</h5>
+                                      <h5>Guia N° {{object}}</h5>
                                       <dl>
                                           <dt>Cantidad.</dt>
                                           <dd>{{object.number_objects}}</dd>
@@ -42,8 +42,21 @@
                                           {{object.address}}
                                           <dt>Provincia/Distrito.</dt>
                                           {{object.province}}
+                                      </dl>
+                                  </div>
+                                  <div class="media-object-section">
+                                      <h5>Entrega: {{object.address}}</h5>
+                                      <dl>
                                           <dt>Prioridad.</dt>
-                                          {{object.priority}}
+                                          {% if object.priority = '0' %}
+                                              Alta
+                                          {% else %}
+                                              {% if object.priority = '1' %}
+                                                  Media
+                                              {% else %}
+                                                  Baja
+                                              {% endif %}
+                                          {% endif %}
                                           <dt>Tipo de Entrega.</dt>
                                           {% if object.type_guide = '0' %}
                                               Oficina
@@ -66,7 +79,8 @@
                                           <dt>Nombre de Persona a quien se Entrego.</dt>
                                           {{object.person_name}}
                                     </dl>
-                                    <a href="{% url 'recepcion_app:manifest-detail' object.manifest.pk %}">Ver lista de Guias</a>
+                                  </div>
+                                    <a href="{% url 'recepcion_app:manifest-detail' object.manifest.pk %}">Volver</a>
                                 </div>
                             </div>
 

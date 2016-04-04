@@ -63,16 +63,18 @@
                                 <td>{{conductor.phone}}</td>
                                 <td>{{conductor.email}}</td>
                                 <td>
-                                    <a href="{% url 'profiles_app:driver-detail' conductor.pk %}" class="tiny bg-verde no-margin radius button">
+                                    <a href="{% url 'profiles_app:driver-detail' conductor.pk %}" class="tiny bg-verde no-margin radius button" title="Ver">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <a href="{% url 'profiles_app:driver-update' conductor.pk %}" class="tiny bg-amarillo no-margin radius button">
+                                    <a href="{% url 'profiles_app:driver-update' conductor.pk %}" class="tiny bg-amarillo no-margin radius button" title="Modificar">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <a href="{% url 'profiles_app:driver-delete' conductor.pk %}" class="tiny bg-rojo no-margin radius button">
+                                    <a href="{% url 'profiles_app:driver-delete' conductor.pk %}" class="tiny bg-rojo no-margin radius button" title="Eliminar">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                 </td>
+                                {% empty %}
+                                    <td colspan="7">Lo sentimos no hay conductores registrados</td>
                             </tr>
                             {% endfor %}
                         </tbody>

@@ -328,7 +328,7 @@ class ManagerObs(models.Manager):
             return self.filter(
                 guide__number__icontains=number,
                 guide__anulate=False,
-            ).exclude(guide__state='4')
+            ).exclude(guide__state='4').order_by('guide')
         else:
             end_date = timezone.now()
             start_date = end_date - timedelta(days=30)
@@ -336,7 +336,7 @@ class ManagerObs(models.Manager):
             return self.filter(
                 created__range=(start_date, end_date),
                 guide__anulate=False,
-            ).exclude(guide__state='4')
+            ).exclude(guide__state='4').order_by('guide')
 
 
 class Observations(TimeStampedModel):

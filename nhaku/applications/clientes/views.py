@@ -18,6 +18,9 @@ from applications.recepcion.models import Guide, Manifest
 
 
 class SearchView(ListView):
+    '''
+    vista para buscar una guia entregada
+    '''
     context_object_name = 'list_guide'
     paginate_by = 20
     template_name = 'clientes/guias/search.html'
@@ -35,6 +38,9 @@ class SearchView(ListView):
 
 
 class FilterView(ListView):
+    '''
+    vista para mostrar guias no entregdas
+    '''
     context_object_name = 'list_guide'
     paginate_by = 20
     template_name = 'clientes/guias/filter.html'
@@ -52,6 +58,9 @@ class FilterView(ListView):
 
 
 class PanelView(ListView):
+    '''
+    vista para mostrra los manifiestos y guias de un cliente
+    '''
     context_object_name = 'list_manifest'
     paginate_by = 20
     template_name = 'clientes/panel/index.html'
@@ -72,5 +81,8 @@ class PanelView(ListView):
 
 
 class GuideHistoryView(DetailView):
+    '''
+    vista para mostrar el historial de una guia
+    '''
     model = Guide
     template_name = 'clientes/panel/history.html'
