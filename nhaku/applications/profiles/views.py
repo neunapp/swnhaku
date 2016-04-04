@@ -299,4 +299,4 @@ class EmployeeDeleteView(DeleteView):
 
 
 class Dashboard(TemplateView):
-    template_name = 'profiles/cliente/delete.html'
+    template_name = 'users/cliente/dashboard.html'

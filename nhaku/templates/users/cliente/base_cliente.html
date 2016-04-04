@@ -1,0 +1,28 @@
+{% extends "materialize_base.html" %}
+
+{% load  staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}" />
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+{% endblock css %}
+
+{% block paceloader %}
+    <script src="{% static 'js/pace/pace.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'js/pace/themes/orange/pace-theme-flash.css' %}"/>
+    <link rel="stylesheet" href="{% static 'js/slicknav/slicknav.css' %}" />
+    <script src="{% static 'js/vendor/modernizr.js' %}"></script>
+{% endblock paceloader %}
+
+{% block js %}
+<!-- main javascript library -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/waypoints.min.js' %}"></script>
+    <script src="{% static 'js/preloader-script.js' %}"></script>
+    <!-- materializecss javascript -->
+    <script src="{% static 'js/materialize.min.js' %}"></script>
+    <script src="{% static 'js/init.js' %}"></script>
+
+{% endblock js %}

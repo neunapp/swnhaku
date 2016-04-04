@@ -30,8 +30,10 @@
                         <div class="row">
                             <div class="edumix-signup-panel">
                                 <p class="welcome">Bienvenidos a Pacha Service..!</p>
-                                <spam class="error-auth">username o password incorectos.</spam>
                                 <form method="post">{% csrf_token %}
+                                    {% if form.errors %}
+                                        <spam class="error-auth">username o password incorectos.</spam>
+                                    {% endif %}
                                     <div class="row collapse">
                                         <div class="small-2  columns">
                                             <span class="prefix bg-naranja"><i class="text-white icon-user"></i></span>
