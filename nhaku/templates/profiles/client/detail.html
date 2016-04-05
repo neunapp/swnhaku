@@ -35,30 +35,39 @@
                                     </div>
                                 </div>
                                 <div class="media-object-section">
+                                  <div class="small-12 medium-6 columns">
                                       <h5>{{object.full_name}}</h5>
                                       <dl>
                                           <dt>Dni/Ruc.</dt>
                                           <dd>{{object.number_doc}}</dd>
                                           <dt>Dirección.</dt>
                                           <dd>{{object.address}}</dd>
-                                          <dt>Email.</dt>
-                                          <dd>{{object.email}}</dd>
-                                          <dt>Telefono.</dt>
-                                          <dd>{{object.phone}}</dd>
-                                          <dt>Celuar.</dt>
-                                          <dd>{{object.phone}}</dd>
-                                          <dt>Web.</dt>
-                                          <a href="{{object.web}}">{{object.web}}</a>
                                           <dt>Tipo de Cliente.</dt>
+                                          <dd>
                                           {% if object.type_clint = '1' %}
                                               Natural
                                           {% else %}
                                               Juridico
                                           {% endif %}
+                                          </dd>
+                                          <dt>Web.</dt>
+                                          <a href="{{object.web}}">{{object.web}}</a>
+                                      </dl>
+                                  </div>
+                                  <div class="small-12 medium-6 columns">
+                                    <h5>Datos de Contacto</h5>
+                                      <dl>
+                                          <dt>Telefono.</dt>
+                                          <dd>{{object.phone}}</dd>
+                                          <dt>Celuar.</dt>
+                                          <dd>{{object.phone}}</dd>
+                                          <dt>Email.</dt>
+                                          <dd>{{object.email}}</dd>
                                     </dl>
                                 </div>
+                              </div>
                             </div>
-
+                            <a href="{% url 'profiles_app:cliente-list' %}" class="small radius bg-blanco border-grey button">Volver</a>
                         </div>
                     </div>
                 </div>

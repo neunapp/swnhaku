@@ -74,6 +74,11 @@ urlpatterns = [
         views.GuideDeleteView.as_view(),
         name='guide-delete'
     ),
+    url(
+        r'^reception/guide/eliminar/(?P<pk>\d+)/$',
+        views.GuideDelete.as_view(),
+        name='guide-eliminar'
+    ),
     #url para recepcion
     url(
         r'^reception/manifest/reception/(?P<pk>\d+)/$',

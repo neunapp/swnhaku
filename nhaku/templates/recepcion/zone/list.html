@@ -55,10 +55,10 @@
                             <tr>
                                 <td>{{ zona.name }}</td>
                                 <td>
-                                    <a href="{% url 'recepcion_app:zone-update' zona.pk %}" class="tiny bg-amarillo no-margin radius button">
+                                    <a href="{% url 'recepcion_app:zone-update' zona.pk %}" class="tiny bg-amarillo no-margin radius button" title="Modificar">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <a href="{% url 'recepcion_app:zone-delete' zona.pk %}" class="tiny bg-rojo no-margin radius button">
+                                    <a href="{% url 'recepcion_app:zone-delete' zona.pk %}" class="tiny bg-rojo no-margin radius button" title="Eliminar">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                 </td>

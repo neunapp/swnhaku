@@ -291,6 +291,22 @@ class GuideDeleteView(DeleteView):
         )
 
 
+class GuideDelete(DeleteView):
+    model = Guide
+    template_name = 'recepcion/guide/delete2.html'
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.anulate = True
+        self.object.user_modified = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(
+            reverse(
+                'cliente_app:cliente-filter_guide',
+            )
+        )
+
+
 class ReceptionGuideView(FormView):
     '''
     vista para recepcionar guias de un manifiesto

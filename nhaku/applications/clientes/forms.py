@@ -21,3 +21,32 @@ class SearchForm(forms.Form):
         if not numero.isdigit():
             raise forms.ValidationError("Ingrese solo numeros por favor")
         return numero
+
+
+class FilterForm(forms.Form):
+    TIPO_CHOICES = (
+        ('0', 'Guias No Entregadas'),
+        ('1', 'Guias No Recepcionadas'),
+        ('2', 'Guias Con Observacion'),
+    )
+    tipo = forms.ChoiceField(
+        choices=TIPO_CHOICES,
+        required=True,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-control input-sm'
+            }
+        )
+    )
+
+
+class PanelForm(forms.Form):
+    date = forms.DateField(
+        'Fecha',
+        required=False,
+        widget=forms.DateInput(
+            attrs={
+                'class': 'datepicker'
+            }
+        )
+    )

@@ -60,7 +60,7 @@
                                     </dl>
                                 </div>
                             </div>
-
+                            <a href="{% url 'profiles_app:employee-list' %}" class="small radius bg-blanco border-grey button">Volver</a>
                         </div>
                     </div>
                 </div>
@@ -68,14 +68,3 @@
         </div>
     </div>
 {% endblock main %}
-
-Informacion del Cliente: {{object}}
-<ul>
-<li type="disc">{{object.first_name}}</li>
-<li type="disc">{{object.last_name}}</li>
-<li type="disc">{{object.dni}}</li>
-<li type="disc">{{object.email}}</li>
-<li type="disc">{{object.phone}}</li>
-<li type="disc">{{object.address}}</li>
-<li type="disc">{{object.imagen}}</li>
-</ul>

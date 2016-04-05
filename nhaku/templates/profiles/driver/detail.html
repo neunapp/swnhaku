@@ -34,39 +34,64 @@
                                       {% endif %}
                                     </div>
                                 </div>
-                                <div class="media-object-section">
-                                      <h5>{{object.first_name}} {{object.last_name}}</h5>
-                                      <dl>
-                                          <dt>Nombres.</dt>
-                                          <dd>{{object.first_name}}</dd>
-                                          <dt>Apellidos.</dt>
-                                          <dd>{{object.last_name}}</dd>
-                                          <dt>Dni.</dt>
-                                          <dd>{{object.dni}}</dd>
-                                          <dt>email.</dt>
-                                          <dd>{{object.email}}</dd>
-                                          <dt>telefono/Celular.</dt>
-                                          <dd>{{object.phone}}</dd>
-                                          <dt>Direccion.</dt>
-                                          {{object.address}}
-                                          <dt>Sexo.</dt>
-                                          {% if object.gender = 'M' %}
-                                              Masculino
-                                          {% else %}
-                                              Femenino
-                                          {% endif %}
-                                          <dt>Fecha de Nacimiento.</dt>
-                                          {{object.date_birth}}
-                                          <dt>N° Licencia.</dt>
-                                          <dd>{{object.license}}</dd>
-                                          <dt>Clase de Conductor.</dt>
-                                          {{object.class_driver}}
-                                          <dt>Categoria de Conductor.</dt>
-                                          {{object.category}}
-                                    </dl>
-                                </div>
-                            </div>
 
+                                <div class="media-object-section">
+                                    <table id="responsive-example-table" class="table large-only">
+                                        <tbody>
+                                          <tr>
+                                            <td> <b>Nombres:</b></td>
+                                            <td>{{object.first_name}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td><b>Apellidos:</b></td>
+                                            <td>{{object.last_name}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td><b>Dni:</b></td>
+                                            <td>{{object.dni}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td><b>E-mail:</b></td>
+                                            <td>{{object.email}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td><b>Telefono/Celular:</b></td>
+                                            <td>{{object.last_name}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td><b>Direccion:</b></td>
+                                            <td>{{object.address}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td><b>Sexo:</td>
+                                            <td>
+                                              {% if object.gender = 'M' %}
+                                                Masculino
+                                              {% else %}
+                                                Femenino
+                                              {% endif %}
+                                          </td>
+                                          </tr>
+                                          <tr>
+                                            <td><b>Fecha de Nacimiento:</b></td>
+                                            <td>{{object.date_birth}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td><b>N° Licencia:</b></td>
+                                            <td>{{object.license}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td><b>Clase de Conductor:</b></td>
+                                            <td>{{object.class_driver}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td><b>Categoria de Conductor:</b></td>
+                                            <td>{{object.category}}</td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <a href="{% url 'profiles_app:driver-list' %}" class="small radius bg-blanco border-grey button">Volver</a>
                         </div>
                     </div>
                 </div>

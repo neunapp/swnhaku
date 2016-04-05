@@ -63,13 +63,13 @@
                                 <td>{{empleado.phone}}</td>
                                 <td>{{empleado.email}}</td>
                                 <td>
-                                    <a href="{% url 'profiles_app:employee-detail' empleado.pk %}" class="tiny bg-verde no-margin radius button">
+                                    <a href="{% url 'profiles_app:employee-detail' empleado.pk %}" class="tiny bg-verde no-margin radius button" title="Ver">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <a href="{% url 'profiles_app:employee-update' empleado.pk %}" class="tiny bg-amarillo no-margin radius button">
+                                    <a href="{% url 'profiles_app:employee-update' empleado.pk %}" class="tiny bg-amarillo no-margin radius button" title="Modificar">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <a href="{% url 'profiles_app:employee-delete' empleado.pk %}" class="tiny bg-rojo no-margin radius button">
+                                    <a href="{% url 'profiles_app:employee-delete' empleado.pk %}" class="tiny bg-rojo no-margin radius button" title="Eliminar">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                 </td>

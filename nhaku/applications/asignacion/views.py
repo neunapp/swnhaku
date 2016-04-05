@@ -242,6 +242,15 @@ class ConfirmarAsignationView(DetailView):
         self.object.state = '1'
         #actualizamos y guardamos el valor
         self.object.save()
+        #recuperamos las guis de esta asignacion
+        guias = DetailAsignation.objects.filter(
+            asignation=self.object,
+            guide__anulate=False,
+        )
+        #Actualizamos el estado de las guias a vehiculo
+        for g in guias:
+            g.guide.state = '3'
+            g.guide.save()
 
         return HttpResponseRedirect(
             reverse(

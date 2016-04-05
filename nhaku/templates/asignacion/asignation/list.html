@@ -55,16 +55,16 @@
                         <tbody>
                           {% for asignacion in  asignation_list %}
                             <tr>
-                                <td><a href="{% url 'asignacion_app:asignation-list_guide' asignacion.pk %}"/>{{ asignacion.driver.first_name}} {{ asignacion.driver.last_name}}</a></td>
-                                <td><a href="{% url 'asignacion_app:asignation-list_guide' asignacion.pk %}"/>{{asignacion.assistant.first_name}} {{asignacion.assistant.last_name}}</a></td>
-                                <td><a href="{% url 'asignacion_app:asignation-list_guide' asignacion.pk %}"/>{{ asignacion.car }}</a></td>
+                                <td><a href="{% url 'asignacion_app:asignation-list_guide' asignacion.pk %}" title="Guias Asignadas"/>{{ asignacion.driver.first_name}} {{ asignacion.driver.last_name}}</a></td>
+                                <td><a href="{% url 'asignacion_app:asignation-list_guide' asignacion.pk %}" title="Guias Asignadas"/>{{asignacion.assistant.first_name}} {{asignacion.assistant.last_name}}</a></td>
+                                <td><a href="{% url 'asignacion_app:asignation-list_guide' asignacion.pk %}" title="Guias Asignadas"/>{{ asignacion.car }}</a></td>
                                 <td>
                                     {% if asignacion.state == '1' %}
-                                      <a href="{% url 'asignacion_app:asignation-list_guide' asignacion.pk %}" class="tiny bg-verde no-margin radius button">
+                                      <a href="{% url 'asignacion_app:asignation-list_guide' asignacion.pk %}" class="tiny bg-verde no-margin radius button" title="Recepcionar">
                                           <i class="fontello-ok"></i>
                                       </a>
                                     {% else %}
-                                      <a href="{% url 'asignacion_app:asignation-delete' asignacion.pk %}" class="tiny bg-rojo no-margin radius button">
+                                      <a href="{% url 'asignacion_app:asignation-delete' asignacion.pk %}" class="tiny bg-rojo no-margin radius button" title="Eliminar">
                                           <i class="fa fa-trash-o"></i>
                                       </a>
                                     {% endif %}

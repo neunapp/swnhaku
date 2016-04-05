@@ -2,7 +2,9 @@
 
 {% load staticfiles %}
 
-{% block title %} Lista de Observaciones {% endblock title %}
+{% load filters %}
+
+{% block title %} Lista de guias {% endblock title %}
 
 {% block css %}
     {{ block.super }}
@@ -11,13 +13,18 @@
 {% endblock css %}
 
 {% block migadepan %}
-    <li>Observaciones</li>
+    <li>Guias de Remision</li>
 {% endblock migadepan %}
 
 {% block main %}
     <div class="row">
         <div class="small-12 medium-6 columns">
-            <h3 class="subheader">Lista de Observaciones Registradas</h3>
+            <h3 class="subheader">Lista de Guias Entregadas</h3>
+        </div>
+        <div class="small-12 medium-6 columns">
+            <a href="{% url 'entrega_app:entrega-list_asignation' %}" class="small radius bg-blanco button right">
+                <i class="fontello-reply"> Regresar </i>
+            </a>
         </div>
     </div>
 
@@ -33,7 +40,7 @@
                         </span>
                     </div>
                     <h3 class="box-title"><i class="icon-menu"></i>
-                        <span>Hay {{list_obs.count}} Observaciones Encontradas</span>
+                        <span>Hay {{list_guide.count}} Guias Entregadas</span>
                     </h3>
                 </div>
                 <!-- /.box-header -->
@@ -41,8 +48,8 @@
                   <form method="get" class="form-horizontal">{% csrf_token %}
                         <div class="row">
                             <div class="medium-6 columns">
-                                    {{form.number}}
-                                {% for error in form.number.errors %}
+                                    {{form.tipo}}
+                                {% for error in form.tipo.errors %}
                                   <div class="col-xs-12">
                                     <p class="help-text error-field">
                                         {{ error|escape }}
@@ -62,27 +69,25 @@
                                 <th>Manifiesto</th>
                                 <th>Cliente</th>
                                 <th>Remitente</th>
-                                <th>Receptor</th>
-                                <th>Fecha de Registro</th>
+                                <th>Observaciones</th>
                                 <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody>
-                          {% for obs in  list_obs %}
+                          {% for guide in  list_guide %}
                             <tr>
-                                <td>{{obs.guide.number}}</td>
-                                <td>{{obs.guide.manifest}}</td>
-                                <td>{{obs.guide.manifest.user.username}}</td>
-                                <td>{{obs.guide.adreessee}}</td>
-                                <td>{{obs.guide.person_name}}</td>
-                                <td>{{obs.created}}</td>
+                                <td>{{guide.number}}</td>
+                                <td>{{guide.manifest}}</td>
+                                <td>{{guide.manifest.user.username}}</a></td>
+                                <td>{{guide.adreessee}}</td>
+                                <td>{{guide.pk|count_observation}}</td>
                                 <td>
-                                  <a href="{% url 'recepcion_app:obs-update' obs.pk %}" class="tiny bg-amarillo no-margin radius button" title="Modificar">
-                                      <i class="fa fa-pencil"></i>
+                                  <a href="{% url 'recepcion_app:guide-eliminar' guide.pk %}" class="tiny bg-rojo no-margin radius button" title="Eliminar">
+                                      <i class="fa fa-trash-o"></i>
                                   </a>
                                 </td>
                                 {% empty %}
-                                    <td colspan="7">Lo sentimos no hay Observaciones Registradas :(</td>
+                                    <td colspan="7">Lo sentimos no hay Asignaciones Pendientes :(</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>

@@ -48,6 +48,7 @@ class ClientForm(forms.ModelForm):
             'address',
             'email',
             'phone',
+            'mobil',
             'web',
             'avatar',
             'type_clint',
@@ -76,6 +77,11 @@ class ClientForm(forms.ModelForm):
             'phone': forms.TextInput(
                 attrs={
                     'placeholder': 'Telefonos o Celular',
+                }
+            ),
+            'mobil': forms.TextInput(
+                attrs={
+                    'placeholder': 'Telefonos Alternativos',
                 }
             ),
             'web': forms.TextInput(
@@ -157,6 +163,7 @@ class ClientUpdateForm(forms.ModelForm):
             'address',
             'email',
             'phone',
+            'mobil',
             'web',
             'avatar',
             'type_clint'

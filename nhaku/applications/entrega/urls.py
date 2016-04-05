@@ -19,7 +19,7 @@ urlpatterns = [
         name='entrega-list_guides'
     ),
     url(
-        r'^entrega/observacion/add/(?P<as>\d+)/(?P<pk>\d+)/$',
+        r'^entrega/deliver/add/(?P<as>\d+)/(?P<pk>\d+)/$',
         views.DeliverView.as_view(),
         name='entrega-deliver'
     ),

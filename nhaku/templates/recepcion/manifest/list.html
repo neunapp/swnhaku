@@ -58,34 +58,33 @@
                         <tbody>
                           {% for manifiesto in  manifest_list %}
                             <tr>
-                              <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}">
                                 <td>
-                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}">
+                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}" title="Recepcionar">
                                     {{ manifiesto.number }}
                                   </a>
                                </td>
                                 <td>
-                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}">
+                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}"title="Recepcionar">
                                       {{ manifiesto.origin }}
                                   </a>
                                 </td>
                                 <td>
-                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}">
+                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}"title="Recepcionar">
                                       {{ manifiesto.destination }}
                                   </a>
                                 </td>
                                 <td>
-                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}">
+                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}"title="Recepcionar">
                                     {{ manifiesto.matricula }}
                                   </a>
                                 </td>
                                 <td>
-                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}">
+                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}"title="Recepcionar">
                                       {{ manifiesto.date }}
                                   </a>
                                 </td>
                                 <td>
-                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}">
+                                  <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}"title="Recepcionar">
                                   {% if manifiesto.type_manifest = '0' %}
                                         Aereo
                                   {% else %}
@@ -94,14 +93,14 @@
                                 </a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'recepcion_app:manifest-update' manifiesto.pk %}" class="tiny bg-amarillo no-margin radius button">
+                                    <a href="{% url 'recepcion_app:manifest-update' manifiesto.pk %}" class="tiny bg-amarillo no-margin radius button" title="Modificar">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <a href="{% url 'recepcion_app:manifest-delete' manifiesto.pk %}" class="tiny bg-rojo no-margin radius button">
+                                    <a href="{% url 'recepcion_app:manifest-delete' manifiesto.pk %}" class="tiny bg-rojo no-margin radius button" title="Eliminar">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
-                                    <a href="{% url 'recepcion_app:manifest-detail' manifiesto.pk %}" class="tiny bg-blue no-margin radius button">
-                                        <i class="fa fa-trash-o"></i>
+                                    <a href="{% url 'recepcion_app:manifest-detail' manifiesto.pk %}" class="tiny bg-blue no-margin radius button" title="Lista Guias">
+                                        <i class="fontello-th-list"></i>
                                     </a>
                                 </td>
                                 {% empty %}
