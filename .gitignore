@@ -75,7 +75,7 @@ nhaku/applications/profiles/migrations/*
 
 nhaku/applications/recepcion/migrations/*
 
-nhaku/applications/users/migrations/*
+# nhaku/applications/users/migrations/*
 
 nhaku/applications/entrega/migrations/*
 
