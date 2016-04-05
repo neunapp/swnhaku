@@ -1,6 +1,13 @@
 {% extends "profiles/admin/admin.html" %}
 
+{% load staticfiles %}
+
 {% block title %} Agregar Empleado {% endblock title %}
+
+{% block css %}
+    {{ block.super }}
+    <link href="{% static 'js/date-dropdown/jquery.datetimepicker.css' %}" rel="stylesheet"/>
+{% endblock css %}
 
 {% block migadepan %}
     <li>Empleado </li>
@@ -27,7 +34,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Nombres
-                                            {{form.first_name}}
+                                            {{ form.first_name }}
                                         </label>
                                         {% for error in form.first_name.errors %}
                                           <div class="col-xs-12">
@@ -41,7 +48,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Apellidos
-                                            {{form.last_name}}
+                                            {{ form.last_name }}
                                         </label>
                                         {% for error in form.last_name.errors %}
                                           <div class="col-xs-12">
@@ -55,7 +62,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Dni/Ruc
-                                            {{form.dni}}
+                                            {{ form.dni }}
                                         </label>
                                         {% for error in form.dni.errors %}
                                           <div class="col-xs-12">
@@ -69,7 +76,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Email
-                                            {{form.email}}
+                                            {{ form.email }}
                                         </label>
                                         {% for error in form.email.errors %}
                                           <div class="col-xs-12">
@@ -83,7 +90,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Teléfono
-                                            {{form.phone}}
+                                            {{ form.phone }}
                                         </label>
                                     </div>
                                     {% for error in form.phone.errors %}
@@ -96,8 +103,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Direccion
-                                            {{form.address}}
+                                        <label>Dirección
+                                            {{ form.address }}
                                         </label>
                                         {% for error in form.address.errors %}
                                           <div class="col-xs-12">
@@ -111,7 +118,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Sexo
-                                            {{form.gender}}
+                                            {{ form.gender }}
                                         </label>
                                         {% for error in form.gender.errors %}
                                           <div class="col-xs-12">
@@ -125,7 +132,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Fecha de Nacimiento
-                                            {{form.date_birth}}
+                                            {{ form.date_birth }}
                                         </label>
                                         {% for error in form.date_birth.errors %}
                                           <div class="col-xs-12">
@@ -139,7 +146,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Foto
-                                            {{form.avatar}}
+                                            {{ form.avatar }}
                                         </label>
                                         {% for error in form.avatar.errors %}
                                           <div class="col-xs-12">
@@ -153,7 +160,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Username
-                                            {{form.user_name}}
+                                            {{ form.user_name }}
                                         </label>
                                         {% for error in form.user_name.errors %}
                                           <div class="col-xs-12">
@@ -167,7 +174,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Contraseña
-                                            {{form.password1}}
+                                            {{ form.password1 }}
                                         </label>
                                         {% for error in form.password1.errors %}
                                           <div class="col-xs-12">
@@ -181,7 +188,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label> Repetir contraseña
-                                            {{form.password2}}
+                                            {{ form.password2 }}
                                         </label>
                                         {% for error in form.password2.errors %}
                                           <div class="col-xs-12">
@@ -208,3 +215,21 @@
         </div>
     </div>
 {% endblock main %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'js/date-dropdown/jquery.datetimepicker.js' %}"></script>
+    <script>
+    (function($) {
+        "use strict";
+        //default date & time picker
+
+        $('.datepicker').datetimepicker({
+            timepicker: false,
+            lang: 'es',
+            closeOnDateSelect: true,
+            format: 'd/m/Y'
+        });
+    })(jQuery);
+    </script>
+{% endblock js %}

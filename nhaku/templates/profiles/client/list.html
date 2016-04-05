@@ -87,7 +87,8 @@
 
 {% block js %}
     {{ block.super }}
-    <script src="{% static 'js/stackable/stacktable.js' %}"></script>
+
+    <script src="{% static 'js/date-dropdown/jquery.datetimepicker.js' %}"></script>
     <script>
     $(document).on('click', '#run', function(e) {
         e.preventDefault();

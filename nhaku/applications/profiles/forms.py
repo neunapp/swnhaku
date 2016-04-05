@@ -443,7 +443,7 @@ class EmployeeForm(forms.ModelForm):
             ),
             'date_birth': forms.TextInput(
                 attrs={
-                    'class': 'form-control input-sm datepicker',
+                    'class': 'form-control datepicker',
                     'placeholder': 'ingrese Fecha de Nacimiento',
                 }
             ),
