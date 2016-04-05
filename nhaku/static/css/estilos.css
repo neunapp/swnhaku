@@ -14,9 +14,15 @@ body {
 /* nav */
 nav ul a,
 nav .brand-logo {
-  color: #f5f5f5;
+    color: #f5f5f5;
 }
 
 .button-collapse {
-  color: #f57c00;
+    color: #f57c00;
+}
+
+nav .user img {
+    width: 35px;
+    margin-right: 10px;
+    vertical-align: middle;
 }
