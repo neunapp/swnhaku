@@ -1,10 +1,17 @@
 {% extends "profiles/admin/admin.html" %}
 
+{% load staticfiles %}
+
 {% block title %} Modificar Conductor {% endblock title %}
 
+{% block css %}
+    {{ block.super }}
+    <link href="{% static 'js/date-dropdown/jquery.datetimepicker.css' %}" rel="stylesheet"/>
+{% endblock css %}
+
 {% block migadepan %}
-    <li>Conductor</li>
-    <li>{{object.first_name}}</li>
+    <li><a href="{% url 'profiles_app:driver-list' %}">Conductor</a></li>
+    <li>{{ object.first_name }}</li>
 {% endblock migadepan %}
 
 
@@ -15,7 +22,9 @@
                 <div class="box-body pad-forty" style="display: block;">
                     <div class="row">
                         <div class="large-12">
-                            <h5 class="subheader no-margin text-center">Modificar Conductor</h5>
+                            <h5 class="subheader titulo-content">
+                              Modificar Conductor
+                              <a href="{% url 'users_app:user-update' object.user.pk %}" class="right pg-change">Cambiar contraseña</a></h5>
                         </div>
                     </div>
 
@@ -26,8 +35,8 @@
                           <form role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Nombres
-                                            {{form.first_name}}
+                                        <label>Nombres <small class="text-orange">required</small>
+                                            {{ form.first_name }}
                                         </label>
                                         {% for error in form.first_name.errors %}
                                           <div class="col-xs-12">
@@ -40,8 +49,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Apellidos
-                                            {{form.last_name}}
+                                        <label>Apellidos <small class="text-orange">required</small>
+                                            {{ form.last_name }}
                                         </label>
                                         {% for error in form.last_name.errors %}
                                           <div class="col-xs-12">
@@ -54,8 +63,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Dni/Ruc
-                                            {{form.dni}}
+                                        <label>Dni <small class="text-orange">required</small>
+                                            {{ form.dni }}
                                         </label>
                                         {% for error in form.dni.errors %}
                                           <div class="col-xs-12">
@@ -69,7 +78,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Email
-                                            {{form.email}}
+                                            {{ form.email }}
                                         </label>
                                         {% for error in form.email.errors %}
                                           <div class="col-xs-12">
@@ -83,7 +92,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Teléfono
-                                            {{form.phone}}
+                                            {{ form.phone }}
                                         </label>
                                     </div>
                                     {% for error in form.phone.errors %}
@@ -96,8 +105,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Direccion
-                                            {{form.address}}
+                                        <label>Dirección <small class="text-orange">required</small>
+                                            {{ form.address }}
                                         </label>
                                         {% for error in form.address.errors %}
                                           <div class="col-xs-12">
@@ -110,7 +119,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Sexo
+                                        <label>Sexo <small class="text-orange">required</small>
                                             {{form.gender}}
                                         </label>
                                         {% for error in form.gender.errors %}
@@ -124,8 +133,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Fecha de Nacimiento
-                                            {{form.date_birth}}
+                                        <label>Fecha de Nacimiento <small class="text-orange">required</small>
+                                            {{ form.date_birth }}
                                         </label>
                                         {% for error in form.date_birth.errors %}
                                           <div class="col-xs-12">
@@ -139,7 +148,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>N° Licencia
-                                            {{form.license}}
+                                            {{ form.license }}
                                         </label>
                                         {% for error in form.license.errors %}
                                           <div class="col-xs-12">
@@ -152,8 +161,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Clase de Conductor
-                                            {{form.class_driver}}
+                                        <label>Clase de Licecia
+                                            {{ form.class_driver }}
                                         </label>
                                         {% for error in form.class_driver.errors %}
                                           <div class="col-xs-12">
@@ -166,8 +175,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Categoria de Conductor
-                                            {{form.category}}
+                                        <label>Categoria de Licencia
+                                            {{ form.category }}
                                         </label>
                                         {% for error in form.category.errors %}
                                           <div class="col-xs-12">
@@ -181,7 +190,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Foto
-                                            {{form.avatar}}
+                                            {{ form.avatar }}
                                         </label>
                                         {% for error in form.avatar.errors %}
                                           <div class="col-xs-12">
@@ -197,7 +206,6 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <button type="submit" class="small radius bg-verde button">Guardar</button>
-                                        <a href="{% url 'users_app:user-update' object.user.pk %}" class="small radius bg-amarillo border-grey button">Usuario</a>
                                         <a href="{% url 'profiles_app:driver-list' %}" class="small radius bg-blanco border-grey button">Cancelar</a>
                                     </div>
                                 </div>
@@ -209,3 +217,23 @@
         </div>
     </div>
 {% endblock main %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'js/date-dropdown/jquery.datetimepicker.js' %}"></script>
+    <script>
+    (function($) {
+        "use strict";
+        //default date & time picker
+
+        $('.datepicker').datetimepicker({
+            timepicker: false,
+            lang: 'es',
+            closeOnDateSelect: true,
+            format: 'd/m/Y'
+        });
+    })(jQuery);
+{% endblock js %}
+
+
+</script>

@@ -15,7 +15,6 @@ class ClientForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'nombre de usuario',
-                'autofocus': 'autofocus',
             }
         ),
     )
@@ -181,7 +180,6 @@ class DriverForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'nombre de usuario',
-                'autofocus': 'autofocus',
             }
         ),
     )
@@ -253,16 +251,12 @@ class DriverForm(forms.ModelForm):
                     'placeholder': 'Direccion',
                 }
             ),
-            'gender': forms.Select(
+            'date_birth': forms.DateInput(
                 attrs={
-                    'class': 'form-control input-sm'
-                }
-            ),
-            'date_birth': forms.TextInput(
-                attrs={
-                    'class': 'form-control input-sm datepicker',
+                    'class': 'datepicker',
                     'placeholder': 'ingrese Fecha de Nacimiento',
-                }
+                },
+                format='%d/%m/%Y'
             ),
             'license': forms.TextInput(
                 attrs={
@@ -354,6 +348,60 @@ class DriverUpdateForm(forms.ModelForm):
             'class_driver',
             'category',
         )
+        widgets = {
+            'first_name': forms.TextInput(
+                attrs={
+                    'placeholder': 'Nombres',
+                }
+            ),
+            'last_name': forms.TextInput(
+                attrs={
+                    'placeholder': 'Apellidos',
+                }
+            ),
+            'dni': forms.TextInput(
+                attrs={
+                    'placeholder': 'Docuemento de identidad',
+                }
+            ),
+            'email': forms.TextInput(
+                attrs={
+                    'placeholder': 'correo electronico',
+                }
+            ),
+            'phone': forms.TextInput(
+                attrs={
+                    'placeholder': 'Telefono o Celular',
+                }
+            ),
+            'address': forms.TextInput(
+                attrs={
+                    'placeholder': 'Direccion',
+                }
+            ),
+            'date_birth': forms.DateInput(
+                attrs={
+                    'class': 'datepicker',
+                    'placeholder': 'ingrese Fecha de Nacimiento',
+                },
+                format='%d/%m/%Y'
+            ),
+            'license': forms.TextInput(
+                attrs={
+                    'placeholder': 'licencia de conducir',
+                }
+            ),
+            'class_driver': forms.TextInput(
+                attrs={
+                    'placeholder': 'Clase',
+                }
+            ),
+            'category': forms.TextInput(
+                attrs={
+                    'placeholder': 'categoria',
+                }
+            ),
+        }
 
 
 class EmployeeForm(forms.ModelForm):
@@ -367,7 +415,6 @@ class EmployeeForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'nombre de usuario',
-                'autofocus': 'autofocus',
             }
         ),
     )
@@ -436,14 +483,9 @@ class EmployeeForm(forms.ModelForm):
                     'placeholder': 'Direccion',
                 }
             ),
-            'gender': forms.Select(
-                attrs={
-                    'class': 'form-control input-sm'
-                }
-            ),
             'date_birth': forms.TextInput(
                 attrs={
-                    'class': 'form-control input-sm datepicker',
+                    'class': 'datepicker',
                     'placeholder': 'ingrese Fecha de Nacimiento',
                 }
             ),
@@ -506,3 +548,43 @@ class EmployeeUpdateForm(forms.ModelForm):
             'date_birth',
             'avatar',
         )
+
+        widgets = {
+            'first_name': forms.TextInput(
+                attrs={
+                    'placeholder': 'Nombres',
+                }
+            ),
+            'last_name': forms.TextInput(
+                attrs={
+                    'placeholder': 'Apellidos',
+                }
+            ),
+            'dni': forms.TextInput(
+                attrs={
+                    'placeholder': 'Docuemento de identidad',
+                }
+            ),
+            'email': forms.TextInput(
+                attrs={
+                    'placeholder': 'correo electronico',
+                }
+            ),
+            'phone': forms.TextInput(
+                attrs={
+                    'placeholder': 'Telefono o Celular',
+                }
+            ),
+            'address': forms.TextInput(
+                attrs={
+                    'placeholder': 'Direccion',
+                }
+            ),
+            'date_birth': forms.DateInput(
+                attrs={
+                    'class': 'datepicker',
+                    'placeholder': 'ingrese Fecha de Nacimiento',
+                },
+                format='%d/%m/%Y'
+            ),
+        }
