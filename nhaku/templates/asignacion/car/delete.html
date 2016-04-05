@@ -26,7 +26,7 @@
                     <div class="row">
                         <div class="small-12 large-12 columns">
                           <form role="form" action="{% url 'asignacion_app:car-delete' car.id %}" method="POST">{% csrf_token %}
-                            <h6 class="subheader">¿Desea eliminar el Vehiculos <strong>{{ car.model }}-{{car.plaque}}s</strong>?</h6>
+                            <h6 class="subheader">¿Desea eliminar el Vehiculos <strong>{{ car.model }}-{{car.plaque}}</strong>?</h6>
                             <button type="submit" class="tiny radius bg-rojo button">Si</button>
                             <a href="{% url 'asignacion_app:car-list' %}" class="tiny radius bg-blanco border-grey button">No</a>
                           </form>
