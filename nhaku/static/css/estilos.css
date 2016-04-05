@@ -26,3 +26,18 @@ nav .user img {
     margin-right: 10px;
     vertical-align: middle;
 }
+
+
+.pg-footer {
+    background-color: #263238;
+    height: 70px;
+    border-top: 4px solid #f57c00;
+    color: #fafafa;
+}
+
+.pg-footer .container span {
+    display: block;
+    line-height: 70px;
+    letter-spacing: 1px;
+    text-align: right;
+}
