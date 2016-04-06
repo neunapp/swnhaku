@@ -143,8 +143,8 @@ class ClientForm(forms.ModelForm):
     def clean_address(self):
         address = self.cleaned_data['address']
 
-        if len(address) < 8:
-            msj = 'La Direccion no es Valdia'
+        if len(address) < 4:
+            msj = 'Asegures de que ingresar una direccion mas Especifica'
             self.add_error('address', msj)
         else:
             return address

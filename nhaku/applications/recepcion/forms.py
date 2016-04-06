@@ -103,12 +103,6 @@ class GuideForm(forms.ModelForm):
             'adreessee',
             'weigth',
             'content',
-            'zona',
-            'address',
-            'province',
-            'priority',
-            'type_guide',
-            'amount',
         )
         widgets = {
             'number': forms.TextInput(
@@ -136,42 +130,7 @@ class GuideForm(forms.ModelForm):
                     'placeholder': 'Descripcion del Paquete',
                 }
             ),
-            'zona': forms.Select(
-                attrs={
-                    'class': 'form-control input-sm',
-                }
-            ),
-            'address': forms.TextInput(
-                attrs={
-                    'placeholder': 'Direccion de Entrega',
-                }
-            ),
-            'province': forms.TextInput(
-                attrs={
-                    'placeholder': 'procincia/Distriro',
-                }
-            ),
-            'priority': forms.Select(
-                attrs={
-                    'class': 'form-control input-sm',
-                }
-            ),
-            'type_guide': forms.Select(
-                attrs={
-                    'class': 'form-control input-sm',
-                }
-            ),
-            'amount': forms.NumberInput(
-                attrs={
-                    'placeholder': 'Monto a Cobrar',
-                }
-            ),
         }
-
-    def __init__(self, *args, **kwargs):
-        super(GuideForm, self).__init__(*args, **kwargs)
-        zona = Zone.objects.filter(state=False)
-        self.fields['zona'].queryset = zona
 
     def clean(self):
         cleaned_data = super(GuideForm, self).clean()

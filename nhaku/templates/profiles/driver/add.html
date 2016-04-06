@@ -33,7 +33,7 @@
                           <form role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Nombres <small class="text-orange">required</small>
+                                        <label>Nombres <small class="text-orange">Requerido</small>
                                             {{ form.first_name }}
                                         </label>
                                         {% for error in form.first_name.errors %}
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Apellidos <small class="text-orange">required</small>
+                                        <label>Apellidos <small class="text-orange">Requerido</small>
                                             {{ form.last_name }}
                                         </label>
                                         {% for error in form.last_name.errors %}
@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Dni <small class="text-orange">required</small>
+                                        <label>Dni <small class="text-orange">Requerido</small>
                                             {{ form.dni }}
                                         </label>
                                         {% for error in form.dni.errors %}
@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Direccion <small class="text-orange">required</small>
+                                        <label>Direccion <small class="text-orange">Requerido</small>
                                             {{ form.address }}
                                         </label>
                                         {% for error in form.address.errors %}
@@ -117,7 +117,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Sexo <small class="text-orange">required</small>
+                                        <label>Sexo <small class="text-orange">Requerido</small>
                                             {{ form.gender }}
                                         </label>
                                         {% for error in form.gender.errors %}
@@ -131,7 +131,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Fecha de Nacimiento <small class="text-orange">required</small>
+                                        <label>Fecha de Nacimiento <small class="text-orange">Requerido</small>
                                             {{ form.date_birth }}
                                         </label>
                                         {% for error in form.date_birth.errors %}
@@ -201,7 +201,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Username <small class="text-orange">required</small>
+                                        <label>Username <small class="text-orange">Requerido</small>
                                             {{ form.user_name }}
                                         </label>
                                         {% for error in form.user_name.errors %}
@@ -215,7 +215,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Contraseña <small class="text-orange">required</small>
+                                        <label>Contraseña <small class="text-orange">Requerido</small>
                                             {{ form.password1 }}
                                         </label>
                                         {% for error in form.password1.errors %}
@@ -229,7 +229,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label> Repetir contraseña <small class="text-orange">required</small>
+                                        <label> Repetir contraseña <small class="text-orange">Requerido</small>
                                             {{ form.password2 }}
                                         </label>
                                         {% for error in form.password2.errors %}

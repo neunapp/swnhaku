@@ -85,6 +85,7 @@ class Manifest(TimeStampedModel):
     )
     matricula = models.CharField(
         'Matricula/Placa',
+        blank=True,
         max_length=8
     )
     cargo = models.CharField(
