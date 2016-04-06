@@ -1,6 +1,13 @@
 {% extends "profiles/admin/admin.html" %}
 
+{% load staticfiles %}
+
 {% block title %} Modificar Empleado {% endblock title %}
+
+{% block css %}
+    {{ block.super }}
+    <link href="{% static 'js/date-dropdown/jquery.datetimepicker.css' %}" rel="stylesheet"/>
+{% endblock css %}
 
 {% block migadepan %}
     <li>Conductor</li>
@@ -26,7 +33,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Nombres
-                                            {{form.first_name}}
+                                            {{ form.first_name }}
                                         </label>
                                         {% for error in form.first_name.errors %}
                                           <div class="col-xs-12">
@@ -40,7 +47,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Apellidos
-                                            {{form.last_name}}
+                                            {{ form.last_name }}
                                         </label>
                                         {% for error in form.last_name.errors %}
                                           <div class="col-xs-12">
@@ -54,7 +61,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Dni/Ruc
-                                            {{form.dni}}
+                                            {{ form.dni }}
                                         </label>
                                         {% for error in form.dni.errors %}
                                           <div class="col-xs-12">
@@ -82,7 +89,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Teléfono
-                                            {{form.phone}}
+                                            {{ form.phone }}
                                         </label>
                                     </div>
                                     {% for error in form.phone.errors %}
@@ -95,8 +102,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Direccion
-                                            {{form.address}}
+                                        <label>Dirección
+                                            {{ form.address }}
                                         </label>
                                         {% for error in form.address.errors %}
                                           <div class="col-xs-12">
@@ -110,7 +117,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Sexo
-                                            {{form.gender}}
+                                            {{ form.gender }}
                                         </label>
                                         {% for error in form.gender.errors %}
                                           <div class="col-xs-12">
@@ -124,7 +131,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <label>Fecha de Nacimiento
-                                            {{form.date_birth}}
+                                            {{ form.date_birth }}
                                         </label>
                                         {% for error in form.date_birth.errors %}
                                           <div class="col-xs-12">
@@ -165,3 +172,21 @@
         </div>
     </div>
 {% endblock main %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'js/date-dropdown/jquery.datetimepicker.js' %}"></script>
+    <script>
+    (function($) {
+        "use strict";
+        //default date & time picker
+
+        $('.datepicker').datetimepicker({
+            timepicker: false,
+            lang: 'es',
+            closeOnDateSelect: true,
+            format: 'd/m/Y'
+        });
+    })(jQuery);
+    </script>
+{% endblock js %}

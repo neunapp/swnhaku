@@ -1829,7 +1829,7 @@ Boxes
 
 #paper-bg {
   background: #f5f5f5;
-  min-height: 690px;
+  min-height: 990px;
   margin: 0 0 -35px;
   padding: 0 15px 85px;
   position: relative; }
@@ -2072,4 +2072,10 @@ footer {
     margin: 0 0 0 0.9em;
     color: #3A372F;
     font-weight: bold;
+}
+
+.pg-change {
+  font-size: 0.7em;
+  font-style: oblique;
+  padding-top: 3px;
 }
