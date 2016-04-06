@@ -1,6 +1,7 @@
 body {
     background-color: #fafafa;
     font-size: 14px;
+    font-family: 'Ubuntu';
 }
 
 .pg-content {
@@ -14,11 +15,11 @@ body {
 /* nav */
 nav ul a,
 nav .brand-logo {
-    color: #f5f5f5;
+    color: #263238;
 }
 
 .button-collapse {
-    color: #f57c00;
+    color: #ffa726;
 }
 
 nav .user img {
@@ -27,12 +28,27 @@ nav .user img {
     vertical-align: middle;
 }
 
+nav .dropdown-content li > .li-user {
+    color: #ffa726;
+    font-size: 15px;
+}
+
+nav .dropdown-content li > .li-user:hover {
+    background-color: #ffa726;
+    color: #fff3e0;
+    font-size: 15px;
+}
+
+.li-margin {
+  margin-right: 0.5em;
+}
+
 
 .pg-footer {
-    background-color: #263238;
+    background-color: #fff;
     height: 70px;
     border-top: 4px solid #f57c00;
-    color: #fafafa;
+    color: #37474f;
 }
 
 .pg-footer .container span {
@@ -40,4 +56,30 @@ nav .user img {
     line-height: 70px;
     letter-spacing: 1px;
     text-align: right;
+}
+
+
+.section-title {
+  margin: 0 2em;
+  padding: 0.5em 0 0.7em 0 ;
+}
+
+.stats-card {
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-card>i {
+    position: absolute;
+    font-size: 6rem;
+    right: 0;
+    bottom: -1rem;
+}
+
+.stats-card .count {
+    position: relative;
+    font-weight: 900;
+    font-size: 3rem;
+    line-height: 2rem;
 }
