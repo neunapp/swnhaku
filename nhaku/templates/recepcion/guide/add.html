@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Descripcion <small class="text-orange">Requerido</small>
+                                        <label>Descripcion
                                             {{form.content}}
                                         </label>
                                         {% for error in form.content.errors %}
@@ -101,7 +101,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <button type="submit" class="small radius bg-verde button">Guardar</button>
-                                        <a href="{% url 'recepcion_app:manifest-detail' manifiesto.pk %}" class="small radius bg-blanco border-grey button">Cancelar</a>
+                                        <a href="{% url 'recepcion_app:manifest-list'%}" class="small radius bg-blanco border-grey button">Cancelar</a>
                                         <a href="{% url 'recepcion_app:manifest-detail' manifiesto.pk %}" class="small radius bg-blanco border-grey button">Lista de Guias</a>
                                     </div>
                                 </div>

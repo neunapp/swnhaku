@@ -319,6 +319,12 @@ class ReceptionGuideView(FormView):
     form_class = ReceptionForm
     success_url = reverse_lazy('recepcion_app:manifest-list')
 
+    def get_context_data(self, **kwargs):
+        context = super(ReceptionGuideView, self).get_context_data(**kwargs)
+        manifiesto_pk = self.kwargs.get('pk', 0)
+        context['manifiesto'] = Manifest.objects.get(pk=manifiesto_pk)
+        return context
+
     def get_form_kwargs(self):
         kwargs = super(ReceptionGuideView, self).get_form_kwargs()
         kwargs.update({

@@ -20,7 +20,7 @@
 {% block main %}
     <div class="row">
         <div class="small-12 medium-6 columns">
-            <h5 class="subheader">Lista de Guias a Recepcionar</h5>
+            <h5 class="subheader">Lista de Guias a Recepcionar Manifiesto: {{manifiesto}} {{manifiesto.user}}</h5>
         </div>
     </div>
     <form role="form" method="POST" class="form-horizontal">{% csrf_token %}

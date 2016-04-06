@@ -275,57 +275,45 @@ class DriverForm(forms.ModelForm):
             ),
         }
 
-        def clean_password2(self):
-            password1 = self.cleaned_data['password1']
-            password2 = self.cleaned_data['password2']
+    def clean_password2(self):
+        password1 = self.cleaned_data['password1']
+        password2 = self.cleaned_data['password2']
 
-            if password1 and password2 and password1 != password2:
-                self.add_error('password2', 'las contraseñas no coinciden..!!')
-            elif len(password2) < 5:
-                print 'menor a 5 caracteres'
-                self.add_error(
-                    'password2',
-                    'la contraseña debe tener por lo menos 5 caracteres!!'
-                )
-            else:
-                return password2
+        if password1 and password2 and password1 != password2:
+            self.add_error('password2', 'las contraseñas no coinciden..!!')
+        elif len(password2) < 5:
+            print 'menor a 5 caracteres'
+            self.add_error(
+                'password2',
+                'la contraseña debe tener por lo menos 5 caracteres!!'
+            )
+        else:
+            return password2
 
-        def clean_user_name(self):
-            user_name = self.cleaned_data['user_name']
-            username_exist = User.objects.filter(username=user_name)
+    def clean_user_name(self):
+        user_name = self.cleaned_data['user_name']
+        username_exist = User.objects.filter(username=user_name)
 
-            if username_exist.count() > 0:
-                msj = 'el nombre de usuario ya existe'
-                self.add_error('user_name',msj)
-            elif len(user_name) < 6:
-                msj = 'el nombre de usuario debe tener mas de 5 caracteres'
-                self.add_error('user_name', msj)
-            else:
-                return user_name
+        if username_exist.count() > 0:
+            msj = 'el nombre de usuario ya existe'
+            self.add_error('user_name',msj)
+        elif len(user_name) < 6:
+            msj = 'el nombre de usuario debe tener mas de 5 caracteres'
+            self.add_error('user_name', msj)
+        else:
+            return user_name
 
-        def clean_dni(self):
-            dni = self.cleaned_data['dni']
+    def clean_dni(self):
+        dni = self.cleaned_data['dni']
 
-            if not dni.isdigit():
-                msj = 'el N° Documento solo debe contener numeros'
-                self.add_error('dni', msj)
-            elif len(dni) != 8 and len(dni) != 11:
-                msj = 'el Dni o Ruc solo admiten 8 u 11 digitos'
-                self.add_error('dni', msj)
-            else:
-                return dni
-
-        def clean_license(self):
-            license = self.cleaned_data['license']
-
-            if not license.isdigit():
-                msj = 'el N° Documento solo debe contener numeros'
-                self.add_error('license', msj)
-            elif len(license) != 11:
-                msj = 'la licencia debe contener 11 digitos'
-                self.add_error('license', msj)
-            else:
-                return license
+        if not dni.isdigit():
+            msj = 'el N° Documento solo debe contener numeros'
+            self.add_error('dni', msj)
+        elif len(dni) != 8 and len(dni) != 11:
+            msj = 'el Dni o Ruc solo admiten 8 u 11 digitos'
+            self.add_error('dni', msj)
+        else:
+            return dni
 
 
 class DriverUpdateForm(forms.ModelForm):
@@ -490,45 +478,45 @@ class EmployeeForm(forms.ModelForm):
                 }
             ),
         }
-        def clean_password2(self):
-            password1 = self.cleaned_data['password1']
-            password2 = self.cleaned_data['password2']
+    def clean_password2(self):
+        password1 = self.cleaned_data['password1']
+        password2 = self.cleaned_data['password2']
 
-            if password1 and password2 and password1 != password2:
-                self.add_error('password2', 'las contraseñas no coinciden..!!')
-            elif len(password2) < 5:
-                print 'menor a 5 caracteres'
-                self.add_error(
-                    'password2',
-                    'la contraseña debe tener por lo menos 5 caracteres!!'
-                )
-            else:
-                return password2
+        if password1 and password2 and password1 != password2:
+            self.add_error('password2', 'las contraseñas no coinciden..!!')
+        elif len(password2) < 5:
+            print 'menor a 5 caracteres'
+            self.add_error(
+                'password2',
+                'la contraseña debe tener por lo menos 5 caracteres!!'
+            )
+        else:
+            return password2
 
-        def clean_user_name(self):
-            user_name = self.cleaned_data['user_name']
-            username_exist = User.objects.filter(username=user_name)
+    def clean_user_name(self):
+        user_name = self.cleaned_data['user_name']
+        username_exist = User.objects.filter(username=user_name)
 
-            if username_exist.count() > 0:
-                msj = 'el nombre de usuario ya existe'
-                self.add_error('user_name',msj)
-            elif len(user_name) < 6:
-                msj = 'el nombre de usuario debe tener mas de 5 caracteres'
-                self.add_error('user_name', msj)
-            else:
-                return user_name
+        if username_exist.count() > 0:
+            msj = 'el nombre de usuario ya existe'
+            self.add_error('user_name',msj)
+        elif len(user_name) < 6:
+            msj = 'el nombre de usuario debe tener mas de 5 caracteres'
+            self.add_error('user_name', msj)
+        else:
+            return user_name
 
-        def clean_dni(self):
-            dni = self.cleaned_data['dni']
+    def clean_dni(self):
+        dni = self.cleaned_data['dni']
 
-            if not dni.isdigit():
-                msj = 'el N° Documento solo debe contener numeros'
-                self.add_error('dni', msj)
-            elif len(dni) != 8 and len(dni) != 11:
-                msj = 'el Dni o Ruc solo admiten 8 u 11 digitos'
-                self.add_error('dni', msj)
-            else:
-                return dni
+        if not dni.isdigit():
+            msj = 'el N° Documento solo debe contener numeros'
+            self.add_error('dni', msj)
+        elif len(dni) != 8 and len(dni) != 11:
+            msj = 'el Dni o Ruc solo admiten 8 u 11 digitos'
+            self.add_error('dni', msj)
+        else:
+            return dni
 
 
 class EmployeeUpdateForm(forms.ModelForm):

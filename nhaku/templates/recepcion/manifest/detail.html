@@ -49,18 +49,28 @@
                             <td>{{ guide.number }}</td>
                             <td>{{ guide.number_objects }}</td>
                             <td>{{ guide.weigth }}</td>
-                            <td>{{ guide.zona }}</td>
+                            <td>
+                              {% if guide.zona == None %}
+                                  <font color="red">Sin Zona</font>
+                              {% else %}
+                                {{ guide.zona }}
+                              {% endif %}
+                            </td>
                             <td>{{ guide.adreessee }}</td>
                               <td>
-                                  <a href="{% url 'recepcion_app:guide-detail' guide.pk %}" class="tiny bg-verde no-margin radius button" title="Ver">
-                                      <i class="fa fa-eye"></i>
-                                  </a>
-                                  <a href="{% url 'recepcion_app:guide-update' guide.pk %}" class="tiny bg-amarillo no-margin radius button" title="Modificar">
-                                      <i class="fa fa-pencil"></i>
-                                  </a>
-                                  <a href="{% url 'recepcion_app:guide-delete' guide.pk %}" class="tiny bg-rojo no-margin radius button" title="Eliminar">
-                                      <i class="fa fa-trash-o"></i>
-                                  </a>
+                                {% if not guide.state == '0' %}
+                                      <a href="{% url 'recepcion_app:guide-detail' guide.pk %}" class="tiny bg-verde no-margin radius button" title="Ver">
+                                          <i class="fa fa-eye"></i>
+                                      </a>
+                                      <a href="{% url 'recepcion_app:guide-update' guide.pk %}" class="tiny bg-amarillo no-margin radius button" title="Modificar">
+                                          <i class="fa fa-pencil"></i>
+                                      </a>
+                                      <a href="{% url 'recepcion_app:guide-delete' guide.pk %}" class="tiny bg-rojo no-margin radius button" title="Eliminar">
+                                          <i class="fa fa-trash-o"></i>
+                                      </a>
+                                  {% else %}
+                                      la Guia no se Recepciono
+                                  {% endif %}
                               </td>
                               {% empty %}
                                   <td colspan="7">Lo sentimos no hay Guias en este Manifiesto :( <a href="{% url 'recepcion_app:guide-add' manifest.pk %}">Agregar Nueva</a></td>
