@@ -49,7 +49,7 @@
                                 <th>Numero</th>
                                 <th>Origen</th>
                                 <th>Destino</th>
-                                <th>Matricula</th>
+                                <th>Cliente</th>
                                 <th>Fecha</th>
                                 <th>Tipo de Manifiesto</th>
                                 <th>Accion</th>
@@ -75,7 +75,7 @@
                                 </td>
                                 <td>
                                   <a href="{% url 'recepcion_app:guide-reception' manifiesto.pk %}"title="Recepcionar">
-                                    {{ manifiesto.matricula }}
+                                    {{ manifiesto.user }}
                                   </a>
                                 </td>
                                 <td>

@@ -2,6 +2,8 @@
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
+from django.utils import timezone
+from datetime import datetime
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -10,6 +12,7 @@ from django.views.generic import (
     ListView,
     TemplateView,
 )
+
 from django.views.generic.edit import FormView
 
 from .forms import (
@@ -130,6 +133,7 @@ class ManifestCreateView(CreateView):
 
     def form_valid(self, form):
         manifiesto = form.save(commit=False)
+        manifiesto.date = timezone.now()
         manifiesto.user_created = self.request.user
         manifiesto.save()
         return HttpResponseRedirect(

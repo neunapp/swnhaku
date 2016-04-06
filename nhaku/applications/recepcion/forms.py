@@ -40,7 +40,6 @@ class ManifestForm(forms.ModelForm):
             'destination',
             'matricula',
             'cargo',
-            'date',
             'type_manifest',
         )
         widgets = {
@@ -67,11 +66,6 @@ class ManifestForm(forms.ModelForm):
             'cargo': forms.TextInput(
                 attrs={
                     'placeholder': 'Vuelo o Salida',
-                }
-            ),
-            'date': forms.TextInput(
-                attrs={
-                    'placeholder': 'Fecha de Recepcion',
                 }
             ),
         }
