@@ -3,6 +3,7 @@ from applications.profiles.models import Client, Driver, Employee
 def image_user(request):
     if not request.user.is_anonymous():
         usuario = request.user
+        ruta = '/static/img/usuario.png'
         if Client.objects.filter(user=usuario).exists():
             cliente = Client.objects.get(
                 user=usuario,
@@ -26,7 +27,7 @@ def image_user(request):
                 user=usuario,
             )
             if employee.avatar:
-                employee= employee.avatar.url
+                ruta = employee.avatar.url
             else:
                 ruta = '/static/img/usuario.png'
 
