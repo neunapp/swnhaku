@@ -33,10 +33,16 @@ class LogIn(FormView):
                         'cliente_app:cliente-index'
                     )
                 )
-            else:
+            elif user.is_active:
                 # si el usuario es activo ira dahboard
                 login(self.request, user)
                 return super(LogIn, self).form_valid(form)
+            else:
+                return HttpResponseRedirect(
+                    reverse(
+                        'users_app:login'
+                    )
+                )
 
 
 def LogOut(request):
