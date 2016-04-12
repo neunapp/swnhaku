@@ -8,5 +8,5 @@ register = template.Library()
 @register.filter(name='is_branch')
 #sepra un texto por el caracter guion
 def split_label(value):
-    arreglo = value.split('-')
+    arreglo = value.split('*')
     return arreglo

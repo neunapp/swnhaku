@@ -8,7 +8,7 @@ register = template.Library()
 @register.filter(name='split_label')
 #sepra un texto por el caracter guion
 def split_label(value):
-    arreglo = value.split('-')
+    arreglo = value.split('*')
     '''cadena = str(arreglo[5])
     if cadena == '0':
         arreglo[5] = 'ALTA'
