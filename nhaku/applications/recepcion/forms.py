@@ -242,11 +242,14 @@ class GuideUpdateForm(forms.ModelForm):
     def clean_number(self):
         number = self.cleaned_data['number']
 
-        if not number.isdigit():
-            msj = 'Solo debe contener numeros'
-            self.add_error('number', msj)
-        else:
-            return number
+        arreglo = number.split('-')
+        for a in arreglo:
+            if not a.isdigit():
+                msj = 'El Numero de Guia no puede contener Letras'
+                print msj
+                self.add_error('number', msj)
+            else:
+                return number
 
     def clean_weigth(self):
         weigth = self.cleaned_data['weigth']

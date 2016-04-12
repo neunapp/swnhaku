@@ -29,6 +29,7 @@ def count_observation(value):
     return count
 
 
+#devuleve las guias entregadas (entregados/total)
 @register.filter(name='deliver_guides')
 def deliver_guides(value):
     #recuperamos lista de guias
@@ -41,6 +42,7 @@ def deliver_guides(value):
     return '('+str(num_deliver)+'/'+str(guias.count())+')'
 
 
+#cuenta las guias observadas de un manifiesto
 @register.filter(name='obs_guides')
 def obs_guides(value):
     #recuperamos lista de guias
@@ -50,7 +52,7 @@ def obs_guides(value):
         if Observations.objects.filter(guide=g, type_observation='0').exclude(guide__state='4').exists():
             num_obs = num_obs + 1
 
-    return str(num_obs)
+    return num_obs
 
 
 #clase para lamacenar datos de guia y observacion
@@ -59,6 +61,7 @@ class DetailGuia():
     asignacion = None
     observacion = None
 
+# devuelve una lista de objetos de tio DetailGuia
 @register.filter(name='iterar_guides')
 def iterar_guides(value):
     #recuperamos lista de guias

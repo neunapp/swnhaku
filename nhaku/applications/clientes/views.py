@@ -14,6 +14,8 @@ from django.views.generic.edit import FormView
 
 from .forms import SearchForm, FilterForm, PanelForm
 
+from .functions import report_guides
+
 from applications.recepcion.models import Guide, Manifest
 
 
@@ -67,6 +69,8 @@ class PanelView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PanelView, self).get_context_data(**kwargs)
+        queryset = kwargs.pop('object_list',self.object_list)
+        context['reporte'] = report_guides(queryset)
         context['form'] = PanelForm
         return context
 

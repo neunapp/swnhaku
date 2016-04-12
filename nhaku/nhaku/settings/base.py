@@ -97,10 +97,10 @@ AUTH_USER_MODEL = 'users.User'
 
 LANGUAGE_CODE = 'es-pe'
 
-USE_TZ = False
+USE_TZ = True
 
 USE_I18N = True
 
 USE_L10N = True
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Mexico_City'

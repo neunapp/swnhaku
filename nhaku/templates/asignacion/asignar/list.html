@@ -64,19 +64,19 @@
                         {% for g in  list_guides %}
                           <tr>
                             {% if g.guide.state == '4' %}
-                              <td> {{ g.guide.number }}</td>
-                              <td> {{ g.guide.number_objects }}</td>
-                              <td> {{ g.guide.weigth }}</td>
-                              <td> {{ g.guide.zona }}</td>
+                              <td> <font color="blue">{{ g.guide.number }}</font></td>
+                              <td> <font color="blue">{{ g.guide.number_objects }}</font></td>
+                              <td> <font color="blue">{{ g.guide.weigth }}</font></td>
+                              <td> <font color="blue">{{ g.guide.zona }}</font></td>
+                              <td><font color="blue">{{ g.guide.adreessee }}</font></td>
+                              <td><font color="blue">{{ g.guide.pk|count_observation }}</font></td>
+                            {% else %}
+                              <td>{{ g.guide.number }}</td>
+                              <td>{{ g.guide.number_objects }}</td>
+                              <td>{{ g.guide.weigth }}</td>
+                              <td>{{ g.guide.zona }}</td>
                               <td>{{ g.guide.adreessee }}</td>
                               <td>{{ g.guide.pk|count_observation }}</td>
-                            {% else %}
-                              <td><h6>{{ g.guide.number }}</h6></td>
-                              <td><h6>{{ g.guide.number_objects }}</h6></td>
-                              <td><h6>{{ g.guide.weigth }}</h6></td>
-                              <td><h6>{{ g.guide.zona }}</h6></td>
-                              <td><h6>{{ g.guide.adreessee }}</h6></td>
-                              <td><h6>{{ g.guide.pk|count_observation }}</h6></td>
                             {% endif %}
                               <td>
                                   <a href="{% url 'entrega_app:observation-add' asignation.pk g.guide.pk %}" class="tiny bg-azul no-margin radius button" title="Agregar Observacion">
