@@ -97,7 +97,7 @@ AUTH_USER_MODEL = 'users.User'
 
 LANGUAGE_CODE = 'es-pe'
 
-USE_TZ = True
+USE_TZ = False
 
 USE_I18N = True
 

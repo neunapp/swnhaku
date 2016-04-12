@@ -70,14 +70,14 @@ class ManifestForm(forms.ModelForm):
             ),
         }
 
-        def clean_number(self):
-            number = self.cleaned_data['number']
+    def clean_number(self):
+        number = self.cleaned_data['number']
 
-            if not number.isdigit():
-                msj = 'Solo deben contener numeros'
-                self.add_error('number', msj)
-            else:
-                return number
+        if not number.isdigit():
+            msj = 'Solo deben contener numeros'
+            self.add_error('number', msj)
+        else:
+            return number
 
     def __init__(self, *args, **kwargs):
         super(ManifestForm, self).__init__(*args, **kwargs)
@@ -138,11 +138,14 @@ class GuideForm(forms.ModelForm):
     def clean_number(self):
         number = self.cleaned_data['number']
 
-        if not number.isdigit():
-            msj = 'Solo debe contener numeros'
-            self.add_error('number', msj)
-        else:
-            return number
+        arreglo = number.split('-')
+        for a in arreglo:
+            if not a.isdigit():
+                msj = 'El Numero de Guia no puede contener Letras'
+                print msj
+                self.add_error('number', msj)
+            else:
+                return number
 
     def clean_weigth(self):
         weigth = self.cleaned_data['weigth']
