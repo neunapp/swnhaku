@@ -52,7 +52,7 @@ class ManagerManifest(models.Manager):
             start_date = timezone.make_aware(date, tz)
         else:
             end_date = end_date = timezone.now()
-            start_date = end_date - timedelta(days=5)
+            start_date = end_date - timedelta(days=10)
 
         manifiestos = self.filter(
             user=user,

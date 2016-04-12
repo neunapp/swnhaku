@@ -41,39 +41,58 @@
                                   </p>
                                   <a href="#!" class="secondary-content"></a>
                                   {% else %}
-                                      {% if g.guia.state == '3' %}
-                                        <i class="fa fa-truck circle yellow"></i>
-                                        <span class="title">{{g.guia.number}}</span>
-                                        <p class="pg-padding">
-                                          Dirección: {{g.guia.address}} <br>
-                                          Fecha Asignacion: {{g.asignacion.date_start}} <br>
-                                          Asignado a: {{g.asignacion.driver.first_name}} {{g.asignacion.driver.last_name}}
-                                        </p>
-                                        <a href="#!" class="secondary-content"></a>
+                                    {% if g.guia.state == '3' and g.observacion %}
+                                      <i class="fa fa-truck circle yellow"></i>
+                                      <span class="title"> <font color="red">{{g.guia.number}} </font></span>
+                                      <p class="pg-padding">
+                                        Dirección: {{g.guia.address}} <br>
+                                        Fecha Asignacion: {{g.asignacion.date_start}} <br>
+                                        Asignado a: {{g.asignacion.driver.first_name}} {{g.asignacion.driver.last_name}} <br>
+                                        observacion: <font color="red">{{g.observacion.description}}</font>
+                                      </p>
+                                      <a href="#!" class="secondary-content"></a>
+                                     {% else %}
+                                        {% if g.guia.state == '3' %}
+                                          <i class="fa fa-truck circle yellow"></i>
+                                          <span class="title">{{g.guia.number}}</span>
+                                          <p class="pg-padding">
+                                            Dirección: {{g.guia.address}} <br>
+                                            Fecha Asignacion: {{g.asignacion.date_start}} <br>
+                                            Asignado a: {{g.asignacion.driver.first_name}} {{g.asignacion.driver.last_name}}
+                                          </p>
+                                          <a href="#!" class="secondary-content"></a>
                                         {% else %}
-                                          {% if g.observacion %}
-                                            <i class="fa fa-exclamation-triangle circle red"></i>
-                                            <span class="title">{{g.guia.number}}</span>
-                                            <p class="pg-padding">
-                                              Dirección: {{g.guia.address}} <br>
-                                              Fecha Recepcion: {{g.guia.date_reception}} <br>
-                                              observacion: {{g.observacion.description}}
-                                            </p>
-                                            <a href="#!" class="secondary-content"></a>
-                                        {% else %}
-                                          {% if g.guia.state == '1' %}
-                                            <i class="fa fa-home circle blue"></i>
-                                            <span class="title">{{g.guia.number}}</span>
-                                            <p class="pg-padding">
-                                              Dirección: {{g.guia.address}} <br>
-                                              Fecha Recepcion: {{g.guia.date_reception}} <br>
-                                              Remitente: {{g.guia.adreessee}}
-                                            </p>
-                                            <a href="#!" class="secondary-content"></a>
-                                          {% endif %}
-                                        {% endif %}
+                                            {% if g.observacion %}
+                                              <i class="fa fa-exclamation-triangle circle red"></i>
+                                              <span class="title">{{g.guia.number}}</span>
+                                              <p class="pg-padding">
+                                                Dirección: {{g.guia.address}} <br>
+                                                Fecha Recepcion: {{g.guia.date_reception}} <br>
+                                                observacion: {{g.observacion.description}}
+                                              </p>
+                                              <a href="#!" class="secondary-content"></a>
+                                            {% else %}
+                                              {% if g.guia.state == '1' %}
+                                                <i class="fa fa-home circle blue"></i>
+                                                <span class="title">{{g.guia.number}}</span>
+                                                <p class="pg-padding">
+                                                  Dirección: {{g.guia.address}} <br>
+                                                  Fecha Recepcion: {{g.guia.date_reception}} <br>
+                                                  Remitente: {{g.guia.adreessee}}
+                                                </p>
+                                                <a href="#!" class="secondary-content"></a>
+                                              {% else %}
+                                                <i class="fa fa-trash-o circle grey"></i>
+                                                <span class="title">{{g.guia.number}}</span>
+                                                <p class="pg-padding">
+                                                  Enviado por: {{g.guia.adreessee}} <br>
+                                                  observacion: Paquete no Recepcionado
+                                                </p>
+                                                <a href="#!" class="secondary-content"></a>
+                                              {% endif %}
+                                            {% endif %}
+                                         {% endif %}
                                       {% endif %}
-
                                   {% endif %}
 
                                 </li>

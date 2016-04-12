@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from django.utils import timezone
+from django.contrib.messages.views import SuccessMessageMixin
 from datetime import datetime
 from django.views.generic import (
     CreateView,
@@ -133,7 +134,7 @@ class ManifestCreateView(CreateView):
 
     def form_valid(self, form):
         manifiesto = form.save(commit=False)
-        manifiesto.date = timezone.now()
+        manifiesto.date = datetime.now()
         manifiesto.user_created = self.request.user
         manifiesto.save()
         return HttpResponseRedirect(
@@ -219,7 +220,7 @@ class ManifestListView(ListView):
         return queryset
 
 
-class GuideCreateView(CreateView):
+class GuideCreateView(SuccessMessageMixin, CreateView):
     '''
     vista para registrar las guias de remision
     '''
@@ -227,6 +228,7 @@ class GuideCreateView(CreateView):
     form_class = GuideForm
     success_url = '.'
     template_name = 'recepcion/guide/add.html'
+    success_message = "La Guia Se Guardo Correctamente..."
 
     def get_context_data(self, **kwargs):
         context = super(GuideCreateView, self).get_context_data(**kwargs)

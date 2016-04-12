@@ -126,6 +126,20 @@ class ManagerDetailAsignation(models.Manager):
 
         return True
 
+    def guide_by_asignation(self, asignation, number):
+        if number:
+            guias = self.filter(
+                asignation__pk=asignation,
+                guide__number__icontains=number,
+                guide__anulate=False,
+            )
+        else:
+            guias = self.filter(
+                asignation=asignation,
+                guide__anulate=False,
+            )
+        return guias
+
     def weigth_by_asignation(self, asignation):
         guides = self.filter(
             asignation = asignation,

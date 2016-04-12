@@ -40,6 +40,16 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body " style="display: block;">
+                  <form method="get" class="form-horizontal">{% csrf_token %}
+                        <div class="row">
+                            <div class="medium-6 columns">
+                                    {{form.number}}
+                            </div>
+                            <div class="medium-6 columns">
+                              <button type="submit" class="small radius bg-blanco button left">Buscar</button>
+                            </div>
+                        </div>
+                  </form>
                   <table id="responsive-example-table" class="table large-only">
                       <thead>
                           <tr>
@@ -48,6 +58,7 @@
                             <th>Peso</th>
                             <th>Zona</th>
                             <th>adreessee</th>
+                            <th>observaciones</th>
                             <th>Accion</th>
                           </tr>
                       </thead>
@@ -59,21 +70,19 @@
                             <td>{{ g.guide.weigth }}</td>
                             <td>{{ g.guide.zona }}</td>
                             <td>{{ g.guide.adreessee }}</td>
+                            <td>{{ g.guide.pk|count_observation }}</td>
                               <td>
                                   {% if not g.guide.state == '4' %}
-                                  <a href="{% url 'entrega_app:entrega-deliver' asignation.pk g.guide.pk %}" class="tiny bg-verde no-margin radius button" title="Entregar">
-                                      <i class="fontello-ok"></i>
-                                  </a>
-                                  <a href="{% url 'entrega_app:observation-add_deliver' asignation.pk g.guide.pk %}" class="tiny bg-rojo no-margin radius button" title="Observacion">
-                                      <i class="fontello-warning"></i>
-                                  </a>
+                                    <a href="{% url 'entrega_app:entrega-deliver' asignation.pk g.guide.pk %}" class="tiny bg-verde no-margin radius button" title="Entregar">
+                                        <i class="fontello-ok"></i>
+                                    </a>
+                                    <a href="{% url 'entrega_app:observation-add_deliver' asignation.pk g.guide.pk %}" class="tiny bg-rojo no-margin radius button" title="Observacion">
+                                        <i class="fontello-warning"></i>
+                                    </a>
                                   {% else %}
-                                  <a href="#" class="tiny bg-azul no-margin radius button" title="Entregado">
-                                      <i class="fontello-thumbs-up-1"></i>
-                                  </a>
-                                  <a href="{% url 'entrega_app:observation-add_deliver' asignation.pk g.guide.pk %}" class="tiny bg-rojo no-margin radius button" title="Observacion">
-                                      <i class="fontello-warning"></i>
-                                  </a>
+                                    <a href="#" class="tiny bg-azul no-margin radius button" title="Entregado">
+                                        <i class="fontello-thumbs-up-1"></i>
+                                    </a>
                                   {% endif %}
                               </td>
                               {% empty %}
@@ -86,7 +95,7 @@
             </div>
             <div class="row">
               <div class="medium-12 columns">
-                    <a href="{% url 'entrega_app:entrega-list_asignation' %}" class="small radius bg-blanco border-grey button">Cancelar</a>
+                    <a href="{% url 'entrega_app:entrega-list_asignation' %}" class="small radius bg-blanco border-grey button">Volver</a>
               </div>
             </div>
     </div>

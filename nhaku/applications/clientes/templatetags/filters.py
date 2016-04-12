@@ -22,7 +22,10 @@ def split_label(value):
 #muestra la cantidad de observaciones de una guia
 @register.filter(name='count_observation')
 def count_observation(value):
-    count = Observations.objects.filter(guide__pk=value).count()
+    count = Observations.objects.filter(
+        guide__pk=value,
+        guide__anulate=False,
+    ).count()
     return count
 
 
@@ -44,7 +47,7 @@ def obs_guides(value):
     guias = Guide.objects.by_manifest(value)
     num_obs = 0
     for g in guias:
-        if Observations.objects.filter(guide=g).exists():
+        if Observations.objects.filter(guide=g, type_observation='0').exclude(guide__state='4').exists():
             num_obs = num_obs + 1
 
     return str(num_obs)

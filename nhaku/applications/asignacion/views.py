@@ -225,7 +225,10 @@ class GuideByAsignationListView(ListView):
 
     def get_queryset(self):
         asignation_pk = self.kwargs.get('pk', 0)
-        queryset = DetailAsignation.objects.filter(asignation__pk=asignation_pk)
+        queryset = DetailAsignation.objects.filter(
+            asignation__pk=asignation_pk,
+            guide__anulate=False,
+        )
         return queryset
 
 

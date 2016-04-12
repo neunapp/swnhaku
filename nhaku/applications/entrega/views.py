@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.shortcuts import render
 from django.utils import timezone
+from datetime import datetime
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import (
@@ -17,6 +18,7 @@ from .forms import ObservationsForm, DeliverForm
 
 from applications.asignacion.models import Asignation, DetailAsignation
 from applications.recepcion.models import Guide, Observations
+from applications.clientes.forms import SearchForm
 
 
 class ReceptionAsignationView(DetailView):
@@ -43,6 +45,7 @@ class ReceptionAsignationView(DetailView):
                 g.state = False
                 g.save()
                 g.guide.state = '1'
+                g.guide.priority = '0'
                 g.guide.save()
 
         return HttpResponseRedirect(
@@ -111,11 +114,16 @@ class GuideByAsignation(ListView):
         context = super(GuideByAsignation, self).get_context_data(**kwargs)
         asignation_pk = self.kwargs.get('pk', 0)
         context['asignation'] = Asignation.objects.get(pk=asignation_pk)
+        context['form'] = SearchForm
         return context
 
     def get_queryset(self):
         asignation_pk = self.kwargs.get('pk', 0)
-        queryset = DetailAsignation.objects.filter(asignation__pk=asignation_pk)
+        q = self.request.GET.get("number", '')
+        queryset = DetailAsignation.objects.guide_by_asignation(
+            asignation_pk,
+            q
+        )
         return queryset
 
 
@@ -133,7 +141,7 @@ class DeliverView(FormView):
         guia = Guide.objects.get(pk=self.kwargs.get('pk', 0))
         guia.person_id = form.cleaned_data['dni']
         guia.person_name = form.cleaned_data['full_name']
-        guia.date_deliver = timezone.now()
+        guia.date_deliver = datetime.now()
         guia.state = '4'
         guia.save()
         asig = self.kwargs.get('as', 0)
