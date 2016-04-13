@@ -285,3 +285,40 @@ class ReceptionForm(forms.Form):
                 obj.content,
                 obj.weigth,
             )
+
+
+class FilterForm(forms.Form):
+    TIPO_CHOICES = (
+        ('0', 'Guias Registradas'),
+        ('1', 'Guias No Entregadas'),
+        ('2', 'Guias Perdidas'),
+        ('3', 'Guias No Recepcionadas'),
+    )
+    numero = forms.CharField(
+        label='Numero',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Numero de Guia',
+            }
+        )
+    )
+    tipo = forms.ChoiceField(
+        choices=TIPO_CHOICES,
+        required=False,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-control input-sm'
+            }
+        )
+    )
+    date = forms.DateField(
+        'Fecha',
+        required=False,
+        widget=forms.DateInput(
+            attrs={
+                'class': 'datepicker',
+                'placeholder': 'ingrese Fecha de Nacimiento',
+            },
+            format='%d/%m/%Y'
+        )
+    )

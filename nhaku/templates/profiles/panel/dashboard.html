@@ -1,0 +1,22 @@
+{% extends "profiles/admin/admin.html" %}
+
+{% load staticfiles %}
+
+{% block title %} Bienvenido a Pacha Connection {% endblock title %}
+
+{% block css %}
+    {{ block.super }}
+    <link href="{% static 'js/stackable/stacktable.css' %}" rel="stylesheet"/>
+    <link href="{% static 'js/stackable/responsive-table.css' %}" rel="stylesheet"/>
+{% endblock css %}
+
+{% block main %}
+    <div class="row">
+        <div class="small-12 medium-6 columns">
+            <h3 class="subheader">Pacha Connection</h3>
+        </div>
+    </div>
+
+    <div class="row">
+    </div>
+{% endblock %}

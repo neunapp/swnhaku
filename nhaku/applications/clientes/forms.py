@@ -23,23 +23,6 @@ class SearchForm(forms.Form):
         return numero
 
 
-class FilterForm(forms.Form):
-    TIPO_CHOICES = (
-        ('0', 'Guias No Entregadas'),
-        ('1', 'Guias No Recepcionadas'),
-        ('2', 'Guias Con Observacion'),
-    )
-    tipo = forms.ChoiceField(
-        choices=TIPO_CHOICES,
-        required=True,
-        widget=forms.Select(
-            attrs={
-                'class': 'form-control input-sm'
-            }
-        )
-    )
-
-
 class PanelForm(forms.Form):
     date = forms.DateField(
         'Fecha',
@@ -50,3 +33,44 @@ class PanelForm(forms.Form):
             }
         )
     )
+
+
+class ProfileForm(forms.Form):
+
+    password1 = forms.CharField(
+        label='contraseña',
+        required=False,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Contraseña',
+            }
+        ),
+    )
+    password2 = forms.CharField(
+        label='contraseña',
+        required=False,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Repita la Contraseña',
+            }
+        ),
+    )
+    image = forms.ImageField(
+        label='Imagen',
+        required=False,
+    )
+
+    def clean_password2(self):
+        password1 = self.cleaned_data['password1']
+        password2 = self.cleaned_data['password2']
+
+        if password1 and password2 and password1 != password2:
+            self.add_error('password2', 'las contraseñas no coinciden..!!')
+        elif len(password2) < 5 and len(password2) > 0:
+            print 'menor a 5 caracteres'
+            self.add_error(
+                'password2',
+                'la contraseña debe tener por lo menos 5 caracteres!!'
+            )
+        else:
+            return password2

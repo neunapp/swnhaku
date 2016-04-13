@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <style >
+        @page {
+            size: {{ pagesize }};
+            @frame header_frame{
+                -pdf-frame-content: headerContent;
+                /*left: 5pt;
+                top: 20pt;
+                height: 100pt;*/
+                left: 2.5cm;
+                top: 2cm;
+                height: 100pt;
+                }
+
+            @frame content_frame {
+                    left: 2.5cm; width: 400pt; top: 1.5cm; height: 700pt;
+            }
+        }
+    </style>
+</head>
+<body>
+    <table style="border:0px solid black;border-collapse:collapse;">
+        <tr>
+            <th style="border:0px solid white; padding: 2px; width:90px; text-align:center;"><img src="media/logo/logohaku.jpg" width="327" height="70"></th>
+            <th style="border:0px solid white; padding: 2px; text-align:center;"> <p style="font-size: 25px; font-family: Arial; text-align:center;">Reporte Haku Peru</p></th>
+        </tr>
+    </table>
+
+    <table style="border:0px solid black;border-collapse:collapse;">
+        <tr>
+            <th style="border:0px solid white; padding: 2px;">
+
+            <pre style="font-size: 12px; font-family: Arial; text-align:left;">
+                Total de Guias:   {{ guides.count }}
+                Tipo de Guia: {{tipo}}
+            </pre>
+            </th>
+            <th style="border:0px solid white; padding: 2px; width:90px; text-align:center;"><img src="media/{{autor.foto}}" width="90" height="130"></th>
+        </tr>
+    </table>
+
+
+<br>
+<h2>Lista de Guias Asignadas</h2>
+<br>
+
+    <table style="border:1px solid black;border-collapse:collapse;">
+        <tr>
+            <th style="border:1px solid black; padding: 2px; background-color:#918F8F; width:50px">Numero</th>
+            <th style="border:1px solid black; padding: 2px; background-color:#918F8F; width:50px">Cantidad</th>
+            <th style="border:1px solid black; padding: 2px; background-color:#918F8F; width:50px">Peso</th>
+            <th style="border:1px solid black; padding: 2px; background-color:#918F8F; width:120px">Zona</th>
+            <th style="border:1px solid black; padding: 2px; background-color:#918F8F">Direccion</th>
+            <th style="border:1px solid black; padding: 2px; background-color:#918F8F; width:50px">Accion</th>
+
+        </tr>
+
+        {% for g in guides %}
+            <tr>
+                <th style="border:1px solid black; padding: 2px; background-color:#A9A4A4; width:60px">{{ g.guide.number }}</th>
+                <th style="border:1px solid black; padding: 2px;">{{ g.guide.number_objects }}</th>
+                <th style="border:1px solid black; padding: 2px;">{{ g.guide.weigth }}</th>
+                <th style="border:1px solid black; padding: 2px;">{{ g.guide.zona }}</th>
+                <th style="border:1px solid black; padding: 2px;">{{ g.guide.address }}</th>
+
+            </tr>
+        {% endfor %}
+
+    </table>
+
+</body>
+</html>

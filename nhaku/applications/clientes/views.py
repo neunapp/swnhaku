@@ -12,11 +12,13 @@ from django.views.generic import (
 )
 from django.views.generic.edit import FormView
 
-from .forms import SearchForm, FilterForm, PanelForm
+from .forms import SearchForm, PanelForm, ProfileForm
 
 from .functions import report_guides
 
-from applications.recepcion.models import Guide, Manifest
+from applications.recepcion.models import Guide, Manifest, Observations
+from applications.profiles.models import Client
+from applications.users.models import User
 
 
 class SearchView(ListView):
@@ -36,26 +38,6 @@ class SearchView(ListView):
         #recuperamos el valor por GET
         q = self.request.GET.get("number", '')
         queryset = Guide.objects.guide_deliver(q)
-        return queryset
-
-
-class FilterView(ListView):
-    '''
-    vista para mostrar guias no entregdas
-    '''
-    context_object_name = 'list_guide'
-    paginate_by = 20
-    template_name = 'clientes/guias/filter.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(FilterView, self).get_context_data(**kwargs)
-        context['form'] = FilterForm
-        return context
-
-    def get_queryset(self):
-        #recuperamos el valor por GET
-        q = self.request.GET.get("tipo", '')
-        queryset = Guide.objects.no_deliver(q)
         return queryset
 
 
@@ -82,6 +64,29 @@ class PanelView(ListView):
             q,
         )
         return queryset
+
+
+class ProfileClient(FormView):
+    form_class = ProfileForm
+    success_url = reverse_lazy('users_app:login')
+    template_name = 'clientes/panel/perfil.html'
+
+    def form_valid(self, form):
+        usuario = self.request.user
+        cliente = Client.objects.get(
+            user=usuario,
+        )
+        foto = form.cleaned_data['image']
+        if foto:
+            cliente.avatar = foto
+            cliente.save()
+
+        passwd = form.cleaned_data['password2']
+        if len(passwd)>1:
+            usuario.set_password(passwd)
+            usuario.save()
+
+        return super(ProfileClient, self).form_valid(form)
 
 
 class GuideHistoryView(DetailView):

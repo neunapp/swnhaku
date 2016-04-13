@@ -1,5 +1,7 @@
+# -*- encoding: utf-8 -*-
 from django.shortcuts import redirect
 from django.views.generic.edit import FormView, UpdateView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 
@@ -50,17 +52,25 @@ def LogOut(request):
     return redirect('/')
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(SuccessMessageMixin, FormView):
 
-    model = User
     form_class = UserForm
     template_name = 'users/usuario/update.html'
-    success_url = reverse_lazy('profiles_app:dashboard')
+    success_message = "Se Cambio La Contraseña Correctamente..."
+    success_url = '.'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserUpdateView, self).get_context_data(**kwargs)
+        pk_user = self.kwargs.get('pk', 0)
+        context['usuario'] = User.objects.get(pk=pk_user)
+        return context
 
     def form_valid(self, form):
         #recuperamos el usuario y guardamos
-        usuario = self.get_object()
-        usuario.set_password(form.cleaned_data['password1'])
+        pk_user = self.kwargs.get('pk', 0)
+        usuario = User.objects.get(pk=pk_user)
+        passwd = form.cleaned_data['password1']
+        usuario.set_password(passwd)
         usuario.save()
         print '====guardado correctamente===='
         return super(UserUpdateView, self).form_valid(form)

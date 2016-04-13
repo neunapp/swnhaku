@@ -131,19 +131,3 @@
     {% include "include/footer.html" %}
 
 {% endblock content %}
-
-{% load filters %}
-<form method="get" class="form-horizontal">{% csrf_token %}
-{{form}}
-<div class="col-sm-offset-1 col-sm-10">
-    <button type="submit" class="btn btn-quilla">Buscar</button>
-</div>
-</form>
-<ul>
-{% for m in list_manifest %}
-      <li>{{m}}</li>
-      {% for g in m|iterar_guides %}
-          <a href="{% url 'cliente_app:cliente-history' g.pk %}"><p>{{g}}</p></a>
-      {% endfor %}
-{% endfor %}
-</ul>

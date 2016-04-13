@@ -1,0 +1,60 @@
+{% extends "profiles/admin/admin.html" %}
+
+{% load staticfiles %}
+
+{% block title %} Detalle cliente {% endblock title %}
+
+{% block migadepan %}
+    <li>Clientes</li>
+    <li>Detalle Cliente Romeliza S.A.C</li>
+{% endblock migadepan %}
+
+
+{% block main %}
+    <div class="row no-pad">
+        <div class="large-12 columns">
+            <div class="box bg-white">
+                <div class="box-body pad-forty" style="display: block;">
+                    <div class="row">
+                        <div class="large-12">
+                            <h5 class="subheader titulo-content">Detalle de cliente</h5>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="small-12 large-12 columns">
+
+                            <div class="media-object stack-for-small">
+                                <div class="media-object-section">
+                                    <div class="thumbnail">
+                                        <img src="{% static 'img/usuario.png' %}">
+                                    </div>
+                                </div>
+                                <div class="media-object-section">
+                                      <h5>Romeliza S.A.C.</h5>
+                                      <dl>
+                                          <dt>Dni/Ruc.</dt>
+                                          <dd>46185127</dd>
+                                          <dt>Dirección.</dt>
+                                          <dd>Calle Arequipa #203 cusco-wanchaq.</dd>
+                                          <dt>Email.</dt>
+                                          <dd>Henrry.saa.@gmail.com</dd>
+                                          <dt>Telefono.</dt>
+                                          <dd>56325547</dd>
+                                          <dt>Celuar.</dt>
+                                          <dd>951455866</dd>
+                                          <dt>Web.</dt>
+                                          <dd>www.henrry.com</dd>
+                                    </dl>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}

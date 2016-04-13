@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from django.utils import timezone
+from django.views.generic.detail import SingleObjectMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from datetime import datetime
 from django.views.generic import (
@@ -12,6 +13,7 @@ from django.views.generic import (
     DeleteView,
     ListView,
     TemplateView,
+    View,
 )
 
 from django.views.generic.edit import FormView
@@ -22,6 +24,7 @@ from .forms import (
     ZoneForm,
     ReceptionForm,
     GuideUpdateForm,
+    FilterForm,
 )
 
 from applications.entrega.forms import ObservationsForm
@@ -31,6 +34,7 @@ from applications.clientes.forms import SearchForm
 from .models import Manifest, Guide, Zone, Observations
 
 from applications.asignacion.models import Asignation
+from applications.asignacion.functions import generar_pdf
 
 from datetime import datetime
 
@@ -134,7 +138,7 @@ class ManifestCreateView(CreateView):
 
     def form_valid(self, form):
         manifiesto = form.save(commit=False)
-        manifiesto.date = datetime.now()
+        manifiesto.date = timezone.now()
         manifiesto.user_created = self.request.user
         manifiesto.save()
         return HttpResponseRedirect(
@@ -419,3 +423,40 @@ class ObsListView(ListView):
         q = self.request.GET.get("number", '')
         queryset = Observations.objects.guides(q)
         return queryset
+
+
+class FilterView(ListView):
+    '''
+    vista para mostrar Reporte de Guias
+    '''
+    context_object_name = 'list_guide'
+    paginate_by = 20
+    template_name = 'recepcion/guide/filter.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(FilterView, self).get_context_data(**kwargs)
+        context['form'] = FilterForm
+        return context
+
+    def get_queryset(self):
+        #recuperamos el valor por GET
+        q = self.request.GET.get("numero", '')
+        r = self.request.GET.get("tipo", '')
+        s = self.request.GET.get("date", '')
+        queryset = Guide.objects.filtro_guides(q,r,s)
+        return queryset
+
+
+class ReportGuides(SingleObjectMixin, View):
+    model = Guide
+
+    def get(self, request, *args, **kwargs):
+        #recuperamos el valor por GET
+        q = self.request.GET.get("numero", '')
+        r = self.request.GET.get("tipo", '')
+        s = self.request.GET.get("date", '')
+        guides = Guide.objects.filtro_guides(q,r,s)
+        return generar_pdf(
+            'recepcion/guide/print.html',
+            {'pagesize' : 'A4', 'guides' : guides}
+        )

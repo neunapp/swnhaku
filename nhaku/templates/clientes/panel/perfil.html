@@ -1,0 +1,54 @@
+{% extends "users/cliente/base_cliente.html" %}
+
+{% load staticfiles %}
+
+{% load filters %}
+
+{% block title %}Bienvenido a Paccha services{% endblock title %}
+
+{% block content %}
+
+    {% include "include/header.html" %}
+
+    <div class="container">
+      <div class="row">
+            <div class="col s12 m5 offset-m3 l7 offset-l3 z-depth-4 card-panel">
+              <h5>Datos De Usuario</h5>
+                <div class="card center">
+                  <form role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                        <img class="circle" src="{{IMAGEN}}" alt="">
+                        <div class="card-action">
+                          <a href="{% url 'cliente_app:cliente-index' %}">{{user.username}}</a>
+                        </div>
+                        <div class="card-content">
+                          {{form.image}}
+                        </div>
+                        <div class="card-action">
+                          <spam>Cambiar Contraseña</spam>
+                              {{form.password1}}
+                              {% for error in form.password1.errors %}
+                                <div class="col-xs-6">
+                                    <span class="red-text">
+                                        {{ error|escape }}
+                                    </span>
+                                </div>
+                              {% endfor %}
+                              {{form.password2}}
+                              {% for error in form.password2.errors %}
+                                <div class="col-xs-6">
+                                    <span class="red-text">
+                                        {{ error|escape }}
+                                    </span>
+                                </div>
+                              {% endfor %}
+                              <button class="waves-effect waves-light btn" type="submit" name="action">ok</button>
+                        </div>
+                      </form>
+                </div>
+              </div>
+          </div>
+    </div>
+
+    {% include "include/footer.html" %}
+
+{% endblock content %}

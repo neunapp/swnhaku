@@ -1,0 +1,37 @@
+{% extends "profiles/admin/admin.html" %}
+
+{% load staticfiles %}
+
+{% block title %} Eliminar cliente {% endblock title %}
+
+{% block migadepan %}
+    <li>Clientes</li>
+    <li>Eliminar Cliente Romeliza S.A.C</li>
+{% endblock migadepan %}
+
+
+{% block main %}
+    <div class="row no-pad">
+        <div class="large-12 columns">
+            <div class="box bg-white">
+                <div class="box-body pad-forty" style="display: block;">
+                    <div class="row">
+                        <div class="large-12">
+                            <h5 class="subheader titulo-content">Eliminar de cliente</h5>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="small-12 large-12 columns">
+                            <h6 class="subheader">¿Desea eliminar el cliente <strong>Romeliza S.A.C</strong>?</h6>
+                            <button type="submit" class="tiny radius bg-rojo button">Si</button>
+                            <a href="#features" class="tiny radius bg-blanco border-grey button">No</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}
