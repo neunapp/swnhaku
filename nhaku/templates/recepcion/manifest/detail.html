@@ -2,6 +2,8 @@
 
 {% load staticfiles %}
 
+{% load filters %}
+
 {% block title %} Lista de Manifiestos {% endblock title %}
 
 {% block css %}
@@ -48,7 +50,7 @@
                           <tr>
                             <td>{{ guide.number }}</td>
                             <td>{{ guide.number_objects }}</td>
-                            <td>{{ guide.weigth }}</td>
+                            <td>{{ guide.weigth|peso_convert }} Kg.</td>
                             <td>
                               {% if guide.zona == None %}
                                   <font color="red">Sin Zona</font>

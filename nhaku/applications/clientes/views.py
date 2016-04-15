@@ -18,6 +18,7 @@ from .functions import report_guides
 
 from applications.recepcion.models import Guide, Manifest, Observations
 from applications.profiles.models import Client
+from applications.asignacion.models import DetailAsignation
 from applications.users.models import User
 
 
@@ -95,3 +96,16 @@ class GuideHistoryView(DetailView):
     '''
     model = Guide
     template_name = 'clientes/panel/history.html'
+
+
+    def get_context_data(self, **kwargs):
+        context = super(GuideHistoryView, self).get_context_data(**kwargs)
+        context['asignacion'] = DetailAsignation.objects.filter(
+            guide=self.get_object(),
+            guide__anulate=False,
+        )
+        context['list_obs'] = Observations.objects.filter(
+            guide=self.get_object(),
+            type_observation='0',
+        ).order_by('created')
+        return context

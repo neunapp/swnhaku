@@ -20,7 +20,7 @@
     <div class="row">
         <div class="small-12 medium-6 columns">
               <h4>{{asignation.driver.first_name}} {{asignation.driver.last_name}}</h4>
-              <h5>Peso Aproximado: {{peso}}Kg</h5>
+              <h5>Peso Aproximado: {{peso|peso_convert}}Kg</h5>
         </div>
         {% if not asignation.state == '1' %}
             <div class="small-12 medium-6 columns">
@@ -66,14 +66,14 @@
                             {% if g.guide.state == '4' %}
                               <td> <font color="blue">{{ g.guide.number }}</font></td>
                               <td> <font color="blue">{{ g.guide.number_objects }}</font></td>
-                              <td> <font color="blue">{{ g.guide.weigth }}</font></td>
+                              <td> <font color="blue">{{ g.guide.weigth|peso_convert }} Kg.</font></td>
                               <td> <font color="blue">{{ g.guide.zona }}</font></td>
                               <td><font color="blue">{{ g.guide.adreessee }}</font></td>
                               <td><font color="blue">{{ g.guide.pk|count_observation }}</font></td>
                             {% else %}
                               <td>{{ g.guide.number }}</td>
                               <td>{{ g.guide.number_objects }}</td>
-                              <td>{{ g.guide.weigth }}</td>
+                              <td>{{ g.guide.weigth|peso_convert}} Kg.</td>
                               <td>{{ g.guide.zona }}</td>
                               <td>{{ g.guide.adreessee }}</td>
                               <td>{{ g.guide.pk|count_observation }}</td>

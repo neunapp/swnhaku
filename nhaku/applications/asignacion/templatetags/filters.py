@@ -18,3 +18,7 @@ def split_label(value):
 def count_observation(value):
     count = Observations.objects.filter(guide__pk=value).count()
     return count
+
+@register.filter(name='peso_convert')
+def peso_convert(value):
+    return round(value)

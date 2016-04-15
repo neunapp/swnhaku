@@ -7,9 +7,8 @@
 {% block title %} Lista de guias {% endblock title %}
 
 {% block css %}
-    {{ block.super }}
-    <link href="{% static 'js/stackable/stacktable.css' %}" rel="stylesheet"/>
-    <link href="{% static 'js/stackable/responsive-table.css' %}" rel="stylesheet"/>
+{{ block.super }}
+<link href="{% static 'js/date-dropdown/jquery.datetimepicker.css' %}" rel="stylesheet"/>
 {% endblock css %}
 
 {% block migadepan %}
@@ -115,17 +114,18 @@
 
 {% block js %}
     {{ block.super }}
-    <script src="{% static 'js/stackable/stacktable.js' %}"></script>
+    <script src="{% static 'js/date-dropdown/jquery.datetimepicker.js' %}"></script>
     <script>
-    $(document).on('click', '#run', function(e) {
-        e.preventDefault();
-        $('#simple-example-table').stacktable({
-            hideOriginal: true
+    (function($) {
+        "use strict";
+        //default date & time picker
+
+        $('.datepicker').datetimepicker({
+            timepicker: false,
+            lang: 'es',
+            closeOnDateSelect: true,
+            format: 'd/m/Y'
         });
-        $(this).replaceWith('<span>ran</span>');
-    });
-    $('#responsive-example-table').stacktable({
-        myClass: 'stacktable small-only'
-    });
+    })(jQuery);
     </script>
 {% endblock js %}

@@ -15,7 +15,9 @@
                 <div class="box-body pad-forty" style="display: block;">
                     <div class="row">
                         <div class="large-12">
-                            <h5 class="subheader no-margin text-center">Modifcar cliente</h5>
+                            <h5 class="subheader no-margin text-center">
+                              Modifcar cliente
+                            <a href="{% url 'users_app:user-update' object.user.pk %}" class="right pg-change">Cambiar contraseña</a></h5>
                         </div>
                     </div>
 

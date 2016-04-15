@@ -299,6 +299,10 @@ class DeleteAsignationDeleteView(DetailView):
 
 
 class ReportAsigView(SingleObjectMixin, View):
+    '''
+    vista que imprime un pdf de la lista de guias de una asignacion
+    '''
+
     model = Asignation
 
     def get(self, request, *args, **kwargs):

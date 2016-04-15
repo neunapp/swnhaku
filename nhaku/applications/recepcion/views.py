@@ -34,7 +34,7 @@ from applications.clientes.forms import SearchForm
 from .models import Manifest, Guide, Zone, Observations
 
 from applications.asignacion.models import Asignation
-from applications.asignacion.functions import generar_pdf
+from applications.asignacion.functions import generar_pdf, guide_by_zone
 
 from datetime import datetime
 
@@ -123,7 +123,8 @@ class Zone_by_GuideListView(ListView):
 
     def get_queryset(self):
         #recuperamos el valor por GET
-        queryset = Guide.objects.zones_by_guide()
+        zones = Guide.objects.zones_by_guide()
+        queryset = guide_by_zone(zones)
         return queryset
 
 
