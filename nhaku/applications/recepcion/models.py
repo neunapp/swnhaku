@@ -198,7 +198,7 @@ class ManagerGuide(models.Manager):
     def filtro_guides(self, number, tipo, date):
         tz = timezone.get_current_timezone()
         if date:
-            date = datetime.strptime(fecha, "%d/%m/%Y")
+            date = datetime.strptime(date, "%d/%m/%Y")
             end_date = timezone.make_aware(date, tz)
             start_date = end_date - timedelta(days=7)
         else:
