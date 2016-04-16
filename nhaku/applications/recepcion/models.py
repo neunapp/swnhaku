@@ -248,9 +248,9 @@ class Guide(TimeStampedModel):
         ('1', 'Reparto'),
     )
     PRIORITY_CHOISES = (
-        ('0', 'Alta'),
-        ('1', 'Media'),
-        ('2', 'Baja'),
+        ('1', 'Alta'),
+        ('2', 'Media'),
+        ('3', 'Baja'),
     )
     STATE_CHOISES = (
         ('0', 'Sin Asignar'),

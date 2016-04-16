@@ -55,7 +55,7 @@
                         <tbody>
                           {% for guia in  form.guide %}
                               <tr>
-                                  {% for label in guia.choice_label|split_label %}
+                                  {% for label in guia.choice_label|split_label_recepcion %}
                                       <td>
                                           {{label}}
                                       </td>
