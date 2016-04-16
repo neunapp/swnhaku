@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.shortcuts import redirect
 from django.views.generic.edit import FormView, UpdateView
+from django.views.generic import View
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
@@ -47,9 +48,19 @@ class LogIn(FormView):
                 )
 
 
-def LogOut(request):
-    logout(request)
-    return redirect('/')
+class LogoutView(View):
+    """
+    cerrar sesion
+    """
+    url = '/auth/login/'
+
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return HttpResponseRedirect(
+            reverse(
+                'users_app:login'
+            )
+        )
 
 
 class UserUpdateView(SuccessMessageMixin, FormView):
