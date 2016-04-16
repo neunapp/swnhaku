@@ -201,6 +201,7 @@ class ManagerGuide(models.Manager):
             date = datetime.strptime(date, "%d/%m/%Y")
             end_date = timezone.make_aware(date, tz)
             start_date = end_date - timedelta(days=7)
+
         else:
 
             date = datetime.strptime("01/10/2015", "%d/%m/%Y")
@@ -208,6 +209,7 @@ class ManagerGuide(models.Manager):
             start_date = timezone.make_aware(date, tz)
 
         if tipo == '1':
+            print end_date
             return self.filter(
                 number__icontains=number,
                 anulate=False,

@@ -9,6 +9,8 @@
 {% block css %}
 {{ block.super }}
 <link href="{% static 'js/date-dropdown/jquery.datetimepicker.css' %}" rel="stylesheet"/>
+<link href="{% static 'js/stackable/stacktable.css' %}" rel="stylesheet"/>
+<link href="{% static 'js/stackable/responsive-table.css' %}" rel="stylesheet"/>
 {% endblock css %}
 
 {% block migadepan %}
@@ -114,6 +116,7 @@
 
 {% block js %}
     {{ block.super }}
+
     <script src="{% static 'js/date-dropdown/jquery.datetimepicker.js' %}"></script>
     <script>
     (function($) {
@@ -127,5 +130,18 @@
             format: 'd/m/Y'
         });
     })(jQuery);
+    </script> <!--fin java scrif para date time picker-->
+    <script src="{% static 'js/stackable/stacktable.js' %}"></script>
+    <script>
+    $(document).on('click', '#run', function(e) {
+        e.preventDefault();
+        $('#simple-example-table').stacktable({
+            hideOriginal: true
+        });
+        $(this).replaceWith('<span>ran</span>');
+    });
+    $('#responsive-example-table').stacktable({
+        myClass: 'stacktable small-only'
+    });
     </script>
 {% endblock js %}
