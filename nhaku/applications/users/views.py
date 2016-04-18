@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.views.generic.edit import FormView, UpdateView
 from django.views.generic import View
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 
@@ -63,10 +64,11 @@ class LogoutView(View):
         )
 
 
-class UserUpdateView(SuccessMessageMixin, FormView):
+class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, FormView):
 
     form_class = UserForm
     template_name = 'users/usuario/update.html'
+    login_url = reverse_lazy('users_app:login')
     success_message = "Se Cambio La Contraseña Correctamente..."
     success_url = '.'
 

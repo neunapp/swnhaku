@@ -1,9 +1,12 @@
 # -*- encoding: utf-8 -*-
 from django.shortcuts import render
+from django.shortcuts import redirect
+from django.http import Http404
 from django.views.generic.detail import SingleObjectMixin
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormView
 from django.views.generic import (
     CreateView,
@@ -26,13 +29,26 @@ from .forms import CarForm, AsignationForm, AddAsignationForm
 # Create your views here.
 
 #mantenimiento para Vehiculo
-class CarRegister(FormView):
+class CarRegister(LoginRequiredMixin, FormView):
     '''
         vista para registrar Vehiculos
     '''
     template_name = 'asignacion/car/add.html'
     form_class = CarForm
+    login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('asignacion_app:car-list')
+
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            return self.render_to_response(self.get_context_data())
+
 
     def form_valid(self, form):
         #registramos el cliente
@@ -43,14 +59,28 @@ class CarRegister(FormView):
         return super(CarRegister, self).form_valid(form)
 
 
-class CarUpdateView(UpdateView):
+class CarUpdateView(LoginRequiredMixin, UpdateView):
     '''
         vista para actualizar datos de vehiculo
     '''
     model = Car
     template_name = 'asignacion/car/update.html'
     form_class = CarForm
+    login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('asignacion_app:car-list')
+
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
 
     def form_valid(self, form):
         #recuperamos y actualizamos usuario de modificacion
@@ -62,21 +92,49 @@ class CarUpdateView(UpdateView):
         return super(CarUpdateView, self).form_valid(form)
 
 
-class CarDetailView(DetailView):
+class CarDetailView(LoginRequiredMixin, DetailView):
     '''
         vista para mostra los datos de un vehiculo en detalle
     '''
     model = Car
+    login_url = reverse_lazy('users_app:login')
     template_name = 'asignacion/car/detail.html'
 
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
 
-class CarDeleteView(DeleteView):
+
+class CarDeleteView(LoginRequiredMixin, DeleteView):
     '''
     Eliminar Car.
     '''
     model = Car
+    login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('asignacion_app:car-list')
     template_name = 'asignacion/car/delete.html'
+
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -89,42 +147,61 @@ class CarDeleteView(DeleteView):
         return HttpResponseRedirect(success_url)
 
 
-class CarListView(ListView):
+class CarListView(LoginRequiredMixin, ListView):
     '''
     muestra la lista de vehiculos no eliminados
     '''
     context_object_name = 'car_list'
+    login_url = reverse_lazy('users_app:login')
     template_name = 'asignacion/car/list.html'
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = Car.objects.filter(state=False)
-        return queryset
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            raise Http404("No Se Encontro la Pagina")
+        else:
+            queryset = Car.objects.filter(state=False)
+            return queryset
 
 
 #mantenimientos para Asignaciones
-class AsignationListView(ListView):
+class AsignationListView(LoginRequiredMixin, ListView):
     '''
     vista para listar Asignaciones no completadas
     '''
     context_object_name = 'asignation_list'
     model = Asignation
     paginate_by = 5
+    login_url = reverse_lazy('users_app:login')
     template_name = 'asignacion/asignation/list.html'
 
     def get_queryset(self):
-        queryset = Asignation.objects.filter(anulate=False).exclude(state='2')
-        return queryset
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            raise Http404("No Se Encontro la Pagina")
+        else:
+            queryset = Asignation.objects.filter(anulate=False).exclude(state='2')
+            return queryset
 
 
-class AsignationCreateView(CreateView):
+class AsignationCreateView(LoginRequiredMixin, CreateView):
     '''
     vista para agregar una nueva asigancion
     '''
     model = Asignation
     form_class = AsignationForm
+    login_url = reverse_lazy('users_app:login')
     success_url = success_url = reverse_lazy('asignacion_app:asignation-list')
     template_name = 'asignacion/asignation/add.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AsignationCreateView, self).get_context_data(**kwargs)
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+                raise Http404("No Se Encontro la Pagina")
+        else:
+            return context
 
     def form_valid(self, form):
         #registramos el usuario de creacion y estado de la asigancion
@@ -142,13 +219,27 @@ class AsignationCreateView(CreateView):
         return super(AsignationCreateView, self).form_valid(form)
 
 
-class AsignationDeleteView(DeleteView):
+class AsignationDeleteView(LoginRequiredMixin, DeleteView):
     '''
     Eliminar una Asignation.
     '''
     model = Asignation
+    login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('asignacion_app:asignation-list')
     template_name = 'asignacion/asignation/delete.html'
+
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -163,18 +254,23 @@ class AsignationDeleteView(DeleteView):
         return HttpResponseRedirect(success_url)
 
 
-class AddGuideAsignationView(FormView):
+class AddGuideAsignationView(LoginRequiredMixin, FormView):
     '''
     vista para añadir guias a una asignacion
     '''
     template_name = 'asignacion/asignar/add_guide.html'
+    login_url = reverse_lazy('users_app:login')
     form_class = AddAsignationForm
 
     def get_context_data(self, **kwargs):
         context = super(AddGuideAsignationView, self).get_context_data(**kwargs)
-        asignation_pk = self.kwargs.get('as', 0)
-        context['asignation'] = Asignation.objects.get(pk=asignation_pk)
-        return context
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            raise Http404("No Se Encontro la Pagina")
+        else:
+            asignation_pk = self.kwargs.get('as', 0)
+            context['asignation'] = Asignation.objects.get(pk=asignation_pk)
+            return context
 
     def get_form_kwargs(self):
         kwargs = super(AddGuideAsignationView, self).get_form_kwargs()
@@ -205,23 +301,28 @@ class AddGuideAsignationView(FormView):
         )
 
 
-class GuideByAsignationListView(ListView):
+class GuideByAsignationListView(LoginRequiredMixin, ListView):
     '''
     muestra la lista de guias de un Asignacion
     '''
     context_object_name = 'list_guides'
     paginate_by = 20
+    login_url = reverse_lazy('users_app:login')
     template_name = 'asignacion/asignar/list.html'
 
     def get_context_data(self, **kwargs):
         context = super(GuideByAsignationListView, self).get_context_data(**kwargs)
-        asignation_pk = self.kwargs.get('pk', 0)
-        context['asignation'] = Asignation.objects.get(pk=asignation_pk)
-        A,B = DetailAsignation.objects.weigth_by_asignation(
-            Asignation.objects.get(pk=asignation_pk),
-        )
-        context['peso'] = A
-        return context
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            raise Http404("No Se Encontro la Pagina")
+        else:
+            asignation_pk = self.kwargs.get('pk', 0)
+            context['asignation'] = Asignation.objects.get(pk=asignation_pk)
+            A,B = DetailAsignation.objects.weigth_by_asignation(
+                Asignation.objects.get(pk=asignation_pk),
+            )
+            context['peso'] = A
+            return context
 
     def get_queryset(self):
         asignation_pk = self.kwargs.get('pk', 0)
@@ -232,12 +333,21 @@ class GuideByAsignationListView(ListView):
         return queryset
 
 
-class ConfirmarAsignationView(DetailView):
+class ConfirmarAsignationView(LoginRequiredMixin, DetailView):
     '''
     vista para confrimar el despacho de una asignacion
     '''
+    login_url = reverse_lazy('users_app:login')
     template_name = 'asignacion/asignar/confirmar.html'
     model = Asignation
+
+    def get_context_data(self, **kwargs):
+        context = super(ConfirmarAsignationView, self).get_context_data(**kwargs)
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            raise Http404("No Se Encontro la Pagina")
+        else:
+            return context
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -262,17 +372,26 @@ class ConfirmarAsignationView(DetailView):
         )
 
 
-class DeleteAsignationDeleteView(DetailView):
+class DeleteAsignationDeleteView(LoginRequiredMixin, DetailView):
     '''
     Eliminar una asignacion detalle
     '''
     model = Asignation
+    login_url = reverse_lazy('users_app:login')
     template_name = 'asignacion/asignar/delete.html'
 
     def get_context_data(self, **kwargs):
         context = super(DeleteAsignationDeleteView, self).get_context_data(**kwargs)
-        context['guide'] = self.kwargs.get('guide', 0)
-        return context
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            context['guide'] = self.kwargs.get('guide', 0)
+            return context
 
     def post(self, request, *args, **kwargs):
         #recuperamos la asignacion
@@ -298,19 +417,28 @@ class DeleteAsignationDeleteView(DetailView):
         )
 
 
-class ReportAsigView(SingleObjectMixin, View):
+class ReportAsigView(LoginRequiredMixin, SingleObjectMixin, View):
     '''
     vista que imprime un pdf de la lista de guias de una asignacion
     '''
 
     model = Asignation
+    login_url = reverse_lazy('users_app:login')
 
     def get(self, request, *args, **kwargs):
-        asig = self.get_object()
-        guides = DetailAsignation.objects.filter(
-            asignation=asig,
-        )
-        return generar_pdf(
-            'asignacion/report/print_asig.html',
-            {'pagesize' : 'A4', 'guides' : guides, 'objeto':asig}
-        )
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            asig = self.get_object()
+            guides = DetailAsignation.objects.filter(
+                asignation=asig,
+            )
+            return generar_pdf(
+                'asignacion/report/print_asig.html',
+                {'pagesize' : 'A4', 'guides' : guides, 'objeto':asig}
+            )

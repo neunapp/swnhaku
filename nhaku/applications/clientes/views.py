@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -22,12 +23,13 @@ from applications.asignacion.models import DetailAsignation
 from applications.users.models import User
 
 
-class SearchView(ListView):
+class SearchView(LoginRequiredMixin, ListView):
     '''
     vista para buscar una guia entregada
     '''
     context_object_name = 'list_guide'
     paginate_by = 20
+    login_url = reverse_lazy('users_app:login')
     template_name = 'clientes/guias/search.html'
 
     def get_context_data(self, **kwargs):
@@ -42,12 +44,13 @@ class SearchView(ListView):
         return queryset
 
 
-class PanelView(ListView):
+class PanelView(LoginRequiredMixin, ListView):
     '''
     vista para mostrra los manifiestos y guias de un cliente
     '''
     context_object_name = 'list_manifest'
     paginate_by = 20
+    login_url = reverse_lazy('users_app:login')
     template_name = 'clientes/panel/index.html'
 
     def get_context_data(self, **kwargs):
@@ -67,8 +70,9 @@ class PanelView(ListView):
         return queryset
 
 
-class ProfileClient(FormView):
+class ProfileClient(LoginRequiredMixin, FormView):
     form_class = ProfileForm
+    login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('users_app:login')
     template_name = 'clientes/panel/perfil.html'
 
@@ -90,11 +94,12 @@ class ProfileClient(FormView):
         return super(ProfileClient, self).form_valid(form)
 
 
-class GuideHistoryView(DetailView):
+class GuideHistoryView(LoginRequiredMixin, DetailView):
     '''
     vista para mostrar el historial de una guia
     '''
     model = Guide
+    login_url = reverse_lazy('users_app:login')
     template_name = 'clientes/panel/history.html'
 
 
