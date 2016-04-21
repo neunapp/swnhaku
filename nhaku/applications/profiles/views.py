@@ -471,6 +471,10 @@ class EmployeeDeleteView(LoginRequiredMixin, DeleteView):
         return HttpResponseRedirect(success_url)
 
 
+# class Dashboard(TemplateView):
+#     template_name = 'users/cliente/detail_guia.html'
+
+
 class Dashboard(LoginRequiredMixin, TemplateView):
     login_url = reverse_lazy('users_app:login')
     template_name = 'profiles/panel/dashboard.html'
