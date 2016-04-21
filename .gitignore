@@ -69,13 +69,15 @@ nhaku/manage.py
 
 nhaku/nhaku/wsgi.py
 
+nhaku/staticfiles/*
+
 nhaku/applications/asignacion/migrations/*
 
 nhaku/applications/profiles/migrations/*
 
 nhaku/applications/recepcion/migrations/*
 
-# nhaku/applications/users/migrations/*
+nhaku/applications/users/migrations/*
 
 nhaku/applications/entrega/migrations/*
 

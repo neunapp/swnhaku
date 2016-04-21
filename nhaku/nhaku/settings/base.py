@@ -18,10 +18,6 @@ def get_secret(secret_name, secrets=secrets):
 
 SECRET_KEY = get_secret('SECRET_KEY')
 
-DEBUG = False
-
-ALLOWED_HOSTS = ['*']
-
 DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
