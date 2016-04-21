@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 from django.shortcuts import render
+from django.http import Http404
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -38,6 +39,17 @@ class ClientRegister(LoginRequiredMixin, FormView):
     login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:cliente-list')
 
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            return self.render_to_response(self.get_context_data())
+
     def form_valid(self, form):
         # registramos usuario
         usuario = User.objects.create_user(
@@ -65,6 +77,19 @@ class ClientUpdateView(LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:cliente-list')
 
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
+
     def form_valid(self, form):
         #recuperamos y actualizamos usuario de modificacion
         form.save()
@@ -83,6 +108,19 @@ class ClientDetailView(LoginRequiredMixin, DetailView):
     login_url = reverse_lazy('users_app:login')
     template_name = 'profiles/client/detail.html'
 
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
+
 
 class ClientDeleteView(LoginRequiredMixin, DeleteView):
     '''
@@ -92,6 +130,19 @@ class ClientDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'profiles/client/delete.html'
     login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:cliente-list')
+
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -118,9 +169,13 @@ class ClientListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        #recuperamos el valor por GET
-        queryset = Client.objects.filter(state=False)
-        return queryset
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            raise Http404("No Se Encontro la Pagina")
+        else:
+            #recuperamos el valor por GET
+            queryset = Client.objects.filter(state=False)
+            return queryset
 
 
 #mantenimientos para Conductor
@@ -135,8 +190,12 @@ class DriverListView(LoginRequiredMixin, ListView):
     template_name = 'profiles/driver/list.html'
 
     def get_queryset(self):
-        queryset = Driver.objects.filter(state=False)
-        return queryset
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            raise Http404("No Se Encontro la Pagina")
+        else:
+            queryset = Driver.objects.filter(state=False)
+            return queryset
 
 
 class DriverCreateView(LoginRequiredMixin, CreateView):
@@ -148,6 +207,14 @@ class DriverCreateView(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:driver-list')
     template_name = 'profiles/driver/add.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DriverCreateView, self).get_context_data(**kwargs)
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+                raise Http404("No Se Encontro la Pagina")
+        else:
+            return context
 
     def form_valid(self, form):
         #registramos usuario
@@ -176,6 +243,19 @@ class DriverUpdateView(LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:driver-list')
 
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
+
     def form_valid(self, form):
         #recuperamos y actualizamos usuario de modificacion
         form.save()
@@ -194,6 +274,19 @@ class DriverDetailView(LoginRequiredMixin, DetailView):
     login_url = reverse_lazy('users_app:login')
     template_name = 'profiles/driver/detail.html'
 
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
+
 
 class DriverDeleteView(LoginRequiredMixin, DeleteView):
     '''
@@ -203,6 +296,19 @@ class DriverDeleteView(LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:driver-list')
     template_name = 'profiles/driver/delete.html'
+
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -231,8 +337,12 @@ class EmployeeListView(LoginRequiredMixin, ListView):
     template_name = 'profiles/employee/list.html'
 
     def get_queryset(self):
-        queryset = Employee.objects.filter(state=False)
-        return queryset
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            raise Http404("No Se Encontro la Pagina")
+        else:
+            queryset = Employee.objects.filter(state=False)
+            return queryset
 
 
 class EmployeeCreateView(LoginRequiredMixin, CreateView):
@@ -244,6 +354,14 @@ class EmployeeCreateView(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:employee-list')
     template_name = 'profiles/employee/add.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AsignationCreateView, self).get_context_data(**kwargs)
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+                raise Http404("No Se Encontro la Pagina")
+        else:
+            return context
 
     def form_valid(self, form):
         #registramos usuario
@@ -272,6 +390,19 @@ class EmployeeUpdateView(LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:employee-list')
 
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
+
     def form_valid(self, form):
         #recuperamos y actualizamos usuario de modificacion
         form.save()
@@ -289,6 +420,19 @@ class EmployeeDetailView(LoginRequiredMixin, DetailView):
     login_url = reverse_lazy('users_app:login')
     template_name = 'profiles/employee/detail.html'
 
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
+
 
 class EmployeeDeleteView(LoginRequiredMixin, DeleteView):
     '''
@@ -298,6 +442,19 @@ class EmployeeDeleteView(LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:employee-list')
     template_name = 'profiles/employee/delete.html'
+
+    def get(self, request, *args, **kwargs):
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            return HttpResponseRedirect(
+                reverse(
+                    'users_app:login'
+                )
+            )
+        else:
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()

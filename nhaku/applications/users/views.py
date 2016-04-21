@@ -4,6 +4,7 @@ from django.views.generic.edit import FormView, UpdateView
 from django.views.generic import View
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 
@@ -87,3 +88,19 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, FormView):
         usuario.save()
         print '====guardado correctamente===='
         return super(UserUpdateView, self).form_valid(form)
+
+
+class Eror404View(TemplateView):
+    template_name = "erros/404.html"
+
+    @classmethod
+    def get_rendered_view(cls):
+        as_view_fn = cls.as_view()
+
+        def view_fn(request):
+            response = as_view_fn(request)
+            # this is what was missing before
+            response.render()
+            return response
+
+        return view_fn

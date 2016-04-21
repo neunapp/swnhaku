@@ -1,4 +1,5 @@
 from django.core.exceptions import ImproperlyConfigured
+from django.utils import timezone
 import json
 
 from unipath import Path
@@ -97,7 +98,7 @@ AUTH_USER_MODEL = 'users.User'
 
 LANGUAGE_CODE = 'es-pe'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Lima'
 
 USE_TZ = True
 
