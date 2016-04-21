@@ -91,7 +91,7 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, FormView):
 
 
 class Eror404View(TemplateView):
-    template_name = "erros/404.html"
+    template_name = "errors/404.html"
 
     @classmethod
     def get_rendered_view(cls):
