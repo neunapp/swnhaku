@@ -22,6 +22,7 @@ class ObservationsForm(forms.ModelForm):
             ),
         }
 
+
 class DeliverForm(forms.Form):
     '''
     formulario para realizar entrega de paquete

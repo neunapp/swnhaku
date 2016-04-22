@@ -3,7 +3,7 @@
 {% block title %} Guia de Remision Nueva {% endblock title %}
 
 {% block migadepan %}
-    <li>Manifiesto</li>
+    <li>Guia</li>
     <li>Agregar</li>
 {% endblock migadepan %}
 
@@ -13,9 +13,16 @@
         <div class="large-12 columns">
             <div class="box bg-white">
                 <div class="box-body pad-forty" style="display: block;">
+                  {% if messages %}
+                    <ul class="messages">
+                      {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><font color="Green">{{ message }}</font></li>
+                      {% endfor %}
+                    </ul>
+                 {% endif %}
                     <div class="row">
                         <div class="large-12">
-                            <h5 class="subheader no-margin text-center">Agregar Guia de Remision Nueva</h5>
+                            <h5 class="subheader no-margin text-center">Agregar Guia Para Manifiesto: {{manifiesto}} {{manifiesto.user}}</h5>
                         </div>
                     </div>
 
@@ -29,7 +36,7 @@
                             {% endif %}
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Numero de Guia
+                                        <label>Numero de Guia <small class="text-orange">Requerido</small>
                                             {{form.number}}
                                         </label>
                                         {% for error in form.number.errors %}
@@ -43,7 +50,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Cantidad de Objetos
+                                        <label>Cantidad de Objetos <small class="text-orange">Requerido</small>
                                             {{form.number_objects}}
                                         </label>
                                         {% for error in form.number_objects.errors %}
@@ -57,7 +64,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Remitente
+                                        <label>Remitente <small class="text-orange">Requerido</small>
                                             {{form.adreessee}}
                                         </label>
                                         {% for error in form.adreessee.errors %}
@@ -71,7 +78,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Peso del Paquete
+                                        <label>Peso del Paquete <small class="text-orange">Requerido</small>
                                             {{form.weigth}}
                                         </label>
                                     </div>
@@ -97,81 +104,11 @@
                                          {% endfor %}
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="medium-12 columns">
-                                        <label>Zona de Entrega
-                                            {{form.zona}}
-                                        </label>
-                                        {% for error in form.zona.errors %}
-                                          <div class="col-xs-12">
-                                            <p class="help-text error-field">
-                                                {{ error|escape }}
-                                            </p>
-                                          </div>
-                                         {% endfor %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="medium-12 columns">
-                                        <label>Direccion de Entrega
-                                            {{form.address}}
-                                        </label>
-                                        {% for error in form.address.errors %}
-                                          <div class="col-xs-12">
-                                            <p class="help-text error-field">
-                                                {{ error|escape }}
-                                            </p>
-                                          </div>
-                                         {% endfor %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="medium-12 columns">
-                                        <label>Provincia y Distrito
-                                            {{form.province}}
-                                        </label>
-                                        {% for error in form.province.errors %}
-                                          <div class="col-xs-12">
-                                            <p class="help-text error-field">
-                                                {{ error|escape }}
-                                            </p>
-                                          </div>
-                                         {% endfor %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="medium-12 columns">
-                                        <label>Prioridad
-                                            {{form.priority}}
-                                        </label>
-                                        {% for error in form.priority.errors %}
-                                          <div class="col-xs-12">
-                                            <p class="help-text error-field">
-                                                {{ error|escape }}
-                                            </p>
-                                          </div>
-                                         {% endfor %}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="medium-12 columns">
-                                        <label>Tipo de Guia
-                                            {{form.type_guide}}
-                                        </label>
-                                        {% for error in form.type_guide.errors %}
-                                          <div class="col-xs-12">
-                                            <p class="help-text error-field">
-                                                {{ error|escape }}
-                                            </p>
-                                          </div>
-                                         {% endfor %}
-                                    </div>
-                                </div>
 
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <button type="submit" class="small radius bg-verde button">Guardar</button>
-                                        <a href="{% url 'recepcion_app:manifest-detail' manifiesto.pk %}" class="small radius bg-blanco border-grey button">Cancelar</a>
+                                        <a href="{% url 'recepcion_app:manifest-list'%}" class="small radius bg-blanco border-grey button">Cancelar</a>
                                         <a href="{% url 'recepcion_app:manifest-detail' manifiesto.pk %}" class="small radius bg-blanco border-grey button">Lista de Guias</a>
                                     </div>
                                 </div>

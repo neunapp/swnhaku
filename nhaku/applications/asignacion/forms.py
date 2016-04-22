@@ -93,10 +93,10 @@ class AddAsignationForm(forms.Form):
     def __init__(self, pk, *args, **kwargs):
         super(AddAsignationForm, self).__init__(*args, **kwargs)
         # recuperamos el manifiesto
-        guias = Guide.objects.filter(zona__pk=pk, anulate=False, state='1')
+        guias = Guide.objects.filter(zona__pk=pk, anulate=False, state='1').order_by('priority')
         self.fields['guide'].queryset = guias
         self.fields['guide'].label_from_instance = \
-            lambda obj: "%s - %s - %s - %s - %s - %s" % (
+            lambda obj: "%s * %s * %s * %s * %s * %s" % (
                 obj.number,
                 obj.number_objects,
                 obj.adreessee,

@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -28,12 +29,13 @@ from .forms import (
 # Create your views here.
 
 #mantenimiento para Clientes
-class ClientRegister(FormView):
+class ClientRegister(LoginRequiredMixin, FormView):
     '''
         vista para registrar clientes
     '''
     template_name = 'profiles/client/add.html'
     form_class = ClientForm
+    login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:cliente-list')
 
     def form_valid(self, form):
@@ -53,13 +55,14 @@ class ClientRegister(FormView):
         return super(ClientRegister, self).form_valid(form)
 
 
-class ClientUpdateView(UpdateView):
+class ClientUpdateView(LoginRequiredMixin, UpdateView):
     '''
         vista para actualizar datos de cliente
     '''
     model = Client
     template_name = 'profiles/client/update.html'
     form_class = ClientUpdateForm
+    login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:cliente-list')
 
     def form_valid(self, form):
@@ -72,20 +75,22 @@ class ClientUpdateView(UpdateView):
         return super(ClientUpdateView, self).form_valid(form)
 
 
-class ClientDetailView(DetailView):
+class ClientDetailView(LoginRequiredMixin, DetailView):
     '''
         vista para mostra los datos de un cliente en detalle
     '''
     model = Client
+    login_url = reverse_lazy('users_app:login')
     template_name = 'profiles/client/detail.html'
 
 
-class ClientDeleteView(DeleteView):
+class ClientDeleteView(LoginRequiredMixin, DeleteView):
     '''
     Eliminar Cliente.
     '''
     model = Client
     template_name = 'profiles/client/delete.html'
+    login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:cliente-list')
 
     def delete(self, request, *args, **kwargs):
@@ -103,11 +108,12 @@ class ClientDeleteView(DeleteView):
         return HttpResponseRedirect(success_url)
 
 
-class ClientListView(ListView):
+class ClientListView(LoginRequiredMixin, ListView):
     '''
     muestra la lista de clientes no eliminados
     '''
     context_object_name = 'client_list'
+    login_url = reverse_lazy('users_app:login')
     template_name = 'profiles/client/list.html'
     paginate_by = 10
 
@@ -118,13 +124,14 @@ class ClientListView(ListView):
 
 
 #mantenimientos para Conductor
-class DriverListView(ListView):
+class DriverListView(LoginRequiredMixin, ListView):
     '''
     metodo para listar conductores
     '''
     context_object_name = 'driver_list'
     model = Driver
     paginate_by = 10
+    login_url = reverse_lazy('users_app:login')
     template_name = 'profiles/driver/list.html'
 
     def get_queryset(self):
@@ -132,12 +139,13 @@ class DriverListView(ListView):
         return queryset
 
 
-class DriverCreateView(CreateView):
+class DriverCreateView(LoginRequiredMixin, CreateView):
     '''
     metodo para registrar conductores
     '''
     model = Driver
     form_class = DriverForm
+    login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:driver-list')
     template_name = 'profiles/driver/add.html'
 
@@ -158,13 +166,14 @@ class DriverCreateView(CreateView):
         return super(DriverCreateView, self).form_valid(form)
 
 
-class DriverUpdateView(UpdateView):
+class DriverUpdateView(LoginRequiredMixin, UpdateView):
     '''
     vista para actualizar datos de conductor
     '''
     model = Driver
     template_name = 'profiles/driver/update.html'
     form_class = DriverUpdateForm
+    login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:driver-list')
 
     def form_valid(self, form):
@@ -177,19 +186,21 @@ class DriverUpdateView(UpdateView):
         return super(DriverUpdateView, self).form_valid(form)
 
 
-class DriverDetailView(DetailView):
+class DriverDetailView(LoginRequiredMixin, DetailView):
     '''
     vista para mostra los datos de un conductor en detalle
     '''
     model = Driver
+    login_url = reverse_lazy('users_app:login')
     template_name = 'profiles/driver/detail.html'
 
 
-class DriverDeleteView(DeleteView):
+class DriverDeleteView(LoginRequiredMixin, DeleteView):
     '''
     vista para desabilitar un conductor
     '''
     model = Driver
+    login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:driver-list')
     template_name = 'profiles/driver/delete.html'
 
@@ -209,13 +220,14 @@ class DriverDeleteView(DeleteView):
 
 
 #mantenimietos para empleados
-class EmployeeListView(ListView):
+class EmployeeListView(LoginRequiredMixin, ListView):
     '''
     metodo para listar empleados
     '''
     context_object_name = 'employee_list'
     model = Employee
     paginate_by = 10
+    login_url = reverse_lazy('users_app:login')
     template_name = 'profiles/employee/list.html'
 
     def get_queryset(self):
@@ -223,12 +235,13 @@ class EmployeeListView(ListView):
         return queryset
 
 
-class EmployeeCreateView(CreateView):
+class EmployeeCreateView(LoginRequiredMixin, CreateView):
     '''
     metodo para registrar Empleados
     '''
     model = Employee
     form_class = EmployeeForm
+    login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:employee-list')
     template_name = 'profiles/employee/add.html'
 
@@ -249,13 +262,14 @@ class EmployeeCreateView(CreateView):
         return super(EmployeeCreateView, self).form_valid(form)
 
 
-class EmployeeUpdateView(UpdateView):
+class EmployeeUpdateView(LoginRequiredMixin, UpdateView):
     '''
     vista para actualizar datos de Empleados
     '''
     model = Employee
     template_name = 'profiles/employee/update.html'
     form_class = EmployeeUpdateForm
+    login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:employee-list')
 
     def form_valid(self, form):
@@ -267,19 +281,21 @@ class EmployeeUpdateView(UpdateView):
         return super(EmployeeUpdateView, self).form_valid(form)
 
 
-class EmployeeDetailView(DetailView):
+class EmployeeDetailView(LoginRequiredMixin, DetailView):
     '''
     vista para mostra los datos de un Empleado en detalle
     '''
     model = Employee
+    login_url = reverse_lazy('users_app:login')
     template_name = 'profiles/employee/detail.html'
 
 
-class EmployeeDeleteView(DeleteView):
+class EmployeeDeleteView(LoginRequiredMixin, DeleteView):
     '''
     vista para desabilitar un Empleado
     '''
     model = Employee
+    login_url = reverse_lazy('users_app:login')
     success_url = reverse_lazy('profiles_app:employee-list')
     template_name = 'profiles/employee/delete.html'
 
@@ -298,5 +314,10 @@ class EmployeeDeleteView(DeleteView):
         return HttpResponseRedirect(success_url)
 
 
-class Dashboard(TemplateView):
-    template_name = 'users/cliente/detail_guia.html'
+# class Dashboard(TemplateView):
+#     template_name = 'users/cliente/detail_guia.html'
+
+
+class Dashboard(LoginRequiredMixin, TemplateView):
+    login_url = reverse_lazy('users_app:login')
+    template_name = 'profiles/panel/dashboard.html'

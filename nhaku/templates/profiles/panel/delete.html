@@ -2,11 +2,11 @@
 
 {% load staticfiles %}
 
-{% block title %} Eliminar Guia de Remision {% endblock title %}
+{% block title %} Eliminar cliente {% endblock title %}
 
 {% block migadepan %}
-    <li>Guia Remision</li>
-    <li>Guia: {{ guide.number }}</li>
+    <li>Clientes</li>
+    <li>Eliminar Cliente Romeliza S.A.C</li>
 {% endblock migadepan %}
 
 
@@ -17,7 +17,7 @@
                 <div class="box-body pad-forty" style="display: block;">
                     <div class="row">
                         <div class="large-12">
-                            <h5 class="subheader titulo-content">Eliminar Guia de Remision </h5>
+                            <h5 class="subheader titulo-content">Eliminar de cliente</h5>
                         </div>
                     </div>
 
@@ -25,11 +25,9 @@
 
                     <div class="row">
                         <div class="small-12 large-12 columns">
-                          <form role="form" action="{% url 'recepcion_app:guide-eliminar' guide.id %}" method="POST">{% csrf_token %}
-                            <h6 class="subheader">¿Desea eliminar la Guia <strong>{{ guide.number }}</strong>?</h6>
+                            <h6 class="subheader">¿Desea eliminar el cliente <strong>Romeliza S.A.C</strong>?</h6>
                             <button type="submit" class="tiny radius bg-rojo button">Si</button>
-                            <a href="{% url 'recepcion_app:report-filter' %}" class="tiny radius bg-blanco border-grey button">No</a>
-                          </form>
+                            <a href="#features" class="tiny radius bg-blanco border-grey button">No</a>
                         </div>
                     </div>
                 </div>

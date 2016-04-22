@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -12,17 +13,23 @@ from django.views.generic import (
 )
 from django.views.generic.edit import FormView
 
-from .forms import SearchForm, FilterForm, PanelForm
+from .forms import SearchForm, PanelForm, ProfileForm
 
-from applications.recepcion.models import Guide, Manifest
+from .functions import report_guides
+
+from applications.recepcion.models import Guide, Manifest, Observations
+from applications.profiles.models import Client
+from applications.asignacion.models import DetailAsignation
+from applications.users.models import User
 
 
-class SearchView(ListView):
+class SearchView(LoginRequiredMixin, ListView):
     '''
     vista para buscar una guia entregada
     '''
     context_object_name = 'list_guide'
     paginate_by = 20
+    login_url = reverse_lazy('users_app:login')
     template_name = 'clientes/guias/search.html'
 
     def get_context_data(self, **kwargs):
@@ -37,36 +44,19 @@ class SearchView(ListView):
         return queryset
 
 
-class FilterView(ListView):
-    '''
-    vista para mostrar guias no entregdas
-    '''
-    context_object_name = 'list_guide'
-    paginate_by = 20
-    template_name = 'clientes/guias/filter.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(FilterView, self).get_context_data(**kwargs)
-        context['form'] = FilterForm
-        return context
-
-    def get_queryset(self):
-        #recuperamos el valor por GET
-        q = self.request.GET.get("tipo", '')
-        queryset = Guide.objects.no_deliver(q)
-        return queryset
-
-
-class PanelView(ListView):
+class PanelView(LoginRequiredMixin, ListView):
     '''
     vista para mostrra los manifiestos y guias de un cliente
     '''
     context_object_name = 'list_manifest'
     paginate_by = 20
+    login_url = reverse_lazy('users_app:login')
     template_name = 'clientes/panel/index.html'
 
     def get_context_data(self, **kwargs):
         context = super(PanelView, self).get_context_data(**kwargs)
+        queryset = kwargs.pop('object_list',self.object_list)
+        context['reporte'] = report_guides(queryset)
         context['form'] = PanelForm
         return context
 
@@ -80,9 +70,47 @@ class PanelView(ListView):
         return queryset
 
 
-class GuideHistoryView(DetailView):
+class ProfileClient(LoginRequiredMixin, FormView):
+    form_class = ProfileForm
+    login_url = reverse_lazy('users_app:login')
+    success_url = reverse_lazy('users_app:login')
+    template_name = 'clientes/panel/perfil.html'
+
+    def form_valid(self, form):
+        usuario = self.request.user
+        cliente = Client.objects.get(
+            user=usuario,
+        )
+        foto = form.cleaned_data['image']
+        if foto:
+            cliente.avatar = foto
+            cliente.save()
+
+        passwd = form.cleaned_data['password2']
+        if len(passwd)>1:
+            usuario.set_password(passwd)
+            usuario.save()
+
+        return super(ProfileClient, self).form_valid(form)
+
+
+class GuideHistoryView(LoginRequiredMixin, DetailView):
     '''
     vista para mostrar el historial de una guia
     '''
     model = Guide
+    login_url = reverse_lazy('users_app:login')
     template_name = 'clientes/panel/history.html'
+
+
+    def get_context_data(self, **kwargs):
+        context = super(GuideHistoryView, self).get_context_data(**kwargs)
+        context['asignacion'] = DetailAsignation.objects.filter(
+            guide=self.get_object(),
+            guide__anulate=False,
+        )
+        context['list_obs'] = Observations.objects.filter(
+            guide=self.get_object(),
+            type_observation='0',
+        ).order_by('created')
+        return context

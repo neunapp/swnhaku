@@ -101,4 +101,14 @@ urlpatterns = [
         views.ObsListView.as_view(),
         name='obs-list'
     ),
+    url(
+        r'^reportes/guia/$',
+        views.FilterView.as_view(),
+        name='report-filter'
+    ),
+    url(
+        r'^reportes/guia/(?P<pk>\d+)/$',
+        views.ReportGuides.as_view(),
+        name='report-guide'
+    ),
 ]

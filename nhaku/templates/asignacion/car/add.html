@@ -1,5 +1,4 @@
 {% extends "profiles/admin/admin.html" %}
-
 {% block title %} Agregar Vehiculo {% endblock title %}
 
 {% block migadepan %}
@@ -26,7 +25,7 @@
                           <form role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Modelo de Vehiculo
+                                        <label>Modelo de Vehiculo <small class="text-orange">Requerido</small>
                                             {{form.model}}
                                         </label>
                                         {% for error in form.model.errors %}
@@ -40,7 +39,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Placa
+                                        <label>Placa <small class="text-orange">Requerido</small>
                                             {{form.plaque}}
                                         </label>
                                         {% for error in form.plaque.errors %}
@@ -54,7 +53,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Marca
+                                        <label>Marca <small class="text-orange">Requerido</small>
                                             {{form.marca}}
                                         </label>
                                         {% for error in form.marca.errors %}
@@ -82,7 +81,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Codigo de Configuracion Vehicular
+                                        <label>Codigo de Configuracion Vehicular <small class="text-orange">Requerido</small>
                                             {{form.code_settings_car}}
                                         </label>
                                         {% for error in form.code_settings_car.errors %}
@@ -96,7 +95,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
-                                        <label>Constancia de Inscripcion
+                                        <label>Constancia de Inscripcion <small class="text-orange">Requerido</small>
                                             {{form.constancy_inscription}}
                                         </label>
                                         {% for error in form.constancy_inscription.errors %}

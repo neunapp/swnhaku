@@ -20,7 +20,7 @@
 {% block main %}
     <div class="row">
         <div class="small-12 medium-6 columns">
-            <h5 class="subheader">Lista de Guias a Recepcionar</h5>
+            <h5 class="subheader">Lista de Guias a Recepcionar Manifiesto: {{manifiesto}} {{manifiesto.user}}</h5>
         </div>
     </div>
     <form role="form" method="POST" class="form-horizontal">{% csrf_token %}
@@ -55,7 +55,7 @@
                         <tbody>
                           {% for guia in  form.guide %}
                               <tr>
-                                  {% for label in guia.choice_label|split_label %}
+                                  {% for label in guia.choice_label|split_label_recepcion %}
                                       <td>
                                           {{label}}
                                       </td>
@@ -65,7 +65,7 @@
                                   </td>
                               </tr>
                               {% empty %}
-                                  <td colspan="7">Lo sentimos el manifiesto no tiene guias :( </td>
+                                  <td colspan="7">Lo sentimos el manifiesto no tiene guias a Recepcionar :( </td>
                           {% endfor %}
                         </tbody>
                     </table>

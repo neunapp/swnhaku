@@ -46,10 +46,10 @@
                     <table id="responsive-example-table" class="table large-only">
                         <thead>
                             <tr>
-                                <th>Cliente</th>
-                                <th>Dni/Ruc</th>
-                                <th>Dirección</th>
-                                <th>Email</th>
+                                <th>Nombres</th>
+                                <th>N° Documento</th>
+                                <th>Direccion</th>
+                                <th>E-mail</th>
                                 <th>Telefono</th>
                                 <th>Accion</th>
                             </tr>
@@ -87,8 +87,7 @@
 
 {% block js %}
     {{ block.super }}
-
-    <script src="{% static 'js/date-dropdown/jquery.datetimepicker.js' %}"></script>
+    <script src="{% static 'js/stackable/stacktable.js' %}"></script>
     <script>
     $(document).on('click', '#run', function(e) {
         e.preventDefault();

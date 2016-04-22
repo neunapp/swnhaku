@@ -52,7 +52,7 @@ class ManagerManifest(models.Manager):
             start_date = timezone.make_aware(date, tz)
         else:
             end_date = end_date = timezone.now()
-            start_date = end_date - timedelta(days=5)
+            start_date = end_date - timedelta(days=10)
 
         manifiestos = self.filter(
             user=user,
@@ -85,6 +85,7 @@ class Manifest(TimeStampedModel):
     )
     matricula = models.CharField(
         'Matricula/Placa',
+        blank=True,
         max_length=8
     )
     cargo = models.CharField(
@@ -94,7 +95,6 @@ class Manifest(TimeStampedModel):
     )
     date = models.DateTimeField(
         'Fech-Hora',
-        default=datetime.now
     )
     type_manifest = models.CharField(
         'Tipo de Manifiesto',
@@ -152,6 +152,7 @@ class ManagerGuide(models.Manager):
 
         return zonas
 
+
     def guide_deliver(self, number):
         tz = timezone.get_current_timezone()
         if number:
@@ -194,6 +195,49 @@ class ManagerGuide(models.Manager):
 
         return queryset
 
+    def filtro_guides(self, number, tipo, date):
+        tz = timezone.get_current_timezone()
+        if date:
+            date = datetime.strptime(date, "%d/%m/%Y")
+            end_date = timezone.make_aware(date, tz)
+            start_date = end_date - timedelta(days=7)
+
+        else:
+
+            date = datetime.strptime("01/10/2015", "%d/%m/%Y")
+            end_date = timezone.now()
+            start_date = timezone.make_aware(date, tz)
+
+        if tipo == '1':
+            print end_date
+            return self.filter(
+                number__icontains=number,
+                anulate=False,
+                created__range=(start_date, end_date),
+            ).exclude(state='4')
+
+        elif tipo == '2':
+            'devuelve lista de guias perdidas'
+            guias = Observations.objects.all().exclude(type_observation='0')
+            lista = []
+            for g in guias:
+                lista.append(g.guide)
+
+            return lista
+
+        elif tipo == '3':
+            return self.filter(
+                number__icontains=number,
+                state='0',
+                anulate=False,
+                created__range=(start_date, end_date),
+            )
+        else:
+            return self.filter(
+                number__icontains=number,
+                anulate=False,
+                created__range=(start_date, end_date),
+            )
 
 
 @python_2_unicode_compatible
@@ -204,9 +248,9 @@ class Guide(TimeStampedModel):
         ('1', 'Reparto'),
     )
     PRIORITY_CHOISES = (
-        ('0', 'Alta'),
-        ('1', 'Media'),
-        ('2', 'Baja'),
+        ('1', 'Alta'),
+        ('2', 'Media'),
+        ('3', 'Baja'),
     )
     STATE_CHOISES = (
         ('0', 'Sin Asignar'),
@@ -342,10 +386,9 @@ class ManagerObs(models.Manager):
 class Observations(TimeStampedModel):
 
     TYPE_CHOICES = (
-        ('0', 'Condicion de Paquete'),
+        ('0', 'Detalle de Envio'),
         ('1', 'Perdida Guia'),
         ('2', 'perdida Paquete'),
-        ('3', 'perdida Paquete'),
     )
 
     guide = models.ForeignKey(Guide)

@@ -40,7 +40,6 @@ class ManifestForm(forms.ModelForm):
             'destination',
             'matricula',
             'cargo',
-            'date',
             'type_manifest',
         )
         widgets = {
@@ -69,21 +68,16 @@ class ManifestForm(forms.ModelForm):
                     'placeholder': 'Vuelo o Salida',
                 }
             ),
-            'date': forms.TextInput(
-                attrs={
-                    'placeholder': 'Fecha de Recepcion',
-                }
-            ),
         }
 
-        def clean_number(self):
-            number = self.cleaned_data['number']
+    def clean_number(self):
+        number = self.cleaned_data['number']
 
-            if not number.isdigit():
-                msj = 'Solo deben contener numeros'
-                self.add_error('number', msj)
-            else:
-                return number
+        if not number.isdigit():
+            msj = 'Solo deben contener numeros'
+            self.add_error('number', msj)
+        else:
+            return number
 
     def __init__(self, *args, **kwargs):
         super(ManifestForm, self).__init__(*args, **kwargs)
@@ -103,12 +97,6 @@ class GuideForm(forms.ModelForm):
             'adreessee',
             'weigth',
             'content',
-            'zona',
-            'address',
-            'province',
-            'priority',
-            'type_guide',
-            'amount',
         )
         widgets = {
             'number': forms.TextInput(
@@ -136,42 +124,7 @@ class GuideForm(forms.ModelForm):
                     'placeholder': 'Descripcion del Paquete',
                 }
             ),
-            'zona': forms.Select(
-                attrs={
-                    'class': 'form-control input-sm',
-                }
-            ),
-            'address': forms.TextInput(
-                attrs={
-                    'placeholder': 'Direccion de Entrega',
-                }
-            ),
-            'province': forms.TextInput(
-                attrs={
-                    'placeholder': 'procincia/Distriro',
-                }
-            ),
-            'priority': forms.Select(
-                attrs={
-                    'class': 'form-control input-sm',
-                }
-            ),
-            'type_guide': forms.Select(
-                attrs={
-                    'class': 'form-control input-sm',
-                }
-            ),
-            'amount': forms.NumberInput(
-                attrs={
-                    'placeholder': 'Monto a Cobrar',
-                }
-            ),
         }
-
-    def __init__(self, *args, **kwargs):
-        super(GuideForm, self).__init__(*args, **kwargs)
-        zona = Zone.objects.filter(state=False)
-        self.fields['zona'].queryset = zona
 
     def clean(self):
         cleaned_data = super(GuideForm, self).clean()
@@ -185,11 +138,14 @@ class GuideForm(forms.ModelForm):
     def clean_number(self):
         number = self.cleaned_data['number']
 
-        if not number.isdigit():
-            msj = 'Solo debe contener numeros'
-            self.add_error('number', msj)
-        else:
-            return number
+        arreglo = number.split('-')
+        for a in arreglo:
+            if not a.isdigit():
+                msj = 'El Numero de Guia no puede contener Letras'
+                print msj
+                self.add_error('number', msj)
+            else:
+                return number
 
     def clean_weigth(self):
         weigth = self.cleaned_data['weigth']
@@ -286,11 +242,14 @@ class GuideUpdateForm(forms.ModelForm):
     def clean_number(self):
         number = self.cleaned_data['number']
 
-        if not number.isdigit():
-            msj = 'Solo debe contener numeros'
-            self.add_error('number', msj)
-        else:
-            return number
+        arreglo = number.split('-')
+        for a in arreglo:
+            if not a.isdigit():
+                msj = 'El Numero de Guia no puede contener Letras'
+                print msj
+                self.add_error('number', msj)
+            else:
+                return number
 
     def clean_weigth(self):
         weigth = self.cleaned_data['weigth']
@@ -319,10 +278,47 @@ class ReceptionForm(forms.Form):
         guias = Guide.objects.filter(manifest__pk=pk, anulate=False, state='0')
         self.fields['guide'].queryset = guias
         self.fields['guide'].label_from_instance = \
-            lambda obj: "%s - %s - %s - %s - %s" % (
+            lambda obj: "%s * %s * %s * %s * %s" % (
                 obj.number,
                 obj.number_objects,
                 obj.adreessee,
                 obj.content,
                 obj.weigth,
             )
+
+
+class FilterForm(forms.Form):
+    TIPO_CHOICES = (
+        ('0', 'Guias Registradas'),
+        ('1', 'Guias No Entregadas'),
+        ('2', 'Guias Perdidas'),
+        ('3', 'Guias No Recepcionadas'),
+    )
+    numero = forms.CharField(
+        label='Numero',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Numero de Guia',
+            }
+        )
+    )
+    tipo = forms.ChoiceField(
+        choices=TIPO_CHOICES,
+        required=False,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-control input-sm'
+            }
+        )
+    )
+    date = forms.DateField(
+        'Fecha',
+        required=False,
+        widget=forms.DateInput(
+            attrs={
+                'class': 'datepicker',
+                'placeholder': 'ingrese Fecha de Nacimiento',
+            },
+            format='%d/%m/%Y'
+        )
+    )

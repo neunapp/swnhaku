@@ -1,1 +1,79 @@
-{{object}}
+{% extends "users/cliente/base_cliente.html" %}
+
+{% load staticfiles %}
+
+{% load filters %}
+
+{% block title %}Bienvenido a Paccha services{% endblock title %}
+
+{% block content %}
+
+    {% include "include/header.html" %}
+
+    <div class="container pg-content">
+      <div class="row">
+        <div class="section blue-grey-text text-darken-3">
+          <h5>Lista de manifiestos.</h5>
+        </div>
+        <div class="divider"></div>
+      </div>
+        <div class="row">
+            <div class="col s12 m9">
+                <h5>Datos de Recepcíon</h5>
+                <ul class="collection">
+                  <li class="collection-item avatar">
+                    <i class="fa fa-check circle  green"></i>
+                    <span class="title deep-orange-text">Estado de Paquete</span>
+                    <p>{{guide.state}} <br>
+                    </p>
+                  </li>
+                  <li class="collection-item avatar">
+                    <i class="fa fa-check circle  green"></i>
+                    <span class="title deep-orange-text">Manifiesto</span>
+                    <p>Numero: {{guide.manifest}} <br>
+                    </p>
+                  </li>
+                  <li class="collection-item avatar">
+                    <i class="fa fa-check circle  green"></i>
+                    <span class="title deep-orange-text">Tipo de Entrega</span>
+                    <p>{{guide.type_guide}} <br>
+                    </p>
+                  </li>
+                  <li class="collection-item avatar">
+                    <i class="fa fa-check circle  green"></i>
+                    <span class="title deep-orange-text">Cantidad de Objetos</span>
+                    <p>{{guide.number_objects}} <br>
+                    </p>
+                  </li>
+                  <li class="collection-item avatar">
+                    <i class="fa fa-check circle  green"></i>
+                    <span class="title">Peso</span>
+                    <p>{{guide.weigth}} <br>
+                    </p>
+                  </li>
+                  <li class="collection-item avatar">
+                    <i class="fa fa-check circle  green"></i>
+                    <span class="title">Remitente</span>
+                    <p>{{guide.adreessee}} <br>
+                    </p>
+                  </li>
+                  <li class="collection-item avatar">
+                    <i class="fa fa-check circle  green"></i>
+                    <span class="title">Direccion de Entrega</span>
+                    <p>{{guide.address}} <br>
+                    </p>
+                  </li>
+                  <li class="collection-item avatar">
+                    <i class="fa fa-check circle  green"></i>
+                    <span class="title">Fecha Hora de Recepcion</span>
+                    <p>{{guide.date_reception}} <br>
+                    </p>
+                  </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% include "include/footer.html" %}
+
+{% endblock content %}

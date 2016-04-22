@@ -38,15 +38,18 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body " style="display: block;">
-                    {% for zona in  zone_list %}
+                    {% for z in  zone_list %}
                         <ul class="accordion" data-accordion>
                           <li class="accordion-navigation">
-                            <a href="{% url 'asignacion_app:asignation-asignar_guide' asignacion.pk zona.pk %}">{{zona.name}}</a>
+                            <a href="{% url 'asignacion_app:asignation-asignar_guide' asignacion.pk z.zona.pk %}">{{z.zona.name}}  (<font color = "Green">{{z.cantidad}} Guias Encontradas</font>)</a>
                             </li>
                         </ul>
                         {% empty %}
                             <span>Lo sentimos las guias aun no tiene zonas regsitradas :( </span>
                     {% endfor %}
+                </div>
+                <div>
+                    <a href="{% url 'asignacion_app:asignation-list' %}" class="small radius bg-blanco border-grey button">Cancelar</a>
                 </div>
             </div>
         </div>

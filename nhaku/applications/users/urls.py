@@ -8,9 +8,9 @@ urlpatterns = [
         name='login'
     ),
     url(
-        r'^users/salir/$',
-        'applications.users.views.LogOut',
-        name='user-salir'
+        r'^salir/$',
+        views.LogoutView.as_view(),
+        name='logout'
     ),
     url(
         r'^users/usuario/update/(?P<pk>\d+)/$',

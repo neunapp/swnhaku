@@ -206,6 +206,7 @@
                                 <div class="row">
                                     <div class="medium-12 columns">
                                         <button type="submit" class="small radius bg-verde button">Guardar</button>
+                                        <a href="{% url 'users_app:user-update' object.user.pk %}" class="small radius bg-amarillo border-grey button">Usuario</a>
                                         <a href="{% url 'profiles_app:driver-list' %}" class="small radius bg-blanco border-grey button">Cancelar</a>
                                     </div>
                                 </div>
@@ -233,6 +234,7 @@
             format: 'd/m/Y'
         });
     })(jQuery);
+    </script>
 {% endblock js %}
 
 

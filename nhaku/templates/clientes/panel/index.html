@@ -11,8 +11,14 @@
     {% include "include/header.html" %}
 
     <div class="container pg-content">
+      <div class="row">
+        <div class="section blue-grey-text text-darken-3">
+          <h5>Lista de manifiestos.</h5>
+        </div>
+        <div class="divider"></div>
+      </div>
         <div class="row">
-            <div class="col s12">
+            <div class="col s12 m9">
                 <ul class="collapsible popout blue-grey-text text-darken-2" data-collapsible="accordion">
                   {% for m in list_manifest %}
                     <li>
@@ -29,45 +35,64 @@
                                   <i class="fa fa-check circle  green"></i>
                                   <span class="title">{{g.guia.number}}</span>
                                   <p class="pg-padding">
-                                    Dirección: {{g..guia.address}} <br>
+                                    Dirección: {{g.guia.address}} <br>
                                     Fecha Entrega: {{g.guia.date_deliver}} <br>
                                     recepcionado por: {{g.guia.person_name}}
                                   </p>
                                   <a href="#!" class="secondary-content"></a>
                                   {% else %}
-                                      {% if g.guia.state == '3' %}
-                                        <i class="fa fa-truck circle yellow"></i>
-                                        <span class="title">{{g.guia.number}}</span>
-                                        <p class="pg-padding">
-                                          Dirección: {{g.guia.address}} <br>
-                                          Fecha Asignacion: {{g.asignacion.date_start}} <br>
-                                          Asignado a: {{g.asignacion.driver.first_name}} {{g.asignacion.driver.last_name}}
-                                        </p>
-                                        <a href="#!" class="secondary-content"></a>
+                                    {% if g.guia.state == '3' and g.observacion %}
+                                      <i class="fa fa-truck circle yellow"></i>
+                                      <span class="title"> <font color="red">{{g.guia.number}} </font></span>
+                                      <p class="pg-padding">
+                                        Dirección: {{g.guia.address}} <br>
+                                        Fecha Asignacion: {{g.asignacion.date_start}} <br>
+                                        Asignado a: {{g.asignacion.driver.first_name}} {{g.asignacion.driver.last_name}} <br>
+                                        observacion: <font color="red">{{g.observacion.description}}</font>
+                                      </p>
+                                      <a href="#!" class="secondary-content"></a>
+                                     {% else %}
+                                        {% if g.guia.state == '3' %}
+                                          <i class="fa fa-truck circle yellow"></i>
+                                          <span class="title">{{g.guia.number}}</span>
+                                          <p class="pg-padding">
+                                            Dirección: {{g.guia.address}} <br>
+                                            Fecha Asignacion: {{g.asignacion.date_start}} <br>
+                                            Asignado a: {{g.asignacion.driver.first_name}} {{g.asignacion.driver.last_name}}
+                                          </p>
+                                          <a href="#!" class="secondary-content"></a>
                                         {% else %}
-                                          {% if g.observacion %}
-                                            <i class="fa fa-exclamation-triangle circle red"></i>
-                                            <span class="title">{{g.guia.number}}</span>
-                                            <p class="pg-padding">
-                                              Dirección: {{g.guia.address}} <br>
-                                              Fecha Recepcion: {{g.guia.date_reception}} <br>
-                                              observacion: {{g.observacion.description}}
-                                            </p>
-                                            <a href="#!" class="secondary-content"></a>
-                                        {% else %}
-                                          {% if g.guia.state == '1' %}
-                                            <i class="fa fa-home circle blue"></i>
-                                            <span class="title">{{g.guia.number}}</span>
-                                            <p class="pg-padding">
-                                              Dirección: {{g.guia.address}} <br>
-                                              Fecha Recepcion: {{g.guia.date_reception}} <br>
-                                              Remitente: {{g.guia.adreessee}}
-                                            </p>
-                                            <a href="#!" class="secondary-content"></a>
-                                          {% endif %}
-                                        {% endif %}
+                                            {% if g.observacion %}
+                                              <i class="fa fa-exclamation-triangle circle red"></i>
+                                              <span class="title">{{g.guia.number}}</span>
+                                              <p class="pg-padding">
+                                                Dirección: {{g.guia.address}} <br>
+                                                Fecha Recepcion: {{g.guia.date_reception}} <br>
+                                                observacion: {{g.observacion.description}}
+                                              </p>
+                                              <a href="#!" class="secondary-content"></a>
+                                            {% else %}
+                                              {% if g.guia.state == '1' %}
+                                                <i class="fa fa-home circle blue"></i>
+                                                <span class="title">{{g.guia.number}}</span>
+                                                <p class="pg-padding">
+                                                  Dirección: {{g.guia.address}} <br>
+                                                  Fecha Recepcion: {{g.guia.date_reception}} <br>
+                                                  Remitente: {{g.guia.adreessee}}
+                                                </p>
+                                                <a href="#!" class="secondary-content"></a>
+                                              {% else %}
+                                                <i class="fa fa-question circle grey"></i>
+                                                <span class="title">{{g.guia.number}}</span>
+                                                <p class="pg-padding">
+                                                  Enviado por: {{g.guia.adreessee}} <br>
+                                                  <font color="Maroon">observacion: Paquete no Recepcionado</font>
+                                                </p>
+                                                <a href="#!" class="secondary-content"></a>
+                                              {% endif %}
+                                            {% endif %}
+                                         {% endif %}
                                       {% endif %}
-
                                   {% endif %}
 
                                 </li>
@@ -78,25 +103,31 @@
                   {% endfor %}
                 </ul>
             </div>
+            <div class="col s12 m3">
+              <a href="#" class="card-panel stats-card green lighten-1 green-text text-lighten-5">
+                <i class="fa fa-check"></i>
+                <span class="count">{{reporte.entregadas}}</span>
+                <div class="name">Entregadas</div>
+              </a>
+              <a href="#" class="card-panel stats-card yellow lighten-1 yellow-text text-lighten-5">
+                <i class="fa fa-truck"></i>
+                <span class="count">{{reporte.reparto}}</span>
+                <div class="name">Repartos</div>
+              </a>
+              <a href="#" class="card-panel stats-card red lighten-1 red-text text-lighten-5">
+                <i class="fa fa-exclamation-triangle"></i>
+                <span class="count">{{reporte.observacion}}</span>
+                <div class="name">Observados</div>
+              </a>
+              <a href="#" class="card-panel stats-card blue lighten-1 blue-text text-lighten-5">
+                <i class="fa fa-home"></i>
+                <span class="count">{{reporte.oficina}}</span>
+                <div class="name">Oficina</div>
+              </a>
+            </div>
         </div>
     </div>
 
     {% include "include/footer.html" %}
 
 {% endblock content %}
-
-{% load filters %}
-<form method="get" class="form-horizontal">{% csrf_token %}
-{{form}}
-<div class="col-sm-offset-1 col-sm-10">
-    <button type="submit" class="btn btn-quilla">Buscar</button>
-</div>
-</form>
-<ul>
-{% for m in list_manifest %}
-      <li>{{m}}</li>
-      {% for g in m|iterar_guides %}
-          <a href="{% url 'cliente_app:cliente-history' g.pk %}"><p>{{g}}</p></a>
-      {% endfor %}
-{% endfor %}
-</ul>

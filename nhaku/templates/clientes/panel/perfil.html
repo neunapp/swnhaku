@@ -1,0 +1,78 @@
+{% extends "users/cliente/base_cliente.html" %}
+
+{% load staticfiles %}
+
+{% load filters %}
+
+{% block title %}Bienvenido a Paccha services{% endblock title %}
+
+{% block content %}
+
+    {% include "include/header.html" %}
+
+<div class="col s12">
+  <div class="card">
+    <div class="card-content">
+      <div class="container">
+        <div class="row">
+          <div class="container">
+              <h5>Datos De Usuario</h5>
+                <div class="card center">
+                  <br>
+                  <form role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+
+                    <div class="col s12 m8 offset-m2 l6 offset-l3">
+                        <img class="circle responsive-img" src="{{IMAGEN}}" alt="">
+                        <div class="card-action">
+                          <a href="{% url 'cliente_app:cliente-index' %}">{{user.username}}</a>
+                        </div>
+                    </div>
+                      <div class="row">
+                        <div class="file-field input-field col s12">
+                            <input class="file-path validate center" type="text" placeholder="Ninguna Imagen Seleccionada"/>
+                                  <span class="grey-text">Cambiar</span>
+                                  {{ form.image }}
+                                  {% for error in form.image.errors %}
+                                  <div class="col-xs-6">
+                                      <span class="red-text">
+                                          {{ error|escape }}
+                                      </span>
+                                  </div>
+                                  {% endfor %}
+                              <p class="center"><spam class="blue-text">se recomienda imagenes menores a 300x300 px</spam></p>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                          <h6>Cambiar Contraseña</h6>
+                          <div class="container"><!--contenedor para contraseña-->
+                              {{form.password1}}
+                              {% for error in form.password1.errors %}
+                                <div class="col-xs-6">
+                                    <span class="red-text">
+                                        {{ error|escape }}
+                                    </span>
+                                </div>
+                              {% endfor %}
+                              {{form.password2}}
+                              {% for error in form.password2.errors %}
+                                <div class="col-xs-6">
+                                    <span class="red-text">
+                                        {{ error|escape }}
+                                    </span>
+                                </div>
+                              {% endfor %}
+                              <button class="waves-effect waves-light btn" type="submit" name="action">ok</button>
+                        </div> <!--fin de contenedor para contraseña-->
+                        </div>
+                      </form>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    {% include "include/footer.html" %}
+
+{% endblock content %}
