@@ -356,7 +356,7 @@ class EmployeeCreateView(LoginRequiredMixin, CreateView):
     template_name = 'profiles/employee/add.html'
 
     def get_context_data(self, **kwargs):
-        context = super(AsignationCreateView, self).get_context_data(**kwargs)
+        context = super(EmployeeCreateView, self).get_context_data(**kwargs)
         usuario = self.request.user
         if not (usuario.type_user == '4' or usuario.type_user == '1'):
                 raise Http404("No Se Encontro la Pagina")
