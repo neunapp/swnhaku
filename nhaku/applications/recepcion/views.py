@@ -309,7 +309,8 @@ class ManifestListView(LoginRequiredMixin, ListView):
         else:
             #recuperamos el valor por GET
             queryset = Manifest.objects.manifest_by_day()
-            return queryset
+
+        return queryset
 
 
 class GuideCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):

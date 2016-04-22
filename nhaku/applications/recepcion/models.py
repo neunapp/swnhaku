@@ -39,8 +39,8 @@ class ManagerManifest(models.Manager):
     def manifest_by_day(self):
         #lista de manifiestos por dia
         return self.filter(
-            date__day = timezone.now().day,
-            state = False
+            date__day=timezone.now().day -1,
+            state=False
         )
 
     def manifest_and_guide(self, user, fecha):

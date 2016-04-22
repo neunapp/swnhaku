@@ -1,4 +1,5 @@
 from django.core.exceptions import ImproperlyConfigured
+from django.utils import timezone
 import json
 
 from unipath import Path
@@ -16,10 +17,6 @@ def get_secret(secret_name, secrets=secrets):
         raise ImproperlyConfigured(msg)
 
 SECRET_KEY = get_secret('SECRET_KEY')
-
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 DJANGO_APPS = (
     'django.contrib.admin',
@@ -97,7 +94,7 @@ AUTH_USER_MODEL = 'users.User'
 
 LANGUAGE_CODE = 'es-pe'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Lima'
 
 USE_TZ = True
 
