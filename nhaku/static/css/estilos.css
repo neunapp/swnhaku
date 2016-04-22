@@ -29,13 +29,13 @@ nav .user img {
 }
 
 nav .dropdown-content li > .li-user {
-    color: #ffa726;
+    color: #78909c;
     font-size: 15px;
 }
 
 nav .dropdown-content li > .li-user:hover {
-    background-color: #ffa726;
-    color: #fff3e0;
+    background-color: #90a4ae;
+    color: #eceff1;
     font-size: 15px;
 }
 
