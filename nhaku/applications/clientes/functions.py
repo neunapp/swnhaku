@@ -18,7 +18,7 @@ def AsgGuides(value):
     guias = Guide.objects.by_manifest(value)
     num_asg = 0
     for g in guias:
-        if g.state == '3':
+        if g.state == '3' or g.state == '2':
             num_asg = num_asg + 1
     return num_asg
 
@@ -28,8 +28,13 @@ def OfficeGuides(value):
     guias = Guide.objects.by_manifest(value)
     num_office = 0
     for g in guias:
-        if g.state == '1':
+        value_obs = Observations.objects.filter(guide=g,
+            type_observation='0'
+        ).exclude(guide__state='4').exists()
+
+        if g.state == '1' and not value_obs:
             num_office = num_office + 1
+
     return num_office
 
 
@@ -62,3 +67,59 @@ def report_guides(value):
         r.oficina = r.oficina + OfficeGuides(m)
         #iteramos las guias
     return r
+
+
+class Histoy():
+    tipo = None
+    fecha = None
+    objeto = None
+
+
+#metodo para devolver la historia de una guia
+def historia_guia(guia):
+    #lista que contiene objetos de tipo Histoy
+    lista = []
+    #agregamos la primera historia
+    h = Histoy()
+    h.tipo = '0'
+    h.fecha = guia.date_reception
+    h.objeto = guia
+    lista.append(h)
+    #verificamos si existen asignaciones
+    asignaciones = DetailAsignation.objects.filter(
+        guide=guia,
+        guide__anulate=False,
+    )
+    if asignaciones.count() > 0:
+        #agregamos las asignaciones como historia
+        for a in asignaciones:
+            ha = Histoy()
+            ha.tipo = '1'
+            ha.fecha = a.created
+            ha.objeto = a
+            lista.append(ha)
+    #verificamos si existen observaciones
+    observaciones = Observations.objects.filter(
+        guide=guia,
+        guide__anulate=False,
+    )
+    if observaciones.count() > 0:
+        #agregamos las observaciones como historia
+        for obs in observaciones:
+            ho = Histoy()
+            ho.tipo = '2'
+            ho.fecha = obs.created
+            ho.objeto = obs
+            lista.append(ho)
+    #verificamos si fue observado y no entregado
+    if asignaciones.count() > 0 and observaciones.count() > 0 and guia.state == '1':
+        for a in asignaciones:
+            he = Histoy()
+            he.tipo = '0'
+            he.fecha = a.asignation.date_retunr
+            he.objeto = guia
+            lista.append(he)
+
+    lista2 = sorted(lista, key=lambda Histoy: Histoy.fecha)
+    #devolvemos la lista ordenanda
+    return lista2

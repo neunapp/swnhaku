@@ -48,6 +48,7 @@ class ReceptionAsignationView(LoginRequiredMixin, DetailView):
         #recuperamos la asignacion y actualizmos estado
         self.object = self.get_object()
         self.object.state = '2'
+        self.object.date_retunr = timezone.now()
         self.object.save()
         #recuperamos la lista de guias y actualizamos estado
         guides = DetailAsignation.objects.filter(

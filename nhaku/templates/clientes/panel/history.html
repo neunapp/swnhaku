@@ -2,76 +2,89 @@
 
 {% load staticfiles %}
 
-{% load filters %}
-
-{% block title %}Bienvenido a Paccha services{% endblock title %}
+{% block title %} Linea de tiempo de la guia {{object}} {% endblock title %}
 
 {% block content %}
 
     {% include "include/header.html" %}
 
-    <div class="container pg-content">
-      <div class="row">
-        <div class="section blue-grey-text text-darken-3">
-          <h5>Lista de manifiestos.</h5>
-        </div>
-        <div class="divider"></div>
-      </div>
+    <div class="pg-content">
         <div class="row">
-            <div class="col s12 m9">
-                <h5>Datos de Recepcíon</h5>
-                <ul class="collection">
-                  <li class="collection-item avatar">
-                    <i class="fa fa-check circle  green"></i>
-                    <span class="title deep-orange-text">Estado de Paquete</span>
-                    <p>{{guide.state}} <br>
-                    </p>
-                  </li>
-                  <li class="collection-item avatar">
-                    <i class="fa fa-check circle  green"></i>
-                    <span class="title deep-orange-text">Manifiesto</span>
-                    <p>Numero: {{guide.manifest}} <br>
-                    </p>
-                  </li>
-                  <li class="collection-item avatar">
-                    <i class="fa fa-check circle  green"></i>
-                    <span class="title deep-orange-text">Tipo de Entrega</span>
-                    <p>{{guide.type_guide}} <br>
-                    </p>
-                  </li>
-                  <li class="collection-item avatar">
-                    <i class="fa fa-check circle  green"></i>
-                    <span class="title deep-orange-text">Cantidad de Objetos</span>
-                    <p>{{guide.number_objects}} <br>
-                    </p>
-                  </li>
-                  <li class="collection-item avatar">
-                    <i class="fa fa-check circle  green"></i>
-                    <span class="title">Peso</span>
-                    <p>{{guide.weigth}} <br>
-                    </p>
-                  </li>
-                  <li class="collection-item avatar">
-                    <i class="fa fa-check circle  green"></i>
-                    <span class="title">Remitente</span>
-                    <p>{{guide.adreessee}} <br>
-                    </p>
-                  </li>
-                  <li class="collection-item avatar">
-                    <i class="fa fa-check circle  green"></i>
-                    <span class="title">Direccion de Entrega</span>
-                    <p>{{guide.address}} <br>
-                    </p>
-                  </li>
-                  <li class="collection-item avatar">
-                    <i class="fa fa-check circle  green"></i>
-                    <span class="title">Fecha Hora de Recepcion</span>
-                    <p>{{guide.date_reception}} <br>
-                    </p>
-                  </li>
-                </ul>
+          <div class="col s12">
+            <div class="section section-title blue-grey-text text-darken-3">
+              <h5>
+                Guia N° {{object}}
+                <a class="right" href="{% url 'cliente_app:cliente-index' %}">Regresar</a>
+              </h5>
+
             </div>
+            <div class="divider"></div>
+          </div>
         </div>
+
+        <div class="row">
+          <section id="cd-timeline" class="cd-container">
+
+            {% for h in historia %}
+                <div class="cd-timeline-block">
+                  {% if h.tipo == '0' %}
+                    <div class="timeline-icon blue lighten-1 white-text">
+                      <i class="fa fa-home circle"></i>
+                    </div> <!-- cd-timeline-img -->
+
+                    <div class="cd-timeline-content">
+                      <h5>Recepcionado</h5>
+                      <span class="cd-date">{{h.fecha}}</span>
+                    </div>
+                  {% endif %}
+                  {% if  h.tipo == '1'%}
+                          <div class="cd-timeline-block">
+                              <div class="timeline-icon yellow lighten-1 white-text">
+                                <i class="fa fa-truck circle"></i>
+                              </div> <!-- cd-timeline-img -->
+
+                              <div class="cd-timeline-content">
+                                <h5>Asignado</h5>
+                                <p>Vehiculo Asignado: {{h.objeto.asignation.car}}</p>
+                                <p>Conductor Asignado: {{h.objeto.asignation.driver}}</p>
+                                <span class="cd-date">{{h.fecha}}</span>
+                              </div> <!-- cd-timeline-content -->
+                          </div> <!-- cd-timeline-block -->
+                  {% endif %}
+                  {% if h.tipo == '2' %}
+                              <div class="cd-timeline-block">
+                                <div class="timeline-icon red lighten-1 white-text">
+                                  <i class="fa fa-exclamation-triangle circle"></i>
+                                </div> <!-- cd-timeline-img -->
+
+                                <div class="cd-timeline-content">
+                                  <h5>Observación</h5>
+                                  <p>{{h.objeto.description}}</p>
+                                  <span class="cd-date">{{h.fecha}}</span>
+                                </div> <!-- cd-timeline-content -->
+                              </div> <!-- cd-timeline-block -->
+                  {% endif %}
+                </div>
+            {% endfor %}
+            {% if object.state == '4' %}
+            <div class="cd-timeline-block">
+                <div class="timeline-icon green lighten-1 white-text">
+                  <i class="fa fa-check circle"></i>
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                  <h5>Entregado</h5>
+                  <p>Dni Receptor:{{object.person_id}}</p>
+                  <p>Nombre Receptor:{{object.person_name}}</p>
+                  <span class="cd-date">{{object.date_deliver}}</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+            {% endif %}
+          </section>
+           <!-- cd-timeline -->
+        </div>
+
+
     </div>
 
     {% include "include/footer.html" %}

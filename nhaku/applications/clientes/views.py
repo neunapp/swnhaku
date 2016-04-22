@@ -15,7 +15,7 @@ from django.views.generic.edit import FormView
 
 from .forms import SearchForm, PanelForm, ProfileForm
 
-from .functions import report_guides
+from .functions import report_guides, historia_guia
 
 from applications.recepcion.models import Guide, Manifest, Observations
 from applications.profiles.models import Client
@@ -113,4 +113,5 @@ class GuideHistoryView(LoginRequiredMixin, DetailView):
             guide=self.get_object(),
             type_observation='0',
         ).order_by('created')
+        context['historia'] = historia_guia(self.get_object())
         return context

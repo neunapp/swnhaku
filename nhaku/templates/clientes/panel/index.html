@@ -29,7 +29,7 @@
                         <div class="collapsible-body">
                           <ul class="collection">
                             {% for g in m|iterar_guides %}
-                              <a href="#" class="blue-grey-text text-darken-3">
+                              <a href="{% url 'cliente_app:cliente-history' g.guia.pk %}" class="blue-grey-text text-darken-3">
                                 <li class="collection-item avatar">
                                   {% if g.guia.state == '4' %}
                                   <i class="fa fa-check circle  green"></i>
@@ -39,7 +39,7 @@
                                     Fecha Entrega: {{g.guia.date_deliver}} <br>
                                     recepcionado por: {{g.guia.person_name}}
                                   </p>
-                                  <a href="#!" class="secondary-content"></a>
+                                  <a href="{% url 'cliente_app:cliente-history' g.guia.pk %}" class="secondary-content"></a>
                                   {% else %}
                                     {% if g.guia.state == '3' and g.observacion %}
                                       <i class="fa fa-truck circle yellow"></i>
@@ -50,9 +50,9 @@
                                         Asignado a: {{g.asignacion.driver.first_name}} {{g.asignacion.driver.last_name}} <br>
                                         observacion: <font color="red">{{g.observacion.description}}</font>
                                       </p>
-                                      <a href="#!" class="secondary-content"></a>
+                                      <a href="{% url 'cliente_app:cliente-history' g.guia.pk %}" class="secondary-content"></a>
                                      {% else %}
-                                        {% if g.guia.state == '3' %}
+                                        {% if g.guia.state == '3' or g.guia.state == '2'%}
                                           <i class="fa fa-truck circle yellow"></i>
                                           <span class="title">{{g.guia.number}}</span>
                                           <p class="pg-padding">
@@ -60,7 +60,7 @@
                                             Fecha Asignacion: {{g.asignacion.date_start}} <br>
                                             Asignado a: {{g.asignacion.driver.first_name}} {{g.asignacion.driver.last_name}}
                                           </p>
-                                          <a href="#!" class="secondary-content"></a>
+                                          <a href="{% url 'cliente_app:cliente-history' g.guia.pk %}" class="secondary-content"></a>
                                         {% else %}
                                             {% if g.observacion %}
                                               <i class="fa fa-exclamation-triangle circle red"></i>
@@ -70,7 +70,7 @@
                                                 Fecha Recepcion: {{g.guia.date_reception}} <br>
                                                 observacion: {{g.observacion.description}}
                                               </p>
-                                              <a href="#!" class="secondary-content"></a>
+                                              <a href="{% url 'cliente_app:cliente-history' g.guia.pk %}" class="secondary-content"></a>
                                             {% else %}
                                               {% if g.guia.state == '1' %}
                                                 <i class="fa fa-home circle blue"></i>
@@ -80,7 +80,7 @@
                                                   Fecha Recepcion: {{g.guia.date_reception}} <br>
                                                   Remitente: {{g.guia.adreessee}}
                                                 </p>
-                                                <a href="#!" class="secondary-content"></a>
+                                                <a href="{% url 'cliente_app:cliente-history' g.guia.pk %}" class="secondary-content"></a>
                                               {% else %}
                                                 <i class="fa fa-question circle grey"></i>
                                                 <span class="title">{{g.guia.number}}</span>
@@ -88,7 +88,7 @@
                                                   Enviado por: {{g.guia.adreessee}} <br>
                                                   <font color="Maroon">observacion: Paquete no Recepcionado</font>
                                                 </p>
-                                                <a href="#!" class="secondary-content"></a>
+                                                <a href="{% url 'cliente_app:cliente-history' g.guia.pk %}" class="secondary-content"></a>
                                               {% endif %}
                                             {% endif %}
                                          {% endif %}
