@@ -1,0 +1,104 @@
+{% extends "users/cliente/base_cliente.html" %}
+
+{% load staticfiles %}
+
+{% block title %} Linea de tiempo de la guia #001 {% endblock title %}
+
+{% block content %}
+
+    {% include "include/header.html" %}
+
+    <div class="pg-content">
+        <div class="row">
+          <div class="col s12">
+            <div class="section section-title blue-grey-text text-darken-3">
+              <h5>Guia N° 0001.</h5>
+            </div>
+            <div class="divider"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <section id="cd-timeline" class="cd-container">
+
+            <div class="cd-timeline-block">
+              <div class="timeline-icon blue lighten-1 white-text">
+                <i class="fa fa-home circle"></i>
+              </div> <!-- cd-timeline-img -->
+
+              <div class="cd-timeline-content">
+                <h5>Recepcionado</h5>
+                <span class="cd-date">05 de deciembre del 2015 a las 10:35.</span>
+              </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+              <div class="timeline-icon yellow lighten-1 white-text">
+                <i class="fa fa-truck circle"></i>
+              </div> <!-- cd-timeline-img -->
+
+              <div class="cd-timeline-content">
+                <h5>Asignado</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio ipsa ad debitis unde?</p>
+                <span class="cd-date">05 de deciembre del 2015 a las 15:35</span>
+              </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+              <div class="timeline-icon red lighten-1 white-text">
+                <i class="fa fa-exclamation-triangle circle"></i>
+              </div> <!-- cd-timeline-img -->
+
+              <div class="cd-timeline-content">
+                <h5>Observación</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?</p>
+                <a href="#0" class="cd-read-more">Read more</a>
+                <span class="cd-date">05 de deciembre del 2015 a las 17:00.</span>
+              </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+              <div class="timeline-icon blue lighten-1 white-text">
+                <i class="fa fa-home circle"></i>
+              </div> <!-- cd-timeline-img -->
+
+              <div class="cd-timeline-content">
+                <h5>Recepcionado</h5>
+                <span class="cd-date">05 de deciembre del 2015 a las 10:35.</span>
+              </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+              <div class="timeline-icon yellow lighten-1 white-text">
+                <i class="fa fa-truck circle"></i>
+              </div> <!-- cd-timeline-img -->
+
+              <div class="cd-timeline-content">
+                <h5>Asignado</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio ipsa ad debitis unde?</p>
+                <span class="cd-date">05 de deciembre del 2015 a las 15:35</span>
+              </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+              <div class="timeline-icon green lighten-1 white-text">
+                <i class="fa fa-check circle"></i>
+              </div> <!-- cd-timeline-img -->
+
+              <div class="cd-timeline-content">
+                <h5>Entregado</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio quasi placeat iure tempora laudantium ipsa ad debitis unde?</p>
+                <span class="cd-date">05 de deciembre del 2015 a las 10:35.</span>
+              </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+          </section>
+           <!-- cd-timeline -->
+        </div>
+
+
+    </div>
+
+    {% include "include/footer.html" %}
+
+{% endblock content %}
