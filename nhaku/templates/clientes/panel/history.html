@@ -55,14 +55,27 @@
                               <div class="cd-timeline-block">
                                 <div class="timeline-icon red lighten-1 white-text">
                                   <i class="fa fa-exclamation-triangle circle"></i>
-                                </div> <!-- cd-timeline-img -->
+                                </div>
+                              <div class="cd-timeline-content">
+                                <h5>Observación</h5>
 
-                                <div class="cd-timeline-content">
-                                  <h5>Observación</h5>
-                                  <p>{{h.objeto.description}}</p>
-                                  <span class="cd-date">{{h.fecha}}</span>
-                                </div> <!-- cd-timeline-content -->
-                              </div> <!-- cd-timeline-block -->
+                                    <div class="row valign-wrapper">
+                                      <div class="col s2">
+                                        {% if not h.objeto.image  %}
+                                            <img src="{% static 'img/foto.jpg' %}" alt="" class="responsive-img"> <!-- notice the "circle" class -->
+                                        {% else %}
+                                            <img src="{{h.objeto.image.url}}" alt="" class="responsive-img">
+                                        {% endif %}
+
+                                      </div>
+                                      <div class="col s10">
+                                        <span>
+                                          {{h.objeto.description}}
+                                        </span>
+                                      </div>
+                                    </div>
+                                <span class="cd-date">{{h.fecha}}</span>
+                              </div> <!-- cd-timeline-content -->
                   {% endif %}
                 </div>
             {% endfor %}

@@ -82,13 +82,14 @@
                                                 </p>
                                                 <a href="{% url 'cliente_app:cliente-history' g.guia.pk %}" class="secondary-content"></a>
                                               {% else %}
+                                              </a>
                                                 <i class="fa fa-question circle grey"></i>
                                                 <span class="title">{{g.guia.number}}</span>
                                                 <p class="pg-padding">
                                                   Enviado por: {{g.guia.adreessee}} <br>
                                                   <font color="Maroon">observacion: Paquete no Recepcionado</font>
                                                 </p>
-                                                <a href="{% url 'cliente_app:cliente-history' g.guia.pk %}" class="secondary-content"></a>
+                                                <a href="#" class="secondary-content"></a>
                                               {% endif %}
                                             {% endif %}
                                          {% endif %}
@@ -96,7 +97,7 @@
                                   {% endif %}
 
                                 </li>
-                              </a>
+                              <!--</a>-->
                             {% endfor %}
                         </div>
                     </li>

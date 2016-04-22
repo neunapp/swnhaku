@@ -93,11 +93,26 @@ def historia_guia(guia):
     if asignaciones.count() > 0:
         #agregamos las asignaciones como historia
         for a in asignaciones:
-            ha = Histoy()
-            ha.tipo = '1'
-            ha.fecha = a.created
-            ha.objeto = a
-            lista.append(ha)
+            if a.state == True:
+                ha = Histoy()
+                ha.tipo = '1'
+                ha.fecha = a.created
+                ha.objeto = a
+                lista.append(ha)
+            else:
+                #la guia se asigno
+                ha = Histoy()
+                ha.tipo = '1'
+                ha.fecha = a.created
+                ha.objeto = a
+                lista.append(ha)
+                #la guia no se entrego
+                he = Histoy()
+                he.tipo = '0'
+                he.fecha = a.asignation.date_retunr
+                he.objeto = guia
+                lista.append(he)
+
     #verificamos si existen observaciones
     observaciones = Observations.objects.filter(
         guide=guia,
@@ -111,15 +126,6 @@ def historia_guia(guia):
             ho.fecha = obs.created
             ho.objeto = obs
             lista.append(ho)
-    #verificamos si fue observado y no entregado
-    if asignaciones.count() > 0 and observaciones.count() > 0 and guia.state == '1':
-        for a in asignaciones:
-            he = Histoy()
-            he.tipo = '0'
-            he.fecha = a.asignation.date_retunr
-            he.objeto = guia
-            lista.append(he)
-
     lista2 = sorted(lista, key=lambda Histoy: Histoy.fecha)
     #devolvemos la lista ordenanda
     return lista2
