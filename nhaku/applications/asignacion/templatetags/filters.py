@@ -10,7 +10,7 @@ register = template.Library()
 #sepra un texto por el caracter guion
 def split_label_recepcion(value):
     arreglo = value.split('*')
-    arreglo[4] = str(round(float(arreglo[4])))+' Kg'
+    arreglo[4] = str(arreglo[4])+' Kg'
     print arreglo[4]
     return arreglo
 
@@ -19,7 +19,6 @@ def split_label_recepcion(value):
 def split_label(value):
     arreglo = value.split('*')
     print '==================='
-    arreglo[4] = str(round(float(arreglo[4])))+' Kg'
     print '**** peso ****'
     print arreglo[4]
     '''

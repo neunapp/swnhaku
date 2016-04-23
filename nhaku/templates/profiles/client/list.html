@@ -59,7 +59,7 @@
                             <tr>
                                 <td>{{cliente.full_name}}</td>
                                 <td>{{cliente.number_doc}}</td>
-                                <td>{{cliente.address}}</td>
+                                <td>{{cliente.address|safe|truncatechars_html:15}}</td>
                                 <td>{{cliente.email}}</td>
                                 <td>{{cliente.phone}}</td>
                                 <td>
