@@ -160,6 +160,9 @@ class GuideByAsignation(LoginRequiredMixin, ListView):
 
 
 class DeliverView(LoginRequiredMixin, FormView):
+    '''
+    vista para registrar los datos de receptor de guia
+    '''
     form_class = DeliverForm
     login_url = reverse_lazy('users_app:login')
     template_name = 'entrega/entrega/deliver.html'
@@ -221,5 +224,66 @@ class DeliverObservation(LoginRequiredMixin, CreateView):
             reverse(
                 'entrega_app:entrega-list_guides',
                 kwargs={'pk': asig },
+            )
+        )
+
+
+class ListDeliverOffice(LoginRequiredMixin, ListView):
+    '''
+    muestra la lista de guias con entrega en oficina
+    '''
+    context_object_name = 'list_guides'
+    paginate_by = 20
+    login_url = reverse_lazy('users_app:login')
+    template_name = 'entrega/entrega/office.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ListDeliverOffice, self).get_context_data(**kwargs)
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            raise Http404("No Se Encontro la Pagina")
+        else:
+            context['form'] = SearchForm
+            return context
+
+    def get_queryset(self):
+        q = self.request.GET.get("number", '')
+        queryset = Guide.objects.filter(
+            number__icontains=q,
+            anulate=False,
+            state='1',
+            type_guide='0',
+        )
+        return queryset
+
+
+class DeliverOffice(LoginRequiredMixin, FormView):
+    '''
+    vista para registrar entrega guia en oficina
+    '''
+    form_class = DeliverForm
+    login_url = reverse_lazy('users_app:login')
+    template_name = 'entrega/entrega/deliver_office.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DeliverOffice, self).get_context_data(**kwargs)
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+            raise Http404("No Se Encontro la Pagina")
+        else:
+            context['guia'] = Guide.objects.get(pk=self.kwargs.get('pk', 0))
+            return context
+
+    def form_valid(self, form):
+        #recuperamos la guia
+        guia = Guide.objects.get(pk=self.kwargs.get('pk', 0))
+        guia.person_id = form.cleaned_data['dni']
+        guia.person_name = form.cleaned_data['full_name']
+        guia.date_deliver = datetime.now()
+        guia.state = '4'
+        guia.save()
+        return HttpResponseRedirect(
+            reverse(
+                'entrega_app:entrega-oficina',
             )
         )

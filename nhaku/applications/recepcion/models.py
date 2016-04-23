@@ -214,7 +214,7 @@ class ManagerGuide(models.Manager):
                 number__icontains=number,
                 anulate=False,
                 created__range=(start_date, end_date),
-            ).exclude(state='4')
+            ).exclude(state='4').order_by('manifest__user')
 
         elif tipo == '2':
             'devuelve lista de guias perdidas'
@@ -231,13 +231,13 @@ class ManagerGuide(models.Manager):
                 state='0',
                 anulate=False,
                 created__range=(start_date, end_date),
-            )
+            ).order_by('manifest__user')
         else:
             return self.filter(
                 number__icontains=number,
                 anulate=False,
                 created__range=(start_date, end_date),
-            )
+            ).order_by('manifest__user')
 
 
 @python_2_unicode_compatible

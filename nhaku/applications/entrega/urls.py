@@ -23,6 +23,16 @@ urlpatterns = [
         views.DeliverView.as_view(),
         name='entrega-deliver'
     ),
+    url(
+        r'^entrega/deliver/office/$',
+        views.ListDeliverOffice.as_view(),
+        name='entrega-oficina'
+    ),
+    url(
+        r'^entrega/deliver/office/(?P<pk>\d+)/$',
+        views.DeliverOffice.as_view(),
+        name='entrega-deliver_oficina'
+    ),
     #urls para observacion
     url(
         r'^entrega/observacion/add/(?P<as>\d+)/(?P<pk>\d+)/$',
