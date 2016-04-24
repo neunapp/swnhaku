@@ -25,13 +25,39 @@ class SearchForm(forms.Form):
 
 
 class PanelForm(forms.Form):
-    date = forms.DateField(
+    '''
+    formulario para buscar guias de un cliente
+    '''
+    number = forms.CharField(
+        label='Numero de Guia',
+        max_length='20',
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Ingrese Numero de Guia'
+            }
+        )
+    )
+    date_start = forms.DateField(
         'Fecha',
         required=False,
         widget=forms.DateInput(
             attrs={
-                'class': 'datepicker'
-            }
+                'class': 'datepicker',
+                'placeholder': 'ingrese Inicio de Fecha',
+            },
+            format='%d/%m/%Y'
+        )
+    )
+    date_fin = forms.DateField(
+        'Fecha',
+        required=False,
+        widget=forms.DateInput(
+            attrs={
+                'class': 'datepicker',
+                'placeholder': 'ingrese Fecha Fin',
+            },
+            format='%d/%m/%Y'
         )
     )
 

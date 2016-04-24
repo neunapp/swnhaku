@@ -181,6 +181,7 @@ class DeliverView(LoginRequiredMixin, FormView):
         guia = Guide.objects.get(pk=self.kwargs.get('pk', 0))
         guia.person_id = form.cleaned_data['dni']
         guia.person_name = form.cleaned_data['full_name']
+        guia.date_realdeliver = form.cleaned_data['date']
         guia.date_deliver = datetime.now()
         guia.state = '4'
         guia.save()

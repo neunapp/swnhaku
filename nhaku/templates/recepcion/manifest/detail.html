@@ -58,7 +58,7 @@
                                 {{ guide.zona }}
                               {% endif %}
                             </td>
-                            <td>{{ guide.adreessee }}</td>
+                            <td>{{ guide.adreessee|safe|truncatechars_html:20 }}</td>
                               <td>
                                 {% if not guide.state == '0' %}
                                       <a href="{% url 'recepcion_app:guide-detail' guide.pk %}" class="tiny bg-verde no-margin radius button" title="Ver">
@@ -71,7 +71,13 @@
                                           <i class="fa fa-trash-o"></i>
                                       </a>
                                   {% else %}
-                                      la Guia no se Recepciono
+                                      <a href="{% url 'recepcion_app:guide-reception' guide.manifest.pk %}" class="tiny button secondary" title="No Recepcionado">
+                                        <i class="fontello-block"></i>
+                                        No Recepcionado
+                                      </a>
+                                      <a href="{% url 'recepcion_app:guide-delete' guide.pk %}" class="tiny bg-rojo no-margin radius button" title="Eliminar">
+                                          <i class="fa fa-trash-o"></i>
+                                      </a>
                                   {% endif %}
                               </td>
                               {% empty %}

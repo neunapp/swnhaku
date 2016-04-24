@@ -195,6 +195,36 @@ class ManagerGuide(models.Manager):
 
         return queryset
 
+    def by_client(self, cliente, num, dats, date):
+        #devolvemos guias por clientes
+        tz = timezone.get_current_timezone()
+        if dats or date:
+
+            if dats and date:
+                date1 = datetime.strptime(dats, "%d/%m/%Y")
+                date2 = datetime.strptime(date, "%d/%m/%Y")
+                start_date = date1
+                end_date = date2
+            elif dats:
+                date1 = datetime.strptime(dats, "%d/%m/%Y")
+                end_date = timezone.now()
+                start_date = date1
+            else:
+                date1 = datetime.strptime("01/10/2015", "%d/%m/%Y")
+                date2 = datetime.strptime(date, "%d/%m/%Y")
+                end_date = date2
+                start_date = timezone.make_aware(date1, tz)
+        else:
+
+            end_date = timezone.now()
+            start_date = end_date - timedelta(days=1)
+
+        return self.filter(
+            manifest__user__pk=cliente,
+            number__icontains=num,
+            created__range=(start_date, end_date)
+        )
+
     def filtro_guides(self, number, tipo, date):
         tz = timezone.get_current_timezone()
         if date:
@@ -340,7 +370,7 @@ class Guide(TimeStampedModel):
     person_name = models.CharField(
         'Nombre Receptor',
         blank=True,
-        max_length=30
+        max_length=50
     )
     anulate = models.BooleanField(
         'Anulado',
@@ -356,6 +386,11 @@ class Guide(TimeStampedModel):
         related_name="guide_modified",
         blank=True,
         null=True,
+    )
+    date_realdeliver = models.DateTimeField(
+        'Fecha de Entrega Real',
+        blank=True,
+        null=True
     )
 
     objects = ManagerGuide()

@@ -1,6 +1,13 @@
 {% extends "profiles/admin/admin.html" %}
 
+{% load staticfiles %}
+
 {% block title %} Entregar Paquete {% endblock title %}
+
+{% block css %}
+    {{ block.super }}
+    <link href="{% static 'js/date-dropdown/jquery.datetimepicker.css' %}" rel="stylesheet"/>
+{% endblock css %}
 
 {% block migadepan %}
     <li>Guia</li>
@@ -54,6 +61,20 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-12 columns">
+                                        <label>Fecha de Entrega
+                                            {{form.date}}
+                                        </label>
+                                        {% for error in form.date.errors %}
+                                          <div class="col-xs-12">
+                                            <p class="help-text error-field">
+                                                {{ error|escape }}
+                                            </p>
+                                          </div>
+                                         {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-12 columns">
                                         <button type="submit" class="small radius bg-verde button">Guardar</button>
                                         <a href="{% url 'entrega_app:entrega-list_guides' asignation %}" class="small radius bg-blanco border-grey button">Volver</a>
                                     </div>
@@ -66,3 +87,21 @@
         </div>
     </div>
 {% endblock main %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'js/date-dropdown/jquery.datetimepicker.js' %}"></script>
+    <script>
+    (function($) {
+        "use strict";
+        //default date & time picker
+
+        $('.datepicker').datetimepicker({
+            timepicker: false,
+            lang: 'es',
+            closeOnDateSelect: true,
+            format: 'Y-m-d h:m:s'
+        });
+    })(jQuery);
+    </script>
+{% endblock js %}

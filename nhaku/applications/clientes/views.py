@@ -115,3 +115,34 @@ class GuideHistoryView(LoginRequiredMixin, DetailView):
         ).order_by('created')
         context['historia'] = historia_guia(self.get_object())
         return context
+
+
+class GuideByClient(LoginRequiredMixin, ListView):
+    '''
+    Reporte de guias por clientes
+    '''
+    context_object_name = 'list_guides'
+    paginate_by = 20
+    login_url = reverse_lazy('users_app:login')
+    template_name = 'clientes/guias/report.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(GuideByClient, self).get_context_data(**kwargs)
+        usuario = self.request.user
+        if not (usuario.type_user == '4' or usuario.type_user == '1'):
+                raise Http404("No Se Encontro la Pagina")
+        else:
+            cliente_pk = self.kwargs.get('pk', 0)
+            context['cliente'] = Client.objects.get(pk=cliente_pk)
+            context['form'] = PanelForm
+            return context
+
+    def get_queryset(self):
+        #recuperamos el valor por GET
+        cliente = self.kwargs.get('pk', 0)
+        c = Client.objects.get(pk=cliente)
+        num = self.request.GET.get("number", '')
+        dats = self.request.GET.get("date_start", '')
+        date = self.request.GET.get("date_fin", '')
+        queryset = Guide.objects.by_client(c.user.pk, num, dats, date)
+        return queryset

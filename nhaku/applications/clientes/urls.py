@@ -26,4 +26,10 @@ urlpatterns = [
         views.ProfileClient.as_view(),
         name='cliente-perfil'
     ),
+    url(
+    #urls para ir a perfil de usuario
+        r'^cliente/guias/report/(?P<pk>\d+)/$',
+        views.GuideByClient.as_view(),
+        name='cliente-guias'
+    ),
 ]

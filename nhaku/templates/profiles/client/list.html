@@ -57,11 +57,31 @@
                         <tbody>
                           {% for cliente in client_list   %}
                             <tr>
-                                <td>{{cliente.full_name}}</td>
-                                <td>{{cliente.number_doc}}</td>
-                                <td>{{cliente.address|safe|truncatechars_html:15}}</td>
-                                <td>{{cliente.email}}</td>
-                                <td>{{cliente.phone}}</td>
+                                <td>
+                                  <a href="{% url 'cliente_app:cliente-guias' cliente.pk %}" title="Lista Guias">
+                                    {{cliente.full_name|safe|truncatechars_html:20}}
+                                  </a>
+                                </td>
+                                <td>
+                                  <a href="{% url 'cliente_app:cliente-guias' cliente.pk %}" title="Lista Guias">
+                                    {{cliente.number_doc}}
+                                  </a>
+                                </td>
+                                <td>
+                                  <a href="{% url 'cliente_app:cliente-guias' cliente.pk %}" title="Lista Guias">
+                                    {{cliente.address|safe|truncatechars_html:15}}
+                                  </a>
+                                </td>
+                                <td>
+                                  <a href="{% url 'cliente_app:cliente-guias' cliente.pk %}" title="Lista Guias">
+                                    {{cliente.email|safe|truncatechars_html:20}}
+                                  </a>
+                                </td>
+                                <td>
+                                  <a href="{% url 'cliente_app:cliente-guias' cliente.pk %}" title="Lista Guias">
+                                    {{cliente.phone}}
+                                  </a>
+                                </td>
                                 <td>
                                     <a href="{% url 'profiles_app:cliente-detail' cliente.pk %}" class="tiny bg-verde no-margin radius button" title="Ver">
                                         <i class="fa fa-eye"></i>

@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 from django import forms
+from django.utils import timezone
 
 from applications.recepcion.models import Observations
 
@@ -49,15 +50,13 @@ class DeliverForm(forms.Form):
             }
         )
     )
-
-    def clean_dni(self):
-        dni = self.cleaned_data['dni']
-
-        if not dni.isdigit():
-            msj = 'el N° DNI solo debe contener numeros'
-            self.add_error('dni', msj)
-        elif len(dni) != 8:
-            msj = 'el Dni solo admiten 8 digitos'
-            self.add_error('dni', msj)
-        else:
-            return dni
+    date = forms.CharField(
+        label='Fecha',
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'datepicker',
+                'placeholder': 'ingrese Fecha y Hora de Entrega',
+                },
+        )
+    )
