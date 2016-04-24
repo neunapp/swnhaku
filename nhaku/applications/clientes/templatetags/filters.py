@@ -48,11 +48,6 @@ def count_observation(value):
     return count
 
 
-@register.filter(name='peso_convert')
-def peso_convert(value):
-    return round(value)
-
-
 #devuleve las guias entregadas (entregados/total)
 @register.filter(name='deliver_guides')
 def deliver_guides(value):
@@ -108,3 +103,7 @@ def iterar_guides(value):
         lista.append(obj_guia)
 
     return lista
+
+@register.filter(name='peso_convert')
+def peso_convert(value):
+    return str(value)

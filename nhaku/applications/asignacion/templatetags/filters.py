@@ -46,4 +46,4 @@ def count_observation(value):
 
 @register.filter(name='peso_convert')
 def peso_convert(value):
-    return round(value)
+    return str(value) + 'Kg'
